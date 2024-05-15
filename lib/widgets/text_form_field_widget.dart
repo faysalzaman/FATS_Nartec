@@ -28,28 +28,24 @@ class TextFormFieldWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      elevation: 5,
-      borderRadius: BorderRadius.circular(20),
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
-          color: color ?? Colors.white,
-        ),
-        width: width ?? MediaQuery.of(context).size.width * 0.8,
-        height: height ?? 50,
-        child: TextFormField(
-          readOnly: readOnly ?? false,
-          validator: validator,
-          autovalidateMode: AutovalidateMode.onUserInteraction,
-          controller: controller,
-          onChanged: onChanged,
-          onEditingComplete: onEditingComplete,
-          decoration: const InputDecoration(
-            border: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.black),
-              borderRadius: BorderRadius.all(Radius.circular(20)),
-            ),
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20),
+        color: color ?? Colors.white,
+      ),
+      width: width ?? MediaQuery.of(context).size.width * 0.8,
+      height: height ?? 50,
+      child: TextFormField(
+        readOnly: readOnly ?? false,
+        validator: validator,
+        autovalidateMode: AutovalidateMode.onUserInteraction,
+        controller: controller,
+        onChanged: onChanged,
+        onEditingComplete: onEditingComplete,
+        decoration: const InputDecoration(
+          border: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.black),
+            borderRadius: BorderRadius.all(Radius.circular(20)),
           ),
         ),
       ),
