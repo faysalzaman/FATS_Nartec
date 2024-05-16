@@ -1,5 +1,6 @@
 import 'package:fats_client/screens/AssetTransaction/asset_management.dart';
 import 'package:fats_client/screens/AssetTransaction/rectify_assets_by_employee.dart';
+import 'package:fats_client/screens/AssetTransaction/rectify_assets_by_location.dart';
 import 'package:fats_client/screens/AssetVarification/asset_tag_information.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -19,7 +20,9 @@ class _AssetTransactionState extends State<AssetTransaction> {
         Get.to(() => const AssetManagement());
       },
       () {},
-      () {},
+      () {
+        Get.to(() => const RectifyAssetsByLocation());
+      },
       () {
         Get.to(() => const RectifyAssetsByEmployee());
       },
