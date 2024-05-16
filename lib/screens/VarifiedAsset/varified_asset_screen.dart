@@ -101,7 +101,8 @@ class _VarifiedAssetScreenState extends State<VarifiedAssetScreen> {
                     dataRowColor: MaterialStateColor.resolveWith(
                         (states) => Colors.white),
                     headingRowColor: MaterialStateColor.resolveWith(
-                        (states) => Colors.deepPurple),
+                      (states) => Constant.primaryColor,
+                    ),
                     columnSpacing: 30,
                     dataRowHeight: 50,
                     columns: [

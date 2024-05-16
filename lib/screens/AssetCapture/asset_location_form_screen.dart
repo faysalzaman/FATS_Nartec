@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:fats_client/Services/GetAllCities/GetAllCitiesService.dart';
 import 'package:fats_client/Services/GetArea/getAreaServices.dart';
 import 'package:fats_client/constants.dart';
@@ -22,7 +24,7 @@ class AssetLocationFormScreen extends StatefulWidget {
 }
 
 class _AssetLocationFormScreenState extends State<AssetLocationFormScreen> {
-  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   String regionCode = "";
   String area = "";
@@ -71,15 +73,17 @@ class _AssetLocationFormScreenState extends State<AssetLocationFormScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        iconTheme: const IconThemeData(color: Colors.white),
         title: const Text(
           "Asset Location Form",
           style: TextStyle(
             color: Colors.white,
+            fontSize: 18,
           ),
         ),
         centerTitle: true,
         elevation: 0,
-        backgroundColor: Colors.deepPurple,
+        backgroundColor: Constant.primaryColor,
       ),
       body: Container(
         margin: const EdgeInsets.only(top: 20),
@@ -94,6 +98,10 @@ class _AssetLocationFormScreenState extends State<AssetLocationFormScreen> {
                     builder: (context, snapshot) {
                       if (snapshot.hasError) {
                         Constant.showLoadingDialog(context);
+                      }
+
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return Container();
                       }
 
                       if (snapshot.hasData) {
@@ -160,6 +168,10 @@ class _AssetLocationFormScreenState extends State<AssetLocationFormScreen> {
                   builder: (context, snapshot) {
                     if (snapshot.hasError) {
                       Constant.showLoadingDialog(context);
+                    }
+
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return Container();
                     }
 
                     if (snapshot.hasData) {
@@ -238,6 +250,11 @@ class _AssetLocationFormScreenState extends State<AssetLocationFormScreen> {
                           Constant.showLoadingDialog(context);
                         }
 
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return Container();
+                        }
+
                         if (snapshot.hasData) {
                           areaController.text = snapshot.data.toString();
                           print("Area : ${snapshot.data}");
@@ -278,6 +295,10 @@ class _AssetLocationFormScreenState extends State<AssetLocationFormScreen> {
                     builder: (context, snapshot) {
                       if (snapshot.hasError) {
                         Constant.showLoadingDialog(context);
+                      }
+
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return Container();
                       }
 
                       if (snapshot.hasData) {
@@ -533,6 +554,7 @@ class _AssetLocationFormScreenState extends State<AssetLocationFormScreen> {
                   children: [
                     Expanded(
                       child: ButtonWidget(
+                        fontSize: 15,
                         color: Colors.grey,
                         title: "BACK",
                         onPressed: () {
@@ -545,7 +567,8 @@ class _AssetLocationFormScreenState extends State<AssetLocationFormScreen> {
                     const SizedBox(width: 10),
                     Expanded(
                       child: ButtonWidget(
-                        color: Colors.deepPurple,
+                        fontSize: 15,
+                        color: Constant.primaryColor,
                         title: "NEXT",
                         onPressed: () {
                           if (selectCountry.isEmpty ||

@@ -1,7 +1,5 @@
-import 'package:fats_client/models/GetAllCitiesModel.dart';
+// ignore_for_file: avoid_print
 import 'package:fats_client/screens/home_screen.dart';
-import 'package:flutter/material.dart';
-
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:get/get.dart';
@@ -12,24 +10,24 @@ import '../../constants.dart';
 class SendForBarCodeServices {
   static Future<void> sendForBarCode(
     int QTY,
-    String MajorCategory,
-    String BusinessUnit,
-    String MajorCategoryDescription,
-    String MInorCategory,
-    String MinorCategoryDescription,
-    String aSSETdESCRIPTION,
-    String cOUNTRY,
-    String rEGION,
-    String CityName,
-    String Dao,
-    String DaoName,
-    String BUILDINGNO,
-    String FLOORNO,
-    String ModelofAsset,
-    String Manufacturer,
-    String buildingName,
-    String buildingAddress,
-    String UserLoginID,
+    final String MajorCategory,
+    final String BusinessUnit,
+    final String MajorCategoryDescription,
+    final String MInorCategory,
+    final String MinorCategoryDescription,
+    final String aSSETdESCRIPTION,
+    final String cOUNTRY,
+    final String rEGION,
+    final String CityName,
+    final String Dao,
+    final String DaoName,
+    final String BUILDINGNO,
+    final String FLOORNO,
+    final String ModelofAsset,
+    final String Manufacturer,
+    final String buildingName,
+    final String buildingAddress,
+    final String UserLoginID,
   ) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String token = prefs.getString('token') ?? '';

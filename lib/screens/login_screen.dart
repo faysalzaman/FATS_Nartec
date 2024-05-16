@@ -59,8 +59,6 @@ class _LoginScreenState extends State<LoginScreen> {
         prefs.setString(
             "userLoginId", jsonEncode(data['user'][0]['loginname']));
 
-        print("Status Code is: ${response.statusCode}");
-
         Get.offAll(const HomeScreen());
         Get.snackbar(
           "Success",
@@ -87,7 +85,7 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
-  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -108,14 +106,14 @@ class _LoginScreenState extends State<LoginScreen> {
                   width: MediaQuery.of(context).size.width * 1,
                   height: MediaQuery.of(context).size.height * 0.4,
                   decoration: BoxDecoration(
-                    color: Colors.deepPurple,
+                    color: Constant.primaryColor,
                     borderRadius: const BorderRadius.only(
                       bottomLeft: Radius.circular(50),
                       bottomRight: Radius.circular(50),
                     ),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.deepPurple.withOpacity(0.5),
+                        color: Constant.primaryColor.withOpacity(0.5),
                         spreadRadius: 5,
                         blurRadius: 7,
                         offset:
@@ -138,7 +136,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       Text(
                         "Fixed Asset Tracking Software v.2.0",
                         style: TextStyle(
-                          fontSize: 20,
+                          fontSize: 18,
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
                         ),
@@ -220,6 +218,9 @@ class _LoginScreenState extends State<LoginScreen> {
                             child: Text(value),
                           );
                         }).toList(),
+                        decoration: const InputDecoration(
+                          border: InputBorder.none,
+                        ),
                         onChanged: (value) {
                           setState(() {
                             languageValue = value.toString();
@@ -231,7 +232,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 const SizedBox(height: 30),
                 ButtonWidget(
-                  color: Colors.deepPurple,
+                  color: Constant.primaryColor,
                   title: "Login",
                   onPressed: () {
                     Constant.showLoadingDialog(context);

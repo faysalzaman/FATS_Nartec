@@ -12,17 +12,17 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
+    return const GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Fats',
+      title: 'FATS',
       // theme: ThemeData(
       //   visualDensity: VisualDensity.adaptivePlatformDensity,
       //   colorScheme:
-      //       ColorScheme.fromSwatch(primarySwatch: Colors.deepPurple).copyWith(
-      //     secondary: Colors.deepPurple,
+      //       ColorScheme.fromSwatch(primarySwatch: Constant.primaryColor).copyWith(
+      //     secondary: Constant.primaryColor,
       //   ),
       // ),
-      home: const LoginScreen(),
+      home: LoginScreen(),
     );
   }
 }

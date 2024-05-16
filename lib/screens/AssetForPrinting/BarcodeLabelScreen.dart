@@ -1,4 +1,7 @@
+// ignore_for_file: must_be_immutable, file_names
+
 import 'package:barcode_widget/barcode_widget.dart';
+import 'package:fats_client/constants.dart';
 import 'package:printing/printing.dart';
 import 'package:flutter/material.dart';
 
@@ -121,7 +124,7 @@ class _BarcodeLabelScreenState extends State<BarcodeLabelScreen> {
         itemCount: widget.tagNumber.length,
         itemBuilder: (context, index) {
           return Card(
-            shadowColor: Colors.deepPurple,
+            shadowColor: Constant.primaryColor,
             elevation: 5,
             margin: const EdgeInsets.all(10),
             child: Column(

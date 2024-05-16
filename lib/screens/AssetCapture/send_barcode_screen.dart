@@ -195,7 +195,7 @@ class _SendBarCodeScreenState extends State<SendBarCodeScreen> {
                 margin: const EdgeInsets.only(
                   bottom: 10,
                 ),
-                shadowColor: Colors.deepPurple,
+                shadowColor: Constant.primaryColor,
                 child: Padding(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -577,7 +577,8 @@ class _SendBarCodeScreenState extends State<SendBarCodeScreen> {
                                               (states) => Colors.white),
                                       headingRowColor:
                                           MaterialStateColor.resolveWith(
-                                              (states) => Colors.deepPurple),
+                                        (states) => Constant.primaryColor,
+                                      ),
                                       columnSpacing: 10,
                                       dataRowHeight: 30,
                                       columns: const [
@@ -831,7 +832,7 @@ class _SendBarCodeScreenState extends State<SendBarCodeScreen> {
                                   ),
                                   SizedBox(width: 10),
                                   ButtonWidget(
-                                    color: Colors.deepPurple,
+                                    color: Constant.primaryColor,
                                     title: "Send For Barcode",
                                     onPressed: () async {
                                       String userLoginId = "";

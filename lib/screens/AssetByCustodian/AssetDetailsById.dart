@@ -332,7 +332,7 @@ class _AssetTagInformationScreenState extends State<AssetTagInformationScreen> {
                       children: widget.images.split(',').map(
                         (e) {
                           return Card(
-                            shadowColor: Colors.deepPurple,
+                            shadowColor: Constant.primaryColor,
                             elevation: 10,
                             margin: const EdgeInsets.symmetric(
                                 vertical: 10, horizontal: 5),

@@ -1,4 +1,5 @@
-import 'package:fats_client/models/AssetForPrintingModel.dart';
+// ignore_for_file: file_names
+
 import 'package:fats_client/models/VarifiedAssetModel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

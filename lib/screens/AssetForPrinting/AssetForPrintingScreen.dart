@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:fats_client/Services/AssetForPrinting/AssetForPrintingServices.dart';
 
 import 'package:fats_client/Services/AssetVarification/DeleteTag.dart';
@@ -102,7 +104,8 @@ class _AssetForPrintingScreenState extends State<AssetForPrintingScreen> {
                     dataRowColor: MaterialStateColor.resolveWith(
                         (states) => Colors.white),
                     headingRowColor: MaterialStateColor.resolveWith(
-                        (states) => Colors.deepPurple),
+                      (states) => Constant.primaryColor,
+                    ),
                     columnSpacing: 30,
                     dataRowHeight: 50,
                     columns: [

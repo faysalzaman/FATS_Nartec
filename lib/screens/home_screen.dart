@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:fats_client/constants.dart';
 import 'package:fats_client/screens/AssetByCustodian/asset_by_custodian_screen.dart';
 import 'package:fats_client/screens/AssetByLocation/asset_by_location_screen.dart';
 import 'package:fats_client/screens/AssetVarification/asset_tag_information.dart';
@@ -130,7 +131,7 @@ class _HomeScreenState extends State<HomeScreen> {
     getUserInfo();
   }
 
-  GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
@@ -176,34 +177,30 @@ class _HomeScreenState extends State<HomeScreen> {
                 _scaffoldKey.currentState?.openDrawer();
               },
             ),
-            systemOverlayStyle: const SystemUiOverlayStyle(
-              statusBarColor: Colors.deepPurple,
+            systemOverlayStyle: SystemUiOverlayStyle(
+              statusBarColor: Constant.primaryColor,
               statusBarIconBrightness: Brightness.light,
             ),
 
             flexibleSpace: Container(
-              padding: const EdgeInsets.only(
-                top: 30,
-                left: 10,
-                right: 10,
-              ),
+              padding: const EdgeInsets.only(top: 30, left: 10, right: 10),
               width: MediaQuery.of(context).size.width,
               height: 170,
-              decoration: const BoxDecoration(
-                color: Colors.deepPurple,
-                borderRadius: BorderRadius.only(
+              decoration: BoxDecoration(
+                color: Constant.primaryColor,
+                borderRadius: const BorderRadius.only(
                   bottomLeft: Radius.circular(30),
                   bottomRight: Radius.circular(30),
                 ),
               ),
-              child: const Center(
+              child: Center(
                 child: Material(
-                  borderRadius: BorderRadius.only(
+                  borderRadius: const BorderRadius.only(
                     bottomLeft: Radius.circular(30),
                     bottomRight: Radius.circular(30),
                   ),
-                  color: Colors.deepPurple,
-                  child: Column(
+                  color: Constant.primaryColor,
+                  child: const Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
@@ -281,7 +278,7 @@ class _HomeScreenState extends State<HomeScreen> {
           //             ),
           //             width: 60,
           //             height: double.infinity,
-          //             color: Colors.deepPurple,
+          //             color: Constant.primaryColor,
           //             child: SingleChildScrollView(
           //               child: Column(
           //                 children: List.generate(
@@ -326,7 +323,7 @@ class _HomeScreenState extends State<HomeScreen> {
           //         ),
           //         Container(
           //           width: 60,
-          //           color: Colors.deepPurple,
+          //           color: Constant.primaryColor,
           //           child: IconButton(
           //             onPressed: () {
           //               _scaffoldKey.currentState!.openDrawer();
@@ -345,7 +342,7 @@ class _HomeScreenState extends State<HomeScreen> {
           //         children: [
           //           Container(
           //             decoration: const BoxDecoration(
-          //               color: Colors.deepPurple,
+          //               color: Constant.primaryColor,
           //             ),
           //             padding: const EdgeInsets.only(bottom: 10),
           //             width: double.infinity,
@@ -404,10 +401,11 @@ class _HomeScreenState extends State<HomeScreen> {
 }
 
 class MyDrawerWidget extends StatefulWidget {
-  String userName;
-  String userEmail;
+  final String userName;
+  final String userEmail;
 
-  MyDrawerWidget({
+  const MyDrawerWidget({
+    super.key,
     required this.userName,
     required this.userEmail,
   });
@@ -485,43 +483,47 @@ class _MyDrawerWidgetState extends State<MyDrawerWidget> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      child: ListView(
-        // Important: Remove any padding from the ListView.
-        padding: EdgeInsets.zero,
-        children: <Widget>[
-          UserAccountsDrawerHeader(
-            accountName: Text(widget.userName),
-            accountEmail: Text(widget.userEmail),
-            currentAccountPicture: CircleAvatar(
-              backgroundColor: Colors.orange,
-              child: Text(
-                widget.userName[1],
-                style: const TextStyle(fontSize: 40.0),
+      child: Container(
+        color: Colors.white,
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            UserAccountsDrawerHeader(
+              accountName: Text(widget.userName),
+              accountEmail: Text(widget.userEmail),
+              currentAccountPicture: CircleAvatar(
+                backgroundColor: Colors.orange,
+                child: Text(
+                  widget.userName[1],
+                  style: const TextStyle(fontSize: 40.0),
+                ),
               ),
             ),
-          ),
-          for (var i = 0; i < data["name"].length; i++)
-            ListTile(
-              leading: Image.asset(
-                data["icon"][i],
-                height: 30,
-                width: 30,
+            for (var i = 0; i < data["name"].length; i++)
+              ListTile(
+                leading: Image.asset(
+                  data["icon"][i],
+                  height: 30,
+                  width: 30,
+                ),
+                title: Text(data["name"][i]),
+                onTap: data["onTap"][i],
               ),
-              title: Text(data["name"][i]),
-              onTap: data["onTap"][i],
-            ),
-        ],
+          ],
+        ),
       ),
     );
   }
 }
 
+// ignore: must_be_immutable
 class ItemWidget extends StatefulWidget {
   String title;
   String icon;
   VoidCallback onTap;
 
   ItemWidget({
+    super.key,
     required this.title,
     required this.icon,
     required this.onTap,
@@ -536,33 +538,35 @@ class _ItemWidgetState extends State<ItemWidget> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: widget.onTap,
-      child: Card(
-        // shape: RoundedRectangleBorder(
-        //   borderRadius: BorderRadius.circular(50),
-        // ),
-        elevation: 0,
-        shadowColor: Colors.deepPurple,
-
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Image.asset(
-              widget.icon.toString(),
-              height: 70,
-              width: 70,
-            ),
-            Text(
-              widget.title,
-              style: const TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 10,
+      child: Container(
+        color: Colors.white,
+        child: Card(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(50),
+          ),
+          elevation: 0,
+          shadowColor: Constant.primaryColor,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Image.asset(
+                widget.icon.toString(),
+                height: 70,
+                width: 70,
               ),
-              textAlign: TextAlign.center,
-              maxLines: 5,
-              overflow: TextOverflow.ellipsis,
-              softWrap: true,
-            ),
-          ],
+              Text(
+                widget.title,
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 10,
+                ),
+                textAlign: TextAlign.center,
+                maxLines: 5,
+                overflow: TextOverflow.ellipsis,
+                softWrap: true,
+              ),
+            ],
+          ),
         ),
       ),
     );

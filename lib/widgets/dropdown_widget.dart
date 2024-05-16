@@ -1,10 +1,16 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 
 class DropdownButtonWidget extends StatefulWidget {
   String value;
   List<String> list;
 
-  DropdownButtonWidget({super.key, required this.value, required this.list});
+  DropdownButtonWidget({
+    super.key,
+    required this.value,
+    required this.list,
+  });
 
   @override
   State<DropdownButtonWidget> createState() => _DropdownButtonWidgetState();

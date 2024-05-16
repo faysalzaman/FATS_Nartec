@@ -1,13 +1,10 @@
 import 'dart:io';
 
-import 'package:fats_client/screens/home_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../Services/AssetVarification/AsseetConditionServices.dart';
 import '../../Services/AssetVarification/BoughtServices.dart';
-import '../../Services/AssetVarification/DeleteTag.dart';
 import '../../Services/AssetVarification/EmployeeNameIdServices.dart';
 import '../../Services/AssetVarification/SaveTag.dart';
 import '../../Services/AssetVarification/TagNumberServices.dart';
@@ -22,17 +19,18 @@ class AssetTagInformation extends StatefulWidget {
 }
 
 class _AssetTagInformationState extends State<AssetTagInformation> {
-  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  TextEditingController _locationTagController = TextEditingController();
-  TextEditingController _tagController = TextEditingController();
-  TextEditingController _assetLocationDetailsController =
+  final TextEditingController _locationTagController = TextEditingController();
+  final TextEditingController _tagController = TextEditingController();
+  final TextEditingController _assetLocationDetailsController =
       TextEditingController();
-  TextEditingController _serialNoController = TextEditingController();
-  TextEditingController _phoneExtensionController = TextEditingController();
-  TextEditingController _employeeIdController = TextEditingController();
-  TextEditingController _otherTagController = TextEditingController();
-  TextEditingController _notesController = TextEditingController();
+  final TextEditingController _serialNoController = TextEditingController();
+  final TextEditingController _phoneExtensionController =
+      TextEditingController();
+  final TextEditingController _employeeIdController = TextEditingController();
+  final TextEditingController _otherTagController = TextEditingController();
+  final TextEditingController _notesController = TextEditingController();
 
   String? selectEmployeeName;
   var employeeNameList = [];
@@ -131,8 +129,19 @@ class _AssetTagInformationState extends State<AssetTagInformation> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text('Asset Tag Information'),
+        // leading icon color white
+        iconTheme: const IconThemeData(color: Colors.white),
+        backgroundColor: Constant.primaryColor,
+        title: const Text(
+          'Asset Tag Information',
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+            fontSize: 18,
+          ),
+        ),
         centerTitle: true,
         elevation: 10,
       ),
@@ -192,7 +201,7 @@ class _AssetTagInformationState extends State<AssetTagInformation> {
                               child: Row(
                                 children: <Widget>[
                                   Expanded(
-                                    flex: 3,
+                                    flex: 2,
                                     child: TextFormFieldWidget(
                                       controller: _tagController,
                                       height: 50,
@@ -204,13 +213,15 @@ class _AssetTagInformationState extends State<AssetTagInformation> {
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(50),
                                       child: ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                          backgroundColor:
+                                              Constant.primaryColor,
+                                          foregroundColor: Colors.white,
+                                        ),
                                         onPressed: () async {
                                           TagNumberServices.tagNo(
                                                   _tagController.text)
                                               .then((value) {
-                                            print(
-                                                "I am in the .Then Method...");
-
                                             var daoName =
                                                 value.recordset![0].daoName ??
                                                     "";
@@ -682,7 +693,7 @@ class _AssetTagInformationState extends State<AssetTagInformation> {
                                   return Stack(
                                     children: [
                                       Card(
-                                        shadowColor: Colors.deepPurple,
+                                        shadowColor: Constant.primaryColor,
                                         elevation: 10,
                                         margin: const EdgeInsets.symmetric(
                                             vertical: 10, horizontal: 5),
@@ -810,6 +821,7 @@ class _AssetTagInformationState extends State<AssetTagInformation> {
                                 child: ElevatedButton(
                                   style: ElevatedButton.styleFrom(
                                     backgroundColor: Colors.grey,
+                                    foregroundColor: Colors.white,
                                   ),
                                   onPressed: () {
                                     Navigator.pop(context);
@@ -820,6 +832,10 @@ class _AssetTagInformationState extends State<AssetTagInformation> {
                               const SizedBox(width: 10),
                               Expanded(
                                 child: ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: Constant.primaryColor,
+                                    foregroundColor: Colors.white,
+                                  ),
                                   onPressed: () async {
                                     Constant.showLoadingDialog(context);
                                     if (_tagController.text.trim().isEmpty ||

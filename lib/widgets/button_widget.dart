@@ -1,14 +1,15 @@
+import 'package:fats_client/constants.dart';
 import 'package:flutter/material.dart';
 
 class ButtonWidget extends StatefulWidget {
-  String title;
-  double? width;
-  double? height;
-  Function onPressed;
-  double? fontSize;
-  Color? color;
+  final String title;
+  final double? width;
+  final double? height;
+  final Function onPressed;
+  final double? fontSize;
+  final Color? color;
 
-  ButtonWidget({
+  const ButtonWidget({
     super.key,
     required this.title,
     this.width,
@@ -30,7 +31,7 @@ class _ButtonWidgetState extends State<ButtonWidget> {
       height: widget.height ?? MediaQuery.of(context).size.height * 0.08,
       decoration: BoxDecoration(
         border: Border.all(
-          color: widget.color ?? Colors.deepPurple,
+          color: widget.color ?? Constant.primaryColor,
         ),
         borderRadius: BorderRadius.circular(20.0),
         color: widget.color ?? Colors.white,
@@ -43,7 +44,7 @@ class _ButtonWidgetState extends State<ButtonWidget> {
               widget.title,
               style: TextStyle(
                 color: Colors.white,
-                fontSize: widget.fontSize ?? 20.0,
+                fontSize: widget.fontSize ?? 18.0,
                 fontWeight: FontWeight.bold,
               ),
             ),

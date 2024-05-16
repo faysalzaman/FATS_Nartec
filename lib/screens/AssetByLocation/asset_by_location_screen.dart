@@ -119,7 +119,7 @@ class _AssetByLocationScreenState extends State<AssetByLocationScreen> {
                                 });
                               },
                               style: IconButton.styleFrom(
-                                backgroundColor: Colors.deepPurple,
+                                backgroundColor: Constant.primaryColor,
                                 foregroundColor: Colors.white,
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10),
@@ -157,7 +157,7 @@ class _AssetByLocationScreenState extends State<AssetByLocationScreen> {
                           dataRowColor: MaterialStateColor.resolveWith(
                               (states) => Colors.grey.withOpacity(0.2)),
                           headingRowColor: MaterialStateColor.resolveWith(
-                              (states) => Colors.deepPurple),
+                              (states) => Constant.primaryColor),
                           decoration: BoxDecoration(
                             border: Border.all(
                               color: Colors.grey,
@@ -350,7 +350,7 @@ class _AssetByLocationScreenState extends State<AssetByLocationScreen> {
                     onPressed: () {
                       Navigator.pop(context);
                     },
-                    color: Colors.deepPurple,
+                    color: Constant.primaryColor,
                     height: 40,
                     width: MediaQuery.of(context).size.width * 1,
                   ),

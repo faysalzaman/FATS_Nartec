@@ -1,3 +1,4 @@
+import 'package:fats_client/constants.dart';
 import 'package:flutter/material.dart';
 
 class RectifyAssetsByEmployee extends StatefulWidget {
@@ -113,8 +114,9 @@ class _RectifyAssetsByEmployeeState extends State<RectifyAssetsByEmployee> {
                           'Asset Details',
                         ),
                         arrowHeadColor: Colors.white,
-                        headingRowColor:
-                            MaterialStateProperty.all(Colors.deepPurple),
+                        headingRowColor: MaterialStateProperty.all(
+                          Constant.primaryColor,
+                        ),
                         rowsPerPage: _rowsPerPage,
                         onRowsPerPageChanged: (int? value) {
                           setState(() {
