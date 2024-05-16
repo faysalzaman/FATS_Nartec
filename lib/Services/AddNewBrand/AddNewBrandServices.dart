@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print, use_build_context_synchronously, unused_local_variable
+
 import 'dart:convert';
 
 import 'package:flutter/material.dart';

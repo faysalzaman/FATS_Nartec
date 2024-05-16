@@ -1,14 +1,9 @@
-import 'package:fats_client/models/AssetConditionModel.dart';
-import 'package:fats_client/models/GetAllCitiesModel.dart';
-
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../constants.dart';
 import '../../models/BoughtModel.dart';
-import '../../models/EmployeeNameIdModel.dart';
 
 class BoughtServices {
   static Future<List<BoughtModel>> assetCondition() async {
