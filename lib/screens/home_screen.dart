@@ -13,6 +13,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'AssetCapture/asset_location_form_screen.dart';
 import 'AssetForPrinting/AssetForPrintingScreen.dart';
+import 'AssetTransaction/asset_transaction.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -43,7 +44,9 @@ class _HomeScreenState extends State<HomeScreen> {
       () {
         Get.to(() => const AssetByLocationScreen());
       },
-      () {},
+      () {
+        Get.to(() => const AssetTransaction());
+      },
       () {},
       () async {
         SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -193,9 +196,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   bottomRight: Radius.circular(30),
                 ),
               ),
-              child: Center(
+              child: const Center(
                 child: Material(
-                  borderRadius: const BorderRadius.only(
+                  borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(30),
                     bottomRight: Radius.circular(30),
                   ),
@@ -203,7 +206,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
-                    children: const <Widget>[
+                    children: <Widget>[
                       Text(
                         "FATS",
                         style: TextStyle(

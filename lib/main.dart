@@ -15,13 +15,13 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Fats',
-      theme: ThemeData(
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-        colorScheme:
-            ColorScheme.fromSwatch(primarySwatch: Colors.deepPurple).copyWith(
-          secondary: Colors.deepPurple,
-        ),
-      ),
+      // theme: ThemeData(
+      //   visualDensity: VisualDensity.adaptivePlatformDensity,
+      //   colorScheme:
+      //       ColorScheme.fromSwatch(primarySwatch: Colors.deepPurple).copyWith(
+      //     secondary: Colors.deepPurple,
+      //   ),
+      // ),
       home: const LoginScreen(),
     );
   }

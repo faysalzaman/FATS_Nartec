@@ -71,21 +71,19 @@ class _LoginScreenState extends State<LoginScreen> {
           duration: const Duration(seconds: 3),
         );
       } else {
-        print("Status Code is: ${response.statusCode}");
-        Navigator.of(context).pop();
-
-        Get.snackbar(
-          "Error",
-          "Login Failed",
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.red,
-          colorText: Colors.white,
-          duration: const Duration(seconds: 3),
-        );
+        throw Exception('Failed to login');
       }
     } catch (e) {
-      debugPrint(e.toString());
-      throw Exception(e);
+      Navigator.of(context).pop();
+
+      Get.snackbar(
+        "Error",
+        "Login Failed",
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+        duration: const Duration(seconds: 3),
+      );
     }
   }
 

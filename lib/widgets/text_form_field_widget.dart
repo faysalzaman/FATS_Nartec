@@ -31,7 +31,7 @@ class TextFormFieldWidget extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
-        color: color ?? Colors.white,
+
       ),
       width: width ?? MediaQuery.of(context).size.width * 0.8,
       height: height ?? 50,
@@ -47,6 +47,11 @@ class TextFormFieldWidget extends StatelessWidget {
             borderSide: BorderSide(color: Colors.black),
             borderRadius: BorderRadius.all(Radius.circular(20)),
           ),
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.grey),
+            borderRadius: BorderRadius.all(Radius.circular(20)),
+          ),
+          enabled: true,
         ),
       ),
     );
