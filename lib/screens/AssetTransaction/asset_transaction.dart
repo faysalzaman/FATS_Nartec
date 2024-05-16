@@ -1,4 +1,5 @@
-import 'package:fats_client/screens/AssetTransaction/Asset%20Management/asset_management.dart';
+import 'package:fats_client/screens/AssetTransaction/asset_management.dart';
+import 'package:fats_client/screens/AssetTransaction/rectify_assets_by_employee.dart';
 import 'package:fats_client/screens/AssetVarification/asset_tag_information.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -15,11 +16,13 @@ class _AssetTransactionState extends State<AssetTransaction> {
   Map<String, dynamic> data = {
     "onTap": [
       () {
-      Get.to(()=> const AssetManagement());
+        Get.to(() => const AssetManagement());
       },
       () {},
       () {},
-      () {},
+      () {
+        Get.to(() => const RectifyAssetsByEmployee());
+      },
       () {},
       () {
         Get.to(() => const AssetTagInformation());
@@ -98,8 +101,8 @@ class _AssetTransactionState extends State<AssetTransaction> {
                         ),
                         const SizedBox(height: 10),
                         GridView.count(
-                          padding:
-                              const EdgeInsets.only(top: 10, left: 10, right: 10),
+                          padding: const EdgeInsets.only(
+                              top: 10, left: 10, right: 10),
                           shrinkWrap: true,
                           crossAxisCount: 2,
                           childAspectRatio: 1.5,
