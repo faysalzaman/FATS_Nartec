@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors, deprecated_member_use, use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -7,25 +9,24 @@ import '../../Services/GetAllCategories/GetAllCategoriesServices.dart';
 import '../../Services/GetBrand/GetBrandServices.dart';
 import '../../Services/SendForBarCode/SendForBarCodeServices.dart';
 import '../../constants.dart';
-import '../../models/GetAllCategoriesModel.dart';
 import '../../widgets/button_widget.dart';
 import '../../widgets/text_form_field_widget.dart';
 import '../home_screen.dart';
 
 class SendBarCodeScreen extends StatefulWidget {
-  String country;
-  String city;
-  String department;
-  String departmentCode;
-  String businessName;
-  String businessUnit;
-  String buildingName;
-  String buildingAddress;
-  String buildingNumber;
-  String floorNumber;
-  String region;
+  final String country;
+  final String city;
+  final String department;
+  final String departmentCode;
+  final String businessName;
+  final String businessUnit;
+  final String buildingName;
+  final String buildingAddress;
+  final String buildingNumber;
+  final String floorNumber;
+  final String region;
 
-  SendBarCodeScreen({
+  const SendBarCodeScreen({
     Key? key,
     required this.country,
     required this.city,
@@ -115,8 +116,6 @@ class _SendBarCodeScreenState extends State<SendBarCodeScreen> {
     });
     setState(() {});
   }
-
-  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   bool isLoading = true;
 
@@ -277,7 +276,6 @@ class _SendBarCodeScreenState extends State<SendBarCodeScreen> {
                                             brandList.add(brand);
                                           }
                                           brandList = value.toSet().toList();
-                                          print(brandList[0]);
                                         });
                                       });
                                     });

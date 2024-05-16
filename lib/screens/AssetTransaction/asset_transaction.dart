@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:fats_client/screens/AssetTransaction/asset_management.dart';
 import 'package:fats_client/screens/AssetTransaction/rectify_assets_by_employee.dart';
 import 'package:fats_client/screens/AssetTransaction/rectify_assets_by_location.dart';
@@ -150,8 +152,8 @@ class _AssetTransactionState extends State<AssetTransaction> {
 }
 
 class ItemWidget extends StatefulWidget {
-  String title;
-  String icon;
+  final String title;
+  final String icon;
   VoidCallback onTap;
 
   ItemWidget({

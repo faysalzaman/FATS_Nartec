@@ -1,27 +1,24 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 
-import '../../Services/AssetVarification/SaveTag.dart';
 import '../../constants.dart';
 import '../../widgets/text_form_field_widget.dart';
 
 class AssetTagInformationScreen extends StatefulWidget {
-  String locationTag;
-  String tagNumner;
-  String assetLocationDetails;
-  String serialNo;
-  String employeeId;
-  String phoneNo;
-  String nameOwner;
-  String otherTag;
-  String notes;
-  String assetCondition;
-  String bought;
-  String images;
+  final String locationTag;
+  final String tagNumner;
+  final String assetLocationDetails;
+  final String serialNo;
+  final String employeeId;
+  final String phoneNo;
+  final String nameOwner;
+  final String otherTag;
+  final String notes;
+  final String assetCondition;
+  final String bought;
+  final String images;
 
-  AssetTagInformationScreen({
+  const AssetTagInformationScreen({
+    super.key,
     required this.locationTag,
     required this.tagNumner,
     required this.assetLocationDetails,
