@@ -34,7 +34,7 @@ class TextFormFieldWidget extends StatelessWidget {
 
       ),
       width: width ?? MediaQuery.of(context).size.width * 0.8,
-      height: height ?? 50,
+      height: height ?? 45,
       child: TextFormField(
         readOnly: readOnly ?? false,
         validator: validator,
@@ -42,14 +42,16 @@ class TextFormFieldWidget extends StatelessWidget {
         controller: controller,
         onChanged: onChanged,
         onEditingComplete: onEditingComplete,
-        decoration: const InputDecoration(
-          border: OutlineInputBorder(
+        decoration:  InputDecoration(
+          filled: true,
+          fillColor: color ?? Colors.white,
+          border: const OutlineInputBorder(
             borderSide: BorderSide(color: Colors.black),
-            borderRadius: BorderRadius.all(Radius.circular(20)),
+            borderRadius: BorderRadius.all(Radius.circular(8)),
           ),
-          enabledBorder: OutlineInputBorder(
+          enabledBorder: const OutlineInputBorder(
             borderSide: BorderSide(color: Colors.grey),
-            borderRadius: BorderRadius.all(Radius.circular(20)),
+            borderRadius: BorderRadius.all(Radius.circular(8)),
           ),
           enabled: true,
         ),

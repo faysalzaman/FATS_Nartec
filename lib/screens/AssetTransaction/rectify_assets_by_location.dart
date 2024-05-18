@@ -18,6 +18,8 @@ class _RectifyAssetsByLocationState extends State<RectifyAssetsByLocation> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Rectify Assets by Location'),
+        backgroundColor: Constant.primaryColor,
+        foregroundColor: Colors.white,
       ),
       body: SafeArea(
         child: Padding(

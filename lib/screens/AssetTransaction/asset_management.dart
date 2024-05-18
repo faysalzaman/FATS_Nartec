@@ -17,6 +17,8 @@ class _AssetManagementState extends State<AssetManagement> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Asset Management'),
+        backgroundColor: Constant.primaryColor,
+        foregroundColor: Colors.white,
       ),
       body: SafeArea(
         child: Padding(

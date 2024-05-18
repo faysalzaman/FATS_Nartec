@@ -18,6 +18,8 @@ class _RectifyAssetsByEmployeeState extends State<RectifyAssetsByEmployee> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Rectify Assets by Employee'),
+        backgroundColor: Constant.primaryColor,
+        foregroundColor: Colors.white,
       ),
       body: SafeArea(
         child: Padding(

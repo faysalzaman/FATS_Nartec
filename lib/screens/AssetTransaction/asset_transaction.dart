@@ -1,9 +1,11 @@
-// ignore_for_file: must_be_immutable
 
+import 'package:fats_client/screens/AssetTransaction/asset_inventory.dart';
 import 'package:fats_client/screens/AssetTransaction/asset_management.dart';
 import 'package:fats_client/screens/AssetTransaction/rectify_assets_by_employee.dart';
 import 'package:fats_client/screens/AssetTransaction/rectify_assets_by_location.dart';
+import 'package:fats_client/screens/AssetTransaction/update_serial_number.dart';
 import 'package:fats_client/screens/AssetVarification/asset_tag_information.dart';
+import 'package:fats_client/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -21,16 +23,20 @@ class _AssetTransactionState extends State<AssetTransaction> {
       () {
         Get.to(() => const AssetManagement());
       },
-      () {},
+      () {
+      Get.to(() => const AssetsInventory());
+      },
       () {
         Get.to(() => const RectifyAssetsByLocation());
       },
       () {
         Get.to(() => const RectifyAssetsByEmployee());
       },
-      () {},
       () {
-        Get.to(() => const AssetTagInformation());
+      Get.to(() => const UpdateSerialNumber());
+      },
+      () {
+        Get.to(() => const HomeScreen());
       },
     ],
   };
@@ -90,12 +96,12 @@ class _AssetTransactionState extends State<AssetTransaction> {
                   Container(
                     margin: const EdgeInsets.all(20),
                     decoration: BoxDecoration(
-                      color: Colors.grey,
+                      color: Colors.grey[300],
                       borderRadius: BorderRadius.circular(16),
                     ),
                     child: Column(
                       children: [
-                        const SizedBox(height: 20),
+                        const SizedBox(height: 16),
                         const Text(
                           "Assets Transactions",
                           style: TextStyle(
@@ -104,7 +110,7 @@ class _AssetTransactionState extends State<AssetTransaction> {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        const SizedBox(height: 10),
+                        const SizedBox(height: 16),
                         GridView.count(
                           padding: const EdgeInsets.only(
                               top: 10, left: 10, right: 10),
@@ -125,6 +131,7 @@ class _AssetTransactionState extends State<AssetTransaction> {
                             },
                           ),
                         ),
+                      const SizedBox(height: 16),
                       ],
                     ),
                   ),
