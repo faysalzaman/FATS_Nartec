@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:fats_client/widgets/fats_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -102,49 +103,8 @@ class _LoginScreenState extends State<LoginScreen> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                Container(
-                  width: MediaQuery.of(context).size.width * 1,
-                  height: MediaQuery.of(context).size.height * 0.4,
-                  decoration: BoxDecoration(
-                    color: Constant.primaryColor,
-                    borderRadius: const BorderRadius.only(
-                      bottomLeft: Radius.circular(50),
-                      bottomRight: Radius.circular(50),
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Constant.primaryColor.withOpacity(0.5),
-                        spreadRadius: 5,
-                        blurRadius: 7,
-                        offset:
-                            const Offset(0, 3), // changes position of shadow
-                      ),
-                    ],
-                  ),
-                  child: const Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Text(""),
-                      Text(
-                        "FATS",
-                        style: TextStyle(
-                          fontSize: 80,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      Text(
-                        "Fixed Asset Tracking Software v.2.0",
-                        style: TextStyle(
-                          fontSize: 18,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 30),
+                const FatsWidget(),
+                const SizedBox(height: 32),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [

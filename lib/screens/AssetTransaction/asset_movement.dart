@@ -1,14 +1,14 @@
 import 'package:fats_client/constants.dart';
 import 'package:flutter/material.dart';
 
-class AssetManagement extends StatefulWidget {
-  const AssetManagement({super.key});
+class AssetMovement extends StatefulWidget {
+  const AssetMovement({super.key});
 
   @override
-  State<AssetManagement> createState() => _AssetManagementState();
+  State<AssetMovement> createState() => _AssetMovementState();
 }
 
-class _AssetManagementState extends State<AssetManagement> {
+class _AssetMovementState extends State<AssetMovement> {
   int _rowsPerPage = PaginatedDataTable.defaultRowsPerPage;
   int? _sortColumnIndex;
   bool _sortAscending = true;
@@ -16,7 +16,7 @@ class _AssetManagementState extends State<AssetManagement> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Asset Management'),
+        title: const Text('Asset Movement'),
         backgroundColor: Constant.primaryColor,
         foregroundColor: Colors.white,
       ),
