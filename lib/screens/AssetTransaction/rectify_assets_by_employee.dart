@@ -184,7 +184,7 @@ class _RectifyAssetsByEmployeeState extends State<RectifyAssetsByEmployee> {
                     ),
                     Row(
                       children: [
-                        Text("Total Assets"),
+                        const Text("Total Assets"),
                         const SizedBox(width: 8),
                         Container(
                           height: 40,
