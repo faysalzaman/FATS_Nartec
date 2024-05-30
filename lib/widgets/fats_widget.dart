@@ -6,8 +6,8 @@ class FatsWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: const EdgeInsets.only(top: 50, left: 10, right: 10, bottom: 20),
       width: MediaQuery.of(context).size.width * 1,
-      height: MediaQuery.of(context).size.height * 0.36,
       decoration: BoxDecoration(
         color: Constant.primaryColor,
         borderRadius: const BorderRadius.only(
@@ -24,9 +24,7 @@ class FatsWidget extends StatelessWidget {
         ],
       ),
       child: const Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          Spacer(),
           Text(
             "FATS",
             style: TextStyle(
@@ -35,15 +33,13 @@ class FatsWidget extends StatelessWidget {
               fontWeight: FontWeight.bold,
             ),
           ),
-          Spacer(),
-          Expanded(
-            child: Text(
-              "Fixed Asset Tracking Software v.2.0",
-              style: TextStyle(
-                fontSize: 16,
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-              ),
+          const SizedBox(height: 10),
+          Text(
+            "Fixed Asset Tracking Software v.2.0",
+            style: TextStyle(
+              fontSize: 16,
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
             ),
           ),
         ],
