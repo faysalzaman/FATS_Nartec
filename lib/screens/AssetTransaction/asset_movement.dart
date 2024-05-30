@@ -16,7 +16,14 @@ class _AssetMovementState extends State<AssetMovement> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Asset Movement'),
+        centerTitle: true,
+        title: const Text(
+          'Asset Movement',
+          style: TextStyle(
+            fontSize: 15,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
         backgroundColor: Constant.primaryColor,
         foregroundColor: Colors.white,
       ),
@@ -148,7 +155,7 @@ class _AssetMovementState extends State<AssetMovement> {
                     const Text(
                       "Transfer to\nlocation",
                       style: TextStyle(
-                        fontSize: 16,
+                        fontSize: 13,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -176,7 +183,7 @@ class _AssetMovementState extends State<AssetMovement> {
                     const Text(
                       "Total Assets",
                       style: TextStyle(
-                        fontSize: 16,
+                        fontSize: 14,
                         fontWeight: FontWeight.bold,
                       ),
                     ),

@@ -21,9 +21,10 @@ class GetAllDepartmentsService {
 
     try {
       var response = await http.get(uri, headers: headers);
+      print(json.decode(response.body));
+      var data = json.decode(response.body) as List;
 
       if (response.statusCode == 200) {
-        var data = json.decode(response.body) as List;
         List<GetAllDepartmentsModel> getAllDep =
             data.map((e) => GetAllDepartmentsModel.fromJson(e)).toList();
         return getAllDep;

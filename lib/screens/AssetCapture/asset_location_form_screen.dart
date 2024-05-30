@@ -1,19 +1,16 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'package:fats_client/Services/GetAllCities/GetAllCitiesService.dart';
+import 'package:fats_client/screens/AssetCapture/send_barcode_screen.dart';
 import 'package:fats_client/Services/GetArea/getAreaServices.dart';
 import 'package:fats_client/constants.dart';
-import 'package:fats_client/models/GetAllDepartmentsModel.dart';
-import 'package:fats_client/screens/AssetCapture/send_barcode_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../Services/GetDepartment/getDepartment.dart';
-import '../../Services/Login/LoginServices.dart';
-import '../../models/CountriesListModel.dart';
-import '../../models/GetAllCitiesModel.dart';
-import '../../widgets/button_widget.dart';
 import '../../widgets/text_form_field_widget.dart';
+import '../../Services/Login/LoginServices.dart';
+import '../../widgets/button_widget.dart';
 
 class AssetLocationFormScreen extends StatefulWidget {
   const AssetLocationFormScreen({super.key});
@@ -28,8 +25,6 @@ class _AssetLocationFormScreenState extends State<AssetLocationFormScreen> {
 
   String regionCode = "";
   String area = "";
-  String departmentName = "";
-  String BusinessUnit = "";
 
   String selectFloorNo = "Select Floor No";
   List<String> floorNoList = [
@@ -46,9 +41,19 @@ class _AssetLocationFormScreenState extends State<AssetLocationFormScreen> {
     "Select City",
   ];
 
-  String selectRegion = "Select Department";
-  List<String> regionList = [
+  String departmentName = "Select Department";
+  List<String> departmentList = [
     "Select Department",
+  ];
+
+  String businessUnit = "Select Business Unit";
+  List<String> businessUnitList = [
+    "Select Business Unit",
+  ];
+
+  String departmentCode = "Select Department Code";
+  List<String> departmentCodeList = [
+    "Select Department Code",
   ];
 
   TextEditingController areaController = TextEditingController();
@@ -57,6 +62,70 @@ class _AssetLocationFormScreenState extends State<AssetLocationFormScreen> {
   TextEditingController buildingNameController = TextEditingController();
   TextEditingController buildingAddressController = TextEditingController();
   TextEditingController buildingNoController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+
+    Future.delayed(Duration.zero, () async {
+      var value = await LoginServices.countriesList();
+      setState(() {
+        for (var i = 0; i < value.length; i++) {
+          countryList.add(value[i].countryName!);
+        }
+        Set<String> countrySet = countryList.toSet();
+        countryList = countrySet.toList();
+      });
+      var city = await GetAllCitiesService.getAllCities();
+      setState(() {
+        for (var i = 0; i < city.length; i++) {
+          cityList.add(city[i].cityName!);
+        }
+        Set<String> citySet = cityList.toSet();
+        cityList = citySet.toList();
+      });
+      var department = await GetAllDepartmentsService.getAllDepartments();
+      setState(() {
+        departmentList = [];
+        for (var i = 0; i < department.length; i++) {
+          departmentList.add(department[i].daoName!);
+        }
+        Set<String> regionSet = departmentList.toSet();
+        departmentList = regionSet.toList();
+        departmentName = departmentList[0];
+
+        floorNoList.clear();
+        for (var i = 0; i < department.length; i++) {
+          floorNoList.add(department[i].bUSINESSGROUP!);
+        }
+        Set<String> floorNoSet = floorNoList.toSet();
+        floorNoList = floorNoSet.toList();
+        selectFloorNo = floorNoList[0];
+
+        businessUnitList.clear();
+        for (var i = 0; i < department.length; i++) {
+          businessUnitList.add(department[i].businessUnit!);
+        }
+        Set<String> businessUnitSet = businessUnitList.toSet();
+        businessUnitList = businessUnitSet.toList();
+
+        departmentCodeList.clear();
+        for (var i = 0; i < department.length; i++) {
+          departmentCodeList.add(department[i].dAONumber!);
+        }
+        Set<String> departmentCodeSet = departmentCodeList.toSet();
+        departmentCodeList = departmentCodeSet.toList();
+
+        businessNameController.text = businessUnitList[0];
+        departmentCodeController.text = departmentCodeList[0];
+      });
+      var area = await GetAreaServices.getArea(regionCode);
+      setState(() {
+        print(area);
+        areaController.text = area;
+      });
+    });
+  }
 
   @override
   void dispose() {
@@ -72,6 +141,7 @@ class _AssetLocationFormScreenState extends State<AssetLocationFormScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         iconTheme: const IconThemeData(color: Colors.white),
         title: const Text(
@@ -93,304 +163,177 @@ class _AssetLocationFormScreenState extends State<AssetLocationFormScreen> {
           child: SingleChildScrollView(
             child: Column(
               children: <Widget>[
-                FutureBuilder<List<CountriesListModel>>(
-                    future: LoginServices.countriesList(),
-                    builder: (context, snapshot) {
-                      if (snapshot.hasError) {
-                        Constant.showLoadingDialog(context);
-                      }
-
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return Container();
-                      }
-
-                      if (snapshot.hasData) {
-                        for (var i = 0; i < snapshot.data!.length; i++) {
-                          countryList.add(snapshot.data![i].countryName!);
-                        }
-
-                        // convert the list to set to remove duplicate values
-                        Set<String> countrySet = countryList.toSet();
-
-                        // convert the set back to list
-                        countryList = countrySet.toList();
-
-                        return Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SizedBox(
-                              width: MediaQuery.of(context).size.width * 0.3,
-                              child: const Text(
-                                "COUNTRY",
-                                style: TextStyle(
-                                  fontSize: 15,
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                            const SizedBox(height: 10),
-                            Container(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 10),
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: Colors.grey,
-                                ),
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              child: DropdownButtonFormField(
-                                value: selectCountry,
-                                items: countryList.map((value) {
-                                  return DropdownMenuItem(
-                                    value: value,
-                                    child: Text(value),
-                                  );
-                                }).toList(),
-                                onChanged: (value) {
-                                  setState(() {
-                                    selectCountry = value.toString();
-                                  });
-                                },
-                              ),
-                            ),
-                          ],
-                        );
-                      }
-                      return const Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    }),
+                // Country ...............................................
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      child: const Text(
+                        "COUNTRY",
+                        style: TextStyle(
+                          fontSize: 15,
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Colors.grey,
+                        ),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: DropdownButtonFormField(
+                        value: selectCountry,
+                        items: countryList.map((value) {
+                          return DropdownMenuItem(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
+                        onChanged: (value) {
+                          setState(() {
+                            selectCountry = value.toString();
+                          });
+                        },
+                      ),
+                    ),
+                  ],
+                ),
                 const SizedBox(height: 10),
-                FutureBuilder<List<GetAllCitiesModel>>(
-                  future: GetAllCitiesService.getAllCities(),
-                  builder: (context, snapshot) {
-                    if (snapshot.hasError) {
-                      Constant.showLoadingDialog(context);
-                    }
-
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return Container();
-                    }
-
-                    if (snapshot.hasData) {
-                      for (var i = 0; i < snapshot.data!.length; i++) {
-                        cityList.add(snapshot.data![i].cityName!);
-                      }
-
-                      // convert the list to set to remove duplicate values
-                      Set<String> citySet = cityList.toSet();
-
-                      // convert the set back to list
-                      cityList = citySet.toList();
-
-                      return Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.9,
-                            child: const Text(
-                              "CITY",
-                              style: TextStyle(
-                                fontSize: 15,
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                          const SizedBox(height: 10),
-                          Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 10),
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                color: Colors.grey,
-                              ),
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            child: DropdownButtonFormField(
-                              value: selectCity,
-                              items: cityList.map((value) {
-                                // index = cityList.indexOf(value);
-                                return DropdownMenuItem(
-                                  value: value,
-                                  child: Text(value),
-                                );
-                              }).toList(),
-                              onChanged: (value) {
-                                int index = cityList.indexOf(value.toString());
-                                setState(
-                                  () {
-                                    selectCity = value.toString();
-                                    regionCode =
-                                        snapshot.data![index].regionCode ?? "";
-                                  },
-                                );
-                                print("regionCode: $regionCode");
-                              },
-                            ),
-                          ),
-                        ],
-                      );
-                    }
-
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  },
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.9,
+                      child: const Text(
+                        "CITY",
+                        style: TextStyle(
+                          fontSize: 15,
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Colors.grey,
+                        ),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: DropdownButtonFormField(
+                        value: selectCity,
+                        items: cityList.map((value) {
+                          // index = cityList.indexOf(value);
+                          return DropdownMenuItem(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
+                        onChanged: (value) {
+                          setState(() {
+                            selectCity = value.toString();
+                          });
+                        },
+                      ),
+                    ),
+                  ],
                 ),
                 const SizedBox(height: 10),
                 Visibility(
                   visible: regionCode == "" ? false : true,
-                  child: FutureBuilder(
-                      future: GetAreaServices.getArea(regionCode),
-                      builder: (context, snapshot) {
-                        if (snapshot.hasError) {
-                          Constant.showLoadingDialog(context);
-                        }
-
-                        if (snapshot.connectionState ==
-                            ConnectionState.waiting) {
-                          return Container();
-                        }
-
-                        if (snapshot.hasData) {
-                          areaController.text = snapshot.data.toString();
-                          print("Area : ${snapshot.data}");
-                          return Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SizedBox(
-                                width: MediaQuery.of(context).size.width * 0.9,
-                                child: const Text(
-                                  "Area",
-                                  style: TextStyle(
-                                    fontSize: 15,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(height: 10),
-                              TextFormFieldWidget(
-                                width: MediaQuery.of(context).size.width * 1,
-                                readOnly: true,
-                                controller: areaController,
-                                height: 50,
-                              ),
-                            ],
-                          );
-                        }
-
-                        return const Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      }),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.9,
+                        child: const Text(
+                          "Area",
+                          style: TextStyle(
+                            fontSize: 15,
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      TextFormFieldWidget(
+                        width: MediaQuery.of(context).size.width * 1,
+                        readOnly: true,
+                        controller: areaController,
+                        height: 50,
+                      ),
+                    ],
+                  ),
                 ),
                 const SizedBox(height: 10),
-                FutureBuilder<List<GetAllDepartmentsModel>>(
-                    future: GetAllDepartmentsService.getAllDepartments(),
-                    builder: (context, snapshot) {
-                      if (snapshot.hasError) {
-                        Constant.showLoadingDialog(context);
-                      }
+                // Department ...............................................
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.9,
+                      child: const Text(
+                        "Department",
+                        style: TextStyle(
+                          fontSize: 15,
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Colors.grey,
+                        ),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: DropdownButtonFormField(
+                        value: departmentName,
+                        items: departmentList.map((value) {
+                          return DropdownMenuItem(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
+                        onChanged: (value) {
+                          setState(() {
+                            departmentName = value.toString();
 
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return Container();
-                      }
+                            var index =
+                                departmentList.indexOf(value.toString());
 
-                      if (snapshot.hasData) {
-                        List<String> deppList = [];
+                            print("Index: $index");
 
-                        for (var i = 0; i < snapshot.data!.length; i++) {
-                          deppList.add(snapshot.data![i].daoName!);
-                        }
+                            businessNameController.text =
+                                businessUnitList[index];
 
-                        String depName = deppList[0];
-
-                        for (var i = 0; i < snapshot.data!.length; i++) {
-                          floorNoList.add(snapshot.data![i].bUSINESSGROUP!);
-                        }
-
-                        // convert this list to set to remove duplicate values
-                        Set<String> floorNoSet = floorNoList.toSet();
-
-                        // convert set back to list
-                        floorNoList = floorNoSet.toList();
-
-                        return Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SizedBox(
-                              width: MediaQuery.of(context).size.width * 0.3,
-                              child: const Text(
-                                "Department",
-                                style: TextStyle(
-                                  fontSize: 15,
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                            const SizedBox(height: 10),
-                            Container(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 10),
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: Colors.grey,
-                                ),
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              child: DropdownButtonFormField(
-                                value: depName,
-                                items: deppList.map((value) {
-                                  return DropdownMenuItem(
-                                    value: value,
-                                    child: Text(value),
-                                  );
-                                }).toList(),
-                                onChanged: (value) {
-                                  setState(
-                                    () {
-                                      departmentName = value.toString();
-                                      businessNameController.text = snapshot
-                                              .data![deppList
-                                                  .indexOf(value.toString())]
-                                              .businessUnit ??
-                                          "";
-                                      departmentCodeController.text = snapshot
-                                              .data![deppList
-                                                  .indexOf(value.toString())]
-                                              .dAONumber ??
-                                          "";
-                                      BusinessUnit = snapshot
-                                              .data![deppList
-                                                  .indexOf(value.toString())]
-                                              .businessUnit ??
-                                          "";
-                                    },
-                                  );
-                                },
-                              ),
-                            ),
-                          ],
-                        );
-                      }
-
-                      return const Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    }),
+                            departmentCodeController.text =
+                                departmentCodeList[index];
+                          });
+                        },
+                      ),
+                    ),
+                  ],
+                ),
                 const SizedBox(height: 10),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.3,
                       child: const Text(
                         "Department Code",
                         style: TextStyle(
@@ -416,7 +359,6 @@ class _AssetLocationFormScreenState extends State<AssetLocationFormScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.3,
                       child: const Text(
                         "Business Name",
                         style: TextStyle(
@@ -442,7 +384,6 @@ class _AssetLocationFormScreenState extends State<AssetLocationFormScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.3,
                       child: const Text(
                         "Building Name",
                         style: TextStyle(
@@ -467,7 +408,6 @@ class _AssetLocationFormScreenState extends State<AssetLocationFormScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.3,
                       child: const Text(
                         "Building Address",
                         style: TextStyle(
@@ -490,7 +430,6 @@ class _AssetLocationFormScreenState extends State<AssetLocationFormScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.3,
                       child: const Text(
                         "Building No",
                         style: TextStyle(
@@ -513,7 +452,6 @@ class _AssetLocationFormScreenState extends State<AssetLocationFormScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.3,
                       child: const Text(
                         "Floor No",
                         style: TextStyle(
@@ -579,8 +517,7 @@ class _AssetLocationFormScreenState extends State<AssetLocationFormScreen> {
                               buildingAddressController.text.isEmpty ||
                               buildingNoController.text.isEmpty ||
                               floorNoList.isEmpty ||
-                              areaController.text.isEmpty ||
-                              BusinessUnit.isEmpty) {
+                              businessUnit.isEmpty) {
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
                                 content:
@@ -588,24 +525,26 @@ class _AssetLocationFormScreenState extends State<AssetLocationFormScreen> {
                               ),
                             );
                           } else {
-                            Get.to(() => SendBarCodeScreen(
-                                  country: selectCountry.toString(),
-                                  city: selectCity.toString(),
-                                  department: departmentName.toString(),
-                                  departmentCode:
-                                      departmentCodeController.text.trim(),
-                                  businessName:
-                                      businessNameController.text.trim(),
-                                  buildingName:
-                                      buildingNameController.text.trim(),
-                                  buildingAddress:
-                                      buildingAddressController.text.trim(),
-                                  buildingNumber:
-                                      buildingNoController.text.trim(),
-                                  floorNumber: selectFloorNo.toString(),
-                                  region: areaController.text.trim(),
-                                  businessUnit: BusinessUnit.toString(),
-                                ));
+                            Get.to(
+                              () => SendBarCodeScreen(
+                                country: selectCountry.toString(),
+                                city: selectCity.toString(),
+                                department: departmentName.toString(),
+                                departmentCode:
+                                    departmentCodeController.text.trim(),
+                                businessName:
+                                    businessNameController.text.trim(),
+                                buildingName:
+                                    buildingNameController.text.trim(),
+                                buildingAddress:
+                                    buildingAddressController.text.trim(),
+                                buildingNumber:
+                                    buildingNoController.text.trim(),
+                                floorNumber: selectFloorNo.toString(),
+                                region: areaController.text.trim(),
+                                businessUnit: businessUnit.toString(),
+                              ),
+                            );
                           }
                         },
                         width: MediaQuery.of(context).size.width * 0.4,

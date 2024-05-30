@@ -4,7 +4,6 @@ import 'package:fats_client/Services/AssetVarification/AsseetConditionServices.d
 import 'package:fats_client/Services/AssetVarification/BoughtServices.dart';
 import 'package:fats_client/Services/AssetVarification/EmployeeNameIdServices.dart';
 import 'package:fats_client/Services/AssetVarification/SaveTag.dart';
-import 'package:fats_client/Services/AssetVarification/TagNumberServices.dart';
 import 'package:fats_client/constants.dart';
 import 'package:fats_client/widgets/text_form_field_widget.dart';
 import 'package:flutter/material.dart';

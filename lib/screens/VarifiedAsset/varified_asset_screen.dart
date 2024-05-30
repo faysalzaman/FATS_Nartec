@@ -94,10 +94,10 @@ class _VarifiedAssetScreenState extends State<VarifiedAssetScreen> {
           ? const Center(
               child: CircularProgressIndicator(),
             )
-          : Column(
-              children: [
-                Expanded(
-                  child: PaginatedDataTable(
+          : SingleChildScrollView(
+              child: Column(
+                children: [
+                  PaginatedDataTable(
                     header: const Text('Verified Assets'),
                     headingRowColor:
                         MaterialStateProperty.all(Constant.primaryColor),
@@ -163,8 +163,8 @@ class _VarifiedAssetScreenState extends State<VarifiedAssetScreen> {
                         isMarked: isMarked,
                         setState: setState),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
     );
   }

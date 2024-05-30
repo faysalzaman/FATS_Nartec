@@ -174,6 +174,7 @@ class _SendBarCodeScreenState extends State<SendBarCodeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(70),
         child: AppBar(
@@ -190,6 +191,7 @@ class _SendBarCodeScreenState extends State<SendBarCodeScreen> {
               width: MediaQuery.of(context).size.width * 1,
               height: MediaQuery.of(context).size.height * 1,
               child: Card(
+                color: Colors.white,
                 elevation: 10,
                 margin: const EdgeInsets.only(
                   bottom: 10,

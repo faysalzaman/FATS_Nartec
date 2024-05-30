@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:fats_client/screens/AssetTransaction/asset_inventory.dart';
 import 'package:fats_client/screens/AssetTransaction/asset_movement.dart';
 import 'package:fats_client/screens/AssetTransaction/rectify_assets_by_employee.dart';

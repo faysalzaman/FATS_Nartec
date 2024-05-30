@@ -55,10 +55,10 @@ class _NewAssetGenerateTagScreenState extends State<NewAssetGenerateTagScreen> {
           ? const Center(
               child: CircularProgressIndicator(),
             )
-          : Column(
-              children: [
-                Expanded(
-                  child: PaginatedDataTable(
+          : SingleChildScrollView(
+              child: Column(
+                children: [
+                  PaginatedDataTable(
                     header: const Text('Generated Asset Tags'),
                     headingRowColor:
                         MaterialStateProperty.all(Constant.primaryColor),
@@ -110,8 +110,8 @@ class _NewAssetGenerateTagScreenState extends State<NewAssetGenerateTagScreen> {
                     ],
                     source: _DataSource(context, assetGenerateModel),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
     );
   }

@@ -87,10 +87,10 @@ class _AssetForPrintingScreenState extends State<AssetForPrintingScreen> {
       ),
       body: assetGenerateModel.isEmpty
           ? const Center(child: CircularProgressIndicator())
-          : Column(
-              children: [
-                Expanded(
-                  child: PaginatedDataTable(
+          : SingleChildScrollView(
+              child: Column(
+                children: [
+                  PaginatedDataTable(
                     header: const Text('Assets'),
                     rowsPerPage: rowsPerPage,
                     headingRowColor:
@@ -156,8 +156,8 @@ class _AssetForPrintingScreenState extends State<AssetForPrintingScreen> {
                       setState: setState,
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
     );
   }
