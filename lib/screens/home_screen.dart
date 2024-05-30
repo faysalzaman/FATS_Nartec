@@ -507,13 +507,18 @@ class _MyDrawerWidgetState extends State<MyDrawerWidget> {
           padding: EdgeInsets.zero,
           children: <Widget>[
             UserAccountsDrawerHeader(
+              decoration: BoxDecoration(
+                color: Constant.primaryColor,
+              ),
               accountName: Text(widget.userName),
               accountEmail: Text(widget.userEmail),
               currentAccountPicture: CircleAvatar(
                 backgroundColor: Colors.orange,
                 child: Text(
                   widget.userName[1],
-                  style: const TextStyle(fontSize: 40.0),
+                  style: const TextStyle(
+                    fontSize: 40.0,
+                  ),
                 ),
               ),
             ),
@@ -521,10 +526,16 @@ class _MyDrawerWidgetState extends State<MyDrawerWidget> {
               ListTile(
                 leading: Image.asset(
                   data["icon"][i],
-                  height: 30,
+                  height: 40,
                   width: 30,
                 ),
-                title: Text(data["name"][i]),
+                title: Text(
+                  data["name"][i],
+                  style: const TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
                 onTap: data["onTap"][i],
               ),
           ],
