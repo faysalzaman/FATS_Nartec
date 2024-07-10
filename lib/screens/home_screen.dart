@@ -189,7 +189,7 @@ class _HomeScreenState extends State<HomeScreen> {
             flexibleSpace: Container(
               padding: const EdgeInsets.only(top: 30, left: 10, right: 10),
               width: MediaQuery.of(context).size.width,
-              height: 170,
+              // height: 170,
               decoration: BoxDecoration(
                 color: Constant.primaryColor,
                 borderRadius: const BorderRadius.only(
