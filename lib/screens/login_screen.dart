@@ -49,7 +49,8 @@ class _LoginScreenState extends State<LoginScreen> {
         body: jsonEncode(body),
       );
 
-      if (response.statusCode == 200) {
+      print(response.body);
+      if (response.statusCode == 200 || response.statusCode == 201) {
         Navigator.of(context).pop();
         var data = jsonDecode(response.body);
 
@@ -70,14 +71,15 @@ class _LoginScreenState extends State<LoginScreen> {
           duration: const Duration(seconds: 3),
         );
       } else {
-        throw Exception('Failed to login');
+        var body = jsonDecode(response.body);
+        throw Exception(body['message']);
       }
     } catch (e) {
       Navigator.of(context).pop();
 
       Get.snackbar(
         "Error",
-        "Login Failed",
+        e.toString(),
         snackPosition: SnackPosition.BOTTOM,
         backgroundColor: Colors.red,
         colorText: Colors.white,
