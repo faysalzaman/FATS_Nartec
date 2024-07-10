@@ -1,8 +1,6 @@
 // ignore_for_file: avoid_print
-import 'package:fats_client/screens/home_screen.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../constants.dart';
@@ -35,11 +33,14 @@ class SendForBarCodeServices {
     final String url = "${Constant.baseUrl}/PostAssetMasterEncodeAssetCapture";
     final uri = Uri.parse(url);
 
+    print(uri);
+
     final headers = <String, String>{
       "Authorization": token,
       "Content-Type": "application/json",
-      "Host": Constant.host,
     };
+
+    print(token);
 
     final body = {
       "QTY": QTY,
@@ -63,20 +64,18 @@ class SendForBarCodeServices {
       "UserLoginID": UserLoginID
     };
 
+    print(jsonEncode(body));
+
     try {
       var response =
           await http.post(uri, headers: headers, body: json.encode(body));
 
       print("Status Code: ${response.statusCode}");
 
-      if (response.statusCode == 200) {
-        Get.back();
-
+      if (response.statusCode == 200 || response.statusCode == 201) {
         print("Status Code: ${response.statusCode}");
-        Get.offAll(const HomeScreen());
       } else {
         print("Status Code: ${response.statusCode}");
-        throw Exception('Failed to load cities list');
       }
     } catch (e) {
       print(e);

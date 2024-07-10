@@ -12,16 +12,18 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const GetMaterialApp(
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'FATS',
-      // theme: ThemeData(
-      //   visualDensity: VisualDensity.adaptivePlatformDensity,
-      //   colorScheme:
-      //       ColorScheme.fromSwatch(primarySwatch: Constant.primaryColor).copyWith(
-      //     secondary: Constant.primaryColor,
-      //   ),
-      // ),
+      theme: ThemeData(
+        appBarTheme: AppBarTheme(
+          titleTextStyle: TextStyle(
+            fontSize: 16, // Set your desired font size here
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+        ),
+      ),
       home: LoginScreen(),
     );
   }

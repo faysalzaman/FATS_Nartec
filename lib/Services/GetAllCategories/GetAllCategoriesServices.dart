@@ -15,14 +15,19 @@ class GetAllCategoriesServices {
 
     final headers = <String, String>{
       "Authorization": token,
-      "Content-Type": "application/json",
-      "Host": Constant.host,
+      "Host": "gs1ksa.org:7001",
     };
+
+    print(uri);
+    print(headers);
 
     try {
       var response = await http.get(uri, headers: headers);
 
-      if (response.statusCode == 200) {
+      var data = json.decode(response.body);
+      print(data);
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
         print("Categories List Got Successfully");
         var data = json.decode(response.body) as List;
         List<GetAllCategoriesModel> categoriesList =

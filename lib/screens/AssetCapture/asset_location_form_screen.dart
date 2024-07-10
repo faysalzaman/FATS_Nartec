@@ -68,6 +68,7 @@ class _AssetLocationFormScreenState extends State<AssetLocationFormScreen> {
     super.initState();
 
     Future.delayed(Duration.zero, () async {
+      Constant.showLoadingDialog(context);
       var value = await LoginServices.countriesList();
       setState(() {
         for (var i = 0; i < value.length; i++) {
@@ -84,6 +85,8 @@ class _AssetLocationFormScreenState extends State<AssetLocationFormScreen> {
         Set<String> citySet = cityList.toSet();
         cityList = citySet.toList();
       });
+      Navigator.of(context).pop();
+
       var department = await GetAllDepartmentsService.getAllDepartments();
       setState(() {
         departmentList = [];
@@ -185,7 +188,7 @@ class _AssetLocationFormScreenState extends State<AssetLocationFormScreen> {
                         border: Border.all(
                           color: Colors.grey,
                         ),
-                        borderRadius: BorderRadius.circular(20),
+                        borderRadius: BorderRadius.circular(10),
                       ),
                       child: DropdownButtonFormField(
                         value: selectCountry,
@@ -227,7 +230,7 @@ class _AssetLocationFormScreenState extends State<AssetLocationFormScreen> {
                         border: Border.all(
                           color: Colors.grey,
                         ),
-                        borderRadius: BorderRadius.circular(20),
+                        borderRadius: BorderRadius.circular(10),
                       ),
                       child: DropdownButtonFormField(
                         value: selectCity,
@@ -299,7 +302,7 @@ class _AssetLocationFormScreenState extends State<AssetLocationFormScreen> {
                         border: Border.all(
                           color: Colors.grey,
                         ),
-                        borderRadius: BorderRadius.circular(20),
+                        borderRadius: BorderRadius.circular(10),
                       ),
                       child: DropdownButtonFormField(
                         value: departmentName,
@@ -468,7 +471,7 @@ class _AssetLocationFormScreenState extends State<AssetLocationFormScreen> {
                         border: Border.all(
                           color: Colors.grey,
                         ),
-                        borderRadius: BorderRadius.circular(20),
+                        borderRadius: BorderRadius.circular(10),
                       ),
                       child: DropdownButtonFormField(
                         value: selectFloorNo,
