@@ -2,7 +2,6 @@ import 'package:fats_client/Services/AssetGenerate/GenerateTags.dart';
 import 'package:fats_client/models/AssetGenerateModel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:get/get.dart';
 
 import '../../Services/AssetGenerate/NewAssetTagGenerateServices.dart';
 import '../../constants.dart';
