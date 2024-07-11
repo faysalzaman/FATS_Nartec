@@ -429,7 +429,7 @@ class _AssetTagInformationState extends State<AssetTagInformation> {
                                 maxLines: 5,
                                 decoration: InputDecoration(
                                   border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(20),
+                                    borderRadius: BorderRadius.circular(10),
                                   ),
                                 ),
                               ),
@@ -482,7 +482,7 @@ class _AssetTagInformationState extends State<AssetTagInformation> {
                                 border: Border.all(
                                   color: Colors.grey,
                                 ),
-                                borderRadius: BorderRadius.circular(20),
+                                borderRadius: BorderRadius.circular(10),
                               ),
                               child: DropdownButtonFormField(
                                 value: selectEmployeeName,
@@ -599,7 +599,7 @@ class _AssetTagInformationState extends State<AssetTagInformation> {
                                 maxLines: 3,
                                 decoration: InputDecoration(
                                   border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(20),
+                                    borderRadius: BorderRadius.circular(10),
                                   ),
                                 ),
                               ),
@@ -746,10 +746,8 @@ class _AssetTagInformationState extends State<AssetTagInformation> {
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 10),
                               decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: Colors.grey,
-                                ),
-                                borderRadius: BorderRadius.circular(20),
+                                border: Border.all(color: Colors.grey),
+                                borderRadius: BorderRadius.circular(10),
                               ),
                               child: DropdownButtonFormField(
                                 value: selectAssetCondition,
@@ -793,7 +791,7 @@ class _AssetTagInformationState extends State<AssetTagInformation> {
                                 border: Border.all(
                                   color: Colors.grey,
                                 ),
-                                borderRadius: BorderRadius.circular(20),
+                                borderRadius: BorderRadius.circular(10),
                               ),
                               child: DropdownButtonFormField(
                                 value: selectBought,
