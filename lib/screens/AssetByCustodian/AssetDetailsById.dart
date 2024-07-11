@@ -333,16 +333,15 @@ class _AssetTagInformationScreenState extends State<AssetTagInformationScreen> {
                             elevation: 10,
                             margin: const EdgeInsets.symmetric(
                                 vertical: 10, horizontal: 5),
-                            child: SizedBox(
-                              height: 80,
-                              width: 70,
+                            child: Container(
+                              padding: const EdgeInsets.all(10),
                               child: Image.network(
                                 "http://161.97.172.46:7001/${e.replaceAll("\\", '/')}",
                                 fit: BoxFit.cover,
                                 errorBuilder: (context, error, stackTrace) {
                                   return const Center(
                                     child: Text(
-                                      "No Image",
+                                      "No Image found",
                                       style: TextStyle(
                                         fontSize: 15,
                                         color: Colors.black,

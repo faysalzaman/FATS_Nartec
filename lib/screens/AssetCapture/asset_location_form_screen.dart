@@ -46,7 +46,7 @@ class _AssetLocationFormScreenState extends State<AssetLocationFormScreen> {
     "Select Department",
   ];
 
-  String businessUnit = "Select Business Unit";
+  String businessUnit = "BU";
   List<String> businessUnitList = [
     "Select Business Unit",
   ];

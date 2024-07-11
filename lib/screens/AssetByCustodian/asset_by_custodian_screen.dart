@@ -1,3 +1,5 @@
+// ignore_for_file: unused_field
+
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:fats_client/widgets/button_widget.dart';
 import 'package:flutter/material.dart';
@@ -20,30 +22,37 @@ class AssetByCustodian extends StatefulWidget {
 }
 
 class _AssetByCustodianState extends State<AssetByCustodian> {
-  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  TextEditingController _employeeIdController = TextEditingController();
-  TextEditingController _employeeNameController = TextEditingController();
+  final TextEditingController _employeeIdController = TextEditingController();
+  final TextEditingController _employeeNameController = TextEditingController();
 
   @override
   void dispose() {
-    super.dispose();
     _employeeIdController.dispose();
     _employeeNameController.dispose();
+    super.dispose();
   }
 
-  // List<AssetForPrintingModel> assetGenerateModel = [];
-
-  List<GetAllEmployeeListByIdModel> getAllEmployeeByIdList = [];
   List<bool> isMarked = [];
 
+  String? _employeeById;
+  List<GetAllEmployeeListByIdModel> getAllEmployeeByIdList = [];
+
+  String? _employeeName;
   List<GetAllEmployeesModel> getAllEmployeesList = [];
+
   @override
   void initState() {
     super.initState();
-    GetAllEmployeesServices.getAllEmployees().then((value) {
-      getAllEmployeesList = value;
-      isMarked = List<bool>.filled(getAllEmployeesList.length, false);
+    Future.delayed(Duration.zero, () {
+      GetAllEmployeesServices.getAllEmployees().then((value) {
+        setState(() {
+          getAllEmployeesList = value;
+          _employeeName = value.isNotEmpty ? value[0].empName : null;
+          isMarked = List<bool>.filled(getAllEmployeesList.length, false);
+        });
+      });
     });
   }
 
@@ -75,8 +84,9 @@ class _AssetByCustodianState extends State<AssetByCustodian> {
                             showSelectedItems: true,
                             disabledItemFn: (String s) => s.startsWith('I'),
                           ),
-                          items:
-                              getAllEmployeesList.map((e) => e.empID!).toList(),
+                          items: getAllEmployeesList
+                              .map((e) => e.empID ?? '')
+                              .toList(),
                           dropdownDecoratorProps: const DropDownDecoratorProps(
                             baseStyle: TextStyle(fontSize: 15),
                             dropdownSearchDecoration: InputDecoration(
@@ -90,19 +100,20 @@ class _AssetByCustodianState extends State<AssetByCustodian> {
                           ),
                           enabled: true,
                           onChanged: (value) {
-                            setState(() {});
+                            setState(() {
+                              _employeeIdController.text = value!;
+                            });
                           },
                           selectedItem: "Select Employee Id",
                         ),
                         const SizedBox(height: 10),
-
                         DropdownSearch<String>(
                           popupProps: PopupProps.menu(
                             showSelectedItems: true,
                             disabledItemFn: (String s) => s.startsWith('I'),
                           ),
                           items: getAllEmployeesList
-                              .map((e) => e.empName!)
+                              .map((e) => e.empName ?? '')
                               .toList(),
                           dropdownDecoratorProps: const DropDownDecoratorProps(
                             baseStyle: TextStyle(fontSize: 15),
@@ -123,96 +134,6 @@ class _AssetByCustodianState extends State<AssetByCustodian> {
                           },
                           selectedItem: "Select Employee Name",
                         ),
-                        // Autocomplete<GetAllEmployeesModel>(
-                        //     optionsBuilder:
-                        //         (TextEditingValue textEditingValue) {
-                        //       if (textEditingValue.text == '') {
-                        //         return const Iterable<
-                        //             GetAllEmployeesModel>.empty();
-                        //       }
-                        //       return getAllEmployeesList.where((element) =>
-                        //           element.empName!.toLowerCase().contains(
-                        //               textEditingValue.text.toLowerCase()));
-                        //     },
-                        //     displayStringForOption: (option) {
-                        //       return option.empName!;
-                        //     },
-                        //     initialValue: null,
-                        //     optionsViewBuilder: (context, onSelected, options) {
-                        //       return Align(
-                        //         alignment: Alignment.topLeft,
-                        //         child: Material(
-                        //           elevation: 4.0,
-                        //           child: Container(
-                        //             height: 200,
-                        //             width:
-                        //                 MediaQuery.of(context).size.width * 0.9,
-                        //             child: ListView.builder(
-                        //               padding: const EdgeInsets.all(8.0),
-                        //               itemCount: options.length,
-                        //               itemBuilder:
-                        //                   (BuildContext context, int index) {
-                        //                 final option = options.elementAt(index);
-                        //                 return GestureDetector(
-                        //                   onTap: () {
-                        //                     onSelected(option);
-                        //                   },
-                        //                   child: ListTile(
-                        //                     title: Text(option.empName!),
-                        //                   ),
-                        //                 );
-                        //               },
-                        //             ),
-                        //           ),
-                        //         ),
-                        //       );
-                        //     },
-                        //     onSelected: (String) async {
-                        //       _employeeIdController.text = getAllEmployeesList
-                        //           .where((element) => element.empName == String)
-                        //           .first
-                        //           .empID
-                        //           .toString();
-                        //       Constant.showLoadingDialog(context);
-                        //       GetEmployeeListByIdServices.GetEmpListByID(
-                        //         _employeeIdController.text.trim().toString(),
-                        //       ).then((value) {
-                        //         _employeeNameController.text =
-                        //             value.recordset?[0].empName ?? '';
-                        //         GetAllEmployeeByIdServices.getAllEmployeeList(
-                        //                 _employeeIdController.text
-                        //                     .trim()
-                        //                     .toString())
-                        //             .then((value) {
-                        //           getAllEmployeeByIdList = value;
-
-                        //           for (int i = 0;
-                        //               i < getAllEmployeeByIdList.length;
-                        //               i++) {
-                        //             isMarked.add(false);
-                        //           }
-
-                        //           setState(() {});
-
-                        //           print(getAllEmployeeByIdList.length);
-
-                        //           Navigator.pop(context);
-                        //         }).onError((error, stackTrace) {
-                        //           Navigator.of(context).pop();
-
-                        //           ScaffoldMessenger.of(context)
-                        //               .showSnackBar(SnackBar(
-                        //             content: Text(error.toString()),
-                        //           ));
-                        //         });
-                        //       }).onError((error, stackTrace) {
-                        //         Navigator.of(context).pop();
-                        //         ScaffoldMessenger.of(context)
-                        //             .showSnackBar(SnackBar(
-                        //           content: Text(error.toString()),
-                        //         ));
-                        //       });
-                        //     }),
                         const SizedBox(height: 10),
                         const SizedBox(
                           child: Text(
@@ -234,104 +155,20 @@ class _AssetByCustodianState extends State<AssetByCustodian> {
                                 width: MediaQuery.of(context).size.width * 0.9,
                                 onEditingComplete: () {
                                   FocusScope.of(context).unfocus();
-                                  Constant.showLoadingDialog(context);
-                                  GetEmployeeListByIdServices.GetEmpListByID(
-                                          _employeeIdController.text
-                                              .trim()
-                                              .toString())
-                                      .then((value) {
-                                    _employeeNameController.text =
-                                        value.recordset?[0].empName ?? '';
-                                    GetAllEmployeeByIdServices
-                                            .getAllEmployeeList(
-                                                _employeeIdController.text
-                                                    .trim()
-                                                    .toString())
-                                        .then((value) {
-                                      getAllEmployeeByIdList = value;
-
-                                      for (int i = 0;
-                                          i < getAllEmployeeByIdList.length;
-                                          i++) {
-                                        isMarked.add(false);
-                                      }
-
-                                      setState(() {});
-
-                                      print(getAllEmployeeByIdList.length);
-
-                                      Navigator.pop(context);
-                                    }).onError((error, stackTrace) {
-                                      Navigator.of(context).pop();
-
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(SnackBar(
-                                        content: Text(error.toString()),
-                                      ));
-                                    });
-                                  }).onError((error, stackTrace) {
-                                    Navigator.of(context).pop();
-                                    ScaffoldMessenger.of(context)
-                                        .showSnackBar(SnackBar(
-                                      content: Text(error.toString()),
-                                    ));
-                                  });
+                                  _fetchEmployeeData();
                                 },
                               ),
                             ),
                             IconButton(
-                              onPressed: () {
-                                FocusScope.of(context).unfocus();
-                                Constant.showLoadingDialog(context);
-                                GetEmployeeListByIdServices.GetEmpListByID(
-                                        _employeeIdController.text
-                                            .trim()
-                                            .toString())
-                                    .then((value) {
-                                  _employeeNameController.text =
-                                      value.recordset?[0].empName ?? '';
-                                  GetAllEmployeeByIdServices.getAllEmployeeList(
-                                          _employeeIdController.text
-                                              .trim()
-                                              .toString())
-                                      .then((value) {
-                                    getAllEmployeeByIdList = value;
-
-                                    for (int i = 0;
-                                        i < getAllEmployeeByIdList.length;
-                                        i++) {
-                                      isMarked.add(false);
-                                    }
-
-                                    setState(() {});
-
-                                    print(getAllEmployeeByIdList.length);
-
-                                    Navigator.pop(context);
-                                  }).onError((error, stackTrace) {
-                                    Navigator.of(context).pop();
-
-                                    ScaffoldMessenger.of(context)
-                                        .showSnackBar(SnackBar(
-                                      content: Text(error.toString()),
-                                    ));
-                                  });
-                                }).onError((error, stackTrace) {
-                                  Navigator.of(context).pop();
-                                  ScaffoldMessenger.of(context)
-                                      .showSnackBar(SnackBar(
-                                    content: Text(error.toString()),
-                                  ));
-                                });
-                              },
+                              onPressed: _fetchEmployeeData,
+                              icon: const Icon(Icons.search),
+                              color: Colors.white,
                               style: IconButton.styleFrom(
                                 backgroundColor: Constant.primaryColor,
-                                foregroundColor: Colors.white,
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10),
                                 ),
                               ),
-                              icon: const Icon(Icons.search),
                             ),
                           ],
                         ),
@@ -387,16 +224,6 @@ class _AssetByCustodianState extends State<AssetByCustodian> {
                               (states) => Colors.grey.withOpacity(0.2)),
                           headingRowColor: MaterialStateColor.resolveWith(
                             (states) => Constant.primaryColor,
-                          ),
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              color: Colors.grey,
-                              width: 1,
-                            ),
-                          ),
-                          border: TableBorder.all(
-                            color: Colors.black,
-                            width: 1,
                           ),
                           columns: const [
                             DataColumn(
@@ -582,7 +409,7 @@ class _AssetByCustodianState extends State<AssetByCustodian> {
                     },
                     color: Constant.primaryColor,
                     height: 40,
-                    width: MediaQuery.of(context).size.width * 1,
+                    width: MediaQuery.of(context).size.width,
                   ),
                 ],
               ),
@@ -591,5 +418,36 @@ class _AssetByCustodianState extends State<AssetByCustodian> {
         ),
       ),
     );
+  }
+
+  void _fetchEmployeeData() {
+    FocusScope.of(context).unfocus();
+    Constant.showLoadingDialog(context);
+    GetEmployeeListByIdServices.GetEmpListByID(
+            _employeeIdController.text.trim())
+        .then((value) {
+      _employeeNameController.text = value.recordset?[0].empName ?? '';
+
+      GetAllEmployeeByIdServices.getAllEmployeeList(
+              _employeeIdController.text.trim())
+          .then((value) {
+        getAllEmployeeByIdList = value;
+        isMarked = List<bool>.filled(getAllEmployeeByIdList.length, false);
+
+        setState(() {});
+
+        Navigator.pop(context);
+      }).onError((error, stackTrace) {
+        Navigator.of(context).pop();
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text(error.toString()),
+        ));
+      });
+    }).onError((error, stackTrace) {
+      Navigator.of(context).pop();
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(error.toString()),
+      ));
+    });
   }
 }

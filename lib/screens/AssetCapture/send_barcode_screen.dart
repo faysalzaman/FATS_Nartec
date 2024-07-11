@@ -843,9 +843,29 @@ class _SendBarCodeScreenState extends State<SendBarCodeScreen> {
                                           .replaceAll("\"", ""),
                                     ).then((value) {
                                       Navigator.of(context).pop();
+                                      Get.snackbar(
+                                        "Success",
+                                        "Barcode send successfully",
+                                        backgroundColor: Colors.green,
+                                        colorText: Colors.white,
+                                        snackPosition: SnackPosition.BOTTOM,
+                                        duration: const Duration(seconds: 3),
+                                        isDismissible: true,
+                                      );
 
                                       Get.offAll(const HomeScreen());
-                                    }).onError((error, stackTrace) {});
+                                    }).onError((error, stackTrace) {
+                                      Navigator.of(context).pop();
+                                      Get.snackbar(
+                                        "Error",
+                                        "Failed to send barcode",
+                                        backgroundColor: Colors.red,
+                                        colorText: Colors.white,
+                                        snackPosition: SnackPosition.BOTTOM,
+                                        duration: const Duration(seconds: 3),
+                                        isDismissible: true,
+                                      );
+                                    });
                                   }
                                 }
                               },

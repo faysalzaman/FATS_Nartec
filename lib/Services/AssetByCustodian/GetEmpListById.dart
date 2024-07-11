@@ -28,7 +28,10 @@ class GetEmployeeListByIdServices {
         body: json.encode(body),
       );
 
-      if (response.statusCode == 200) {
+      print(response.statusCode);
+      print(response.body);
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
         print('status code: ${response.statusCode}');
 
         var data = json.decode(response.body);

@@ -24,7 +24,7 @@ class GetAllEmployeeByIdServices {
     try {
       var response = await http.get(uri, headers: headers);
 
-      if (response.statusCode == 200) {
+      if (response.statusCode == 200 || response.statusCode == 201) {
         var data = json.decode(response.body) as List;
         List<GetAllEmployeeListByIdModel> employee =
             data.map((e) => GetAllEmployeeListByIdModel.fromJson(e)).toList();

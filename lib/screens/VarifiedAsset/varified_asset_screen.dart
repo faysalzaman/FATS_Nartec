@@ -57,114 +57,166 @@ class _VarifiedAssetScreenState extends State<VarifiedAssetScreen> {
         backgroundColor: Constant.primaryColor,
         foregroundColor: Colors.white,
       ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          List<String> _tagNumber = [];
-          List<String> _assetDescription = [];
-          List<String> _barcodeInfo = [];
+      // floatingActionButton: FloatingActionButton.extended(
+      //   onPressed: () {
+      //     List<String> _tagNumber = [];
+      //     List<String> _assetDescription = [];
+      //     List<String> _barcodeInfo = [];
 
-          for (int i = 0; i < isMarked.length; i++) {
-            if (isMarked[i]) {
-              _tagNumber.add(varifiedAssetModel[i].tagNumber!);
-              _assetDescription.add(varifiedAssetModel[i].aSSETdESCRIPTION!);
-              _barcodeInfo.add("${varifiedAssetModel[i].tagNumber!} " +
-                  varifiedAssetModel[i].minorCategoryDescription!);
-            }
-          }
+      //     for (int i = 0; i < isMarked.length; i++) {
+      //       if (isMarked[i]) {
+      //         _tagNumber.add(varifiedAssetModel[i].tagNumber!);
+      //         _assetDescription.add(varifiedAssetModel[i].aSSETdESCRIPTION!);
+      //         _barcodeInfo.add("${varifiedAssetModel[i].tagNumber!} " +
+      //             varifiedAssetModel[i].minorCategoryDescription!);
+      //       }
+      //     }
 
-          if (_tagNumber.isEmpty) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text('Please select at least one asset'),
-                backgroundColor: Colors.red,
-              ),
-            );
-          } else {
-            Get.to(() => BarcodeLabelScreen(
-                  tagNumber: _tagNumber,
-                  assetDescription: _assetDescription,
-                  qrCode: _barcodeInfo,
-                ));
-          }
-        },
-        label: const Text('Print Asset'),
-        icon: const Icon(Icons.print),
-      ),
+      //     if (_tagNumber.isEmpty) {
+      //       ScaffoldMessenger.of(context).showSnackBar(
+      //         const SnackBar(
+      //           content: Text('Please select at least one asset'),
+      //           backgroundColor: Colors.red,
+      //         ),
+      //       );
+      //     } else {
+      //       Get.to(() => BarcodeLabelScreen(
+      //             tagNumber: _tagNumber,
+      //             assetDescription: _assetDescription,
+      //             qrCode: _barcodeInfo,
+      //           ));
+      //     }
+      //   },
+      //   label: const Text('Print Asset'),
+      //   icon: const Icon(Icons.print),
+      // ),
       body: varifiedAssetModel.isEmpty
           ? const Center(
               child: CircularProgressIndicator(),
             )
-          : SingleChildScrollView(
-              child: Column(
-                children: [
-                  PaginatedDataTable(
-                    header: const Text('Verified Assets'),
-                    headingRowColor:
-                        MaterialStateProperty.all(Constant.primaryColor),
-                    rowsPerPage: rowsPerPage,
-                    onRowsPerPageChanged: (value) {
-                      setState(() {
-                        rowsPerPage =
-                            value ?? PaginatedDataTable.defaultRowsPerPage;
-                      });
-                    },
-                    columns: [
-                      dataColumWidget("Mark"),
-                      dataColumWidget("Id"),
-                      dataColumWidget("Major Category"),
-                      dataColumWidget("Major Category Description"),
-                      dataColumWidget("Minor Category"),
-                      dataColumWidget("Minor Category Description"),
-                      dataColumWidget("Tag Number"),
-                      dataColumWidget("Serial Number"),
-                      dataColumWidget("Asset Description"),
-                      dataColumWidget("Asset Type"),
-                      dataColumWidget("Asset Condition"),
-                      dataColumWidget("Manufacturer"),
-                      dataColumWidget("Model Manufacturer"),
-                      dataColumWidget("Country"),
-                      dataColumWidget("City"),
-                      dataColumWidget("Region"),
-                      dataColumWidget("Department Code"),
-                      dataColumWidget("Department Name"),
-                      dataColumWidget("Business Unit"),
-                      dataColumWidget("Building Number"),
-                      dataColumWidget("Floor Number"),
-                      dataColumWidget("Employee Id"),
-                      dataColumWidget("PO Number"),
-                      dataColumWidget("Delivery Note Number"),
-                      dataColumWidget("Supplier"),
-                      dataColumWidget("Invoice Number"),
-                      dataColumWidget("Invoice Date"),
-                      dataColumWidget("Ownership"),
-                      dataColumWidget("Bought"),
-                      dataColumWidget("Terminal Id"),
-                      dataColumWidget("ATM Number"),
-                      dataColumWidget("Location Tag"),
-                      dataColumWidget("Building Name"),
-                      dataColumWidget("Building Address"),
-                      dataColumWidget("User Login Id"),
-                      dataColumWidget("Main Sub Series"),
-                      dataColumWidget("Major Categories Plus Minor Categories"),
-                      dataColumWidget("Asset Date Captured"),
-                      dataColumWidget("Asset Time Captured"),
-                      dataColumWidget("Asset Date Scanned"),
-                      dataColumWidget("Asset Time Scanned"),
-                      dataColumWidget("Qty"),
-                      dataColumWidget("Phone Exit Number"),
-                      dataColumWidget("Full Location Details"),
-                      dataColumWidget("Journal Ref No"),
-                      dataColumWidget("Images"),
-                      dataColumWidget("Delete"),
+          : Stack(
+              children: [
+                SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      PaginatedDataTable(
+                        header: const Text('Verified Assets'),
+                        headingRowColor:
+                            MaterialStateProperty.all(Constant.primaryColor),
+                        rowsPerPage: rowsPerPage,
+                        onRowsPerPageChanged: (value) {
+                          setState(() {
+                            rowsPerPage =
+                                value ?? PaginatedDataTable.defaultRowsPerPage;
+                          });
+                        },
+                        columns: [
+                          dataColumWidget("Mark"),
+                          dataColumWidget("Id"),
+                          dataColumWidget("Major Category"),
+                          dataColumWidget("Major Category Description"),
+                          dataColumWidget("Minor Category"),
+                          dataColumWidget("Minor Category Description"),
+                          dataColumWidget("Tag Number"),
+                          dataColumWidget("Serial Number"),
+                          dataColumWidget("Asset Description"),
+                          dataColumWidget("Asset Type"),
+                          dataColumWidget("Asset Condition"),
+                          dataColumWidget("Manufacturer"),
+                          dataColumWidget("Model Manufacturer"),
+                          dataColumWidget("Country"),
+                          dataColumWidget("City"),
+                          dataColumWidget("Region"),
+                          dataColumWidget("Department Code"),
+                          dataColumWidget("Department Name"),
+                          dataColumWidget("Business Unit"),
+                          dataColumWidget("Building Number"),
+                          dataColumWidget("Floor Number"),
+                          dataColumWidget("Employee Id"),
+                          dataColumWidget("PO Number"),
+                          dataColumWidget("Delivery Note Number"),
+                          dataColumWidget("Supplier"),
+                          dataColumWidget("Invoice Number"),
+                          dataColumWidget("Invoice Date"),
+                          dataColumWidget("Ownership"),
+                          dataColumWidget("Bought"),
+                          dataColumWidget("Terminal Id"),
+                          dataColumWidget("ATM Number"),
+                          dataColumWidget("Location Tag"),
+                          dataColumWidget("Building Name"),
+                          dataColumWidget("Building Address"),
+                          dataColumWidget("User Login Id"),
+                          dataColumWidget("Main Sub Series"),
+                          dataColumWidget(
+                              "Major Categories Plus Minor Categories"),
+                          dataColumWidget("Asset Date Captured"),
+                          dataColumWidget("Asset Time Captured"),
+                          dataColumWidget("Asset Date Scanned"),
+                          dataColumWidget("Asset Time Scanned"),
+                          dataColumWidget("Qty"),
+                          dataColumWidget("Phone Exit Number"),
+                          dataColumWidget("Full Location Details"),
+                          dataColumWidget("Journal Ref No"),
+                          dataColumWidget("Images"),
+                          dataColumWidget("Delete"),
+                        ],
+                        source: VarifiedAssetDataSource(
+                            context: context,
+                            varifiedAssetModel: varifiedAssetModel,
+                            isMarked: isMarked,
+                            setState: setState),
+                      ),
                     ],
-                    source: VarifiedAssetDataSource(
-                        context: context,
-                        varifiedAssetModel: varifiedAssetModel,
-                        isMarked: isMarked,
-                        setState: setState),
                   ),
-                ],
-              ),
+                ),
+                Positioned(
+                  right: 10,
+                  top: 10,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Constant.primaryColor,
+                    ),
+                    onPressed: () {
+                      List<String> _tagNumber = [];
+                      List<String> _assetDescription = [];
+                      List<String> _barcodeInfo = [];
+
+                      for (int i = 0; i < isMarked.length; i++) {
+                        if (isMarked[i]) {
+                          _tagNumber.add(varifiedAssetModel[i].tagNumber!);
+                          _assetDescription
+                              .add(varifiedAssetModel[i].aSSETdESCRIPTION!);
+                          _barcodeInfo.add(
+                              "${varifiedAssetModel[i].tagNumber!} " +
+                                  varifiedAssetModel[i]
+                                      .minorCategoryDescription!);
+                        }
+                      }
+
+                      if (_tagNumber.isEmpty) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('Please select at least one asset'),
+                            backgroundColor: Colors.red,
+                          ),
+                        );
+                      } else {
+                        Get.to(() => BarcodeLabelScreen(
+                              tagNumber: _tagNumber,
+                              assetDescription: _assetDescription,
+                              qrCode: _barcodeInfo,
+                            ));
+                      }
+                    },
+                    child: const Text(
+                      'Print Asset',
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
     );
   }

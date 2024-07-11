@@ -62,7 +62,12 @@ class _AssetForPrintingScreenState extends State<AssetForPrintingScreen> {
                   child: Column(
                     children: [
                       PaginatedDataTable(
-                        header: const Text('Assets'),
+                        header: const Text(
+                          'Assets',
+                          style: TextStyle(
+                            fontSize: 16,
+                          ),
+                        ),
                         rowsPerPage: rowsPerPage,
                         headingRowColor:
                             MaterialStateProperty.all(Constant.primaryColor),
@@ -132,7 +137,7 @@ class _AssetForPrintingScreenState extends State<AssetForPrintingScreen> {
                 ),
                 Positioned(
                   right: 10,
-                  bottom: 60,
+                  top: 10,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Constant.primaryColor,
@@ -159,11 +164,13 @@ class _AssetForPrintingScreenState extends State<AssetForPrintingScreen> {
                           ),
                         );
                       } else {
-                        Get.to(() => BarcodeLabelScreen(
-                              tagNumber: _tagNumber,
-                              assetDescription: _assetDescription,
-                              qrCode: _barcodeInfo,
-                            ));
+                        Get.to(
+                          () => BarcodeLabelScreen(
+                            tagNumber: _tagNumber,
+                            assetDescription: _assetDescription,
+                            qrCode: _barcodeInfo,
+                          ),
+                        );
                       }
                     },
                     child: Text(
