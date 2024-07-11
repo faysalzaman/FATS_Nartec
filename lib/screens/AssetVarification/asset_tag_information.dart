@@ -146,11 +146,8 @@ class _AssetTagInformationState extends State<AssetTagInformation> {
         elevation: 10,
       ),
       body: isLoading == true
-          ? const Center(
-              child: CircularProgressIndicator(
-                color: Colors.blue,
-              ),
-            )
+          ? Center(
+              child: CircularProgressIndicator(color: Constant.primaryColor))
           : Container(
               padding: const EdgeInsets.all(10),
               child: Form(
@@ -857,6 +854,7 @@ class _AssetTagInformationState extends State<AssetTagInformation> {
                                           content: Text(
                                               "Please fill all the fields"),
                                           backgroundColor: Colors.red,
+                                          duration: Duration(seconds: 2),
                                         ),
                                       );
                                     } else {
@@ -905,7 +903,35 @@ class _AssetTagInformationState extends State<AssetTagInformation> {
                                         _assetLocationDetailsController.text
                                             .trim(),
                                         imagefiles!,
-                                      ).then((value) {});
+                                      ).then((value) {
+                                        Navigator.pop(context);
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          const SnackBar(
+                                            content: Text(
+                                              "Data Saved Successfully",
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                            backgroundColor: Colors.green,
+                                          ),
+                                        );
+                                      }).onError((error, stackTrace) {
+                                        Navigator.pop(context);
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          const SnackBar(
+                                            content: Text(
+                                              "Error while saving data",
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                            backgroundColor: Colors.red,
+                                          ),
+                                        );
+                                      });
                                     }
                                   },
                                   child: const Text('Save'),
