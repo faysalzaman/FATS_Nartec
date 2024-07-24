@@ -33,7 +33,14 @@ class _AssetByLocationScreenState extends State<AssetByLocationScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Asset By Location'),
+        title: Text(
+          'Asset By Location',
+          style: TextStyle(
+            color: Constant.primaryColor,
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
         centerTitle: true,
         elevation: 10,
       ),
@@ -136,7 +143,7 @@ class _AssetByLocationScreenState extends State<AssetByLocationScreen> {
                   const Text(
                     "Asset Location Details",
                     style: TextStyle(
-                      fontSize: 20,
+                      fontSize: 16,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -204,16 +211,17 @@ class _AssetByLocationScreenState extends State<AssetByLocationScreen> {
                                             getAllAssetByLocationList
                                                 .indexOf(e)],
                                         onChanged: (value) {
-                                          setState(() {
-                                            // can select only one checkbox at a time
-                                            for (int i = 0;
-                                                i < isMarked.length;
-                                                i++) {
-                                              isMarked[i] = false;
-                                            }
-                                            isMarked[getAllAssetByLocationList
-                                                .indexOf(e)] = value!;
-                                          });
+                                          setState(
+                                            () {
+                                              for (int i = 0;
+                                                  i < isMarked.length;
+                                                  i++) {
+                                                isMarked[i] = false;
+                                              }
+                                              isMarked[getAllAssetByLocationList
+                                                  .indexOf(e)] = value!;
+                                            },
+                                          );
                                         },
                                       ),
                                     ),
@@ -221,24 +229,56 @@ class _AssetByLocationScreenState extends State<AssetByLocationScreen> {
                                       Text(
                                         e.aSSETdESCRIPTION ?? '',
                                         textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          color: isMarked[
+                                                  getAllAssetByLocationList
+                                                      .indexOf(e)]
+                                              ? Colors.blue
+                                              : Colors.black,
+                                        ),
                                       ),
                                     ),
                                     DataCell(
                                       Text(
                                         e.sERIALnUMBER ?? '',
                                         textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          color: isMarked[
+                                                  getAllAssetByLocationList
+                                                      .indexOf(e)]
+                                              ? Colors.blue
+                                              : Colors.black,
+                                        ),
                                       ),
                                     ),
                                     DataCell(
                                       Text(
                                         e.tagNumber ?? '',
                                         textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          color: isMarked[
+                                                  getAllAssetByLocationList
+                                                      .indexOf(e)]
+                                              ? Colors.blue
+                                              : Colors.black,
+                                        ),
                                       ),
                                     ),
                                     DataCell(
                                       Text(
                                         e.minorCategoryDescription ?? '',
                                         textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          color: isMarked[
+                                                  getAllAssetByLocationList
+                                                      .indexOf(e)]
+                                              ? Colors.blue
+                                              : Colors.black,
+                                        ),
                                       ),
                                     ),
                                   ],
