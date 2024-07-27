@@ -23,7 +23,7 @@ class FatsWidget extends StatelessWidget {
           ),
         ],
       ),
-      child: const Column(
+      child: Column(
         children: [
           Text(
             "FATS",
