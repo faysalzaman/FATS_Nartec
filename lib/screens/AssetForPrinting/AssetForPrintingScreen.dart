@@ -47,6 +47,7 @@ class _AssetForPrintingScreenState extends State<AssetForPrintingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         title: const Text('Printing Assets'),
         backgroundColor: Constant.primaryColor,
@@ -55,7 +56,13 @@ class _AssetForPrintingScreenState extends State<AssetForPrintingScreen> {
         elevation: 0,
       ),
       body: assetGenerateModel.isEmpty
-          ? const Center(child: CircularProgressIndicator())
+          ? Center(
+              child: CircularProgressIndicator(
+              valueColor: AlwaysStoppedAnimation<Color>(Constant.primaryColor),
+              color: Color(0xFF00006A),
+              strokeWidth: 10,
+              strokeCap: StrokeCap.round,
+            ))
           : Stack(
               children: [
                 SingleChildScrollView(

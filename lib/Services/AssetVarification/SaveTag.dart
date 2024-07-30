@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:fats_client/Services/AssetVarification/DeleteTag.dart';
 import 'package:fats_client/screens/home_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:http_parser/http_parser.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -10,6 +11,8 @@ import '../../constants.dart';
 
 import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
+
+import 'package:mime/mime.dart';
 
 class SaveTagServices {
   static Future<void> saveTag(
@@ -67,7 +70,6 @@ class SaveTagServices {
 
     final headers = <String, String>{
       "Authorization": token,
-      "Content-Type": "multipart/form-data",
       "Host": Constant.host,
     };
 
@@ -120,27 +122,48 @@ class SaveTagServices {
     request.fields['PhoneExtNo'] = phoneExtNo;
     request.fields['FullLocationDetails'] = fullLocationDetails;
 
-    List<File> fle = [];
+    // Helper function to get MIME type from file extension
+    MediaType? getMediaType(String path) {
+      final mimeType = lookupMimeType(path);
+      if (mimeType != null) {
+        final parts = mimeType.split('/');
+        if (parts.length == 2) {
+          return MediaType(parts[0], parts[1]);
+        }
+      }
+      return MediaType('application', 'octet-stream');
+    }
 
+// Assuming `file` is a list of files or objects containing file paths
+    List<File?> fle = [];
+
+// Convert file paths to File objects and add them to the list
     for (int i = 0; i < file.length; i++) {
       fle.add(File(file[i].path));
     }
 
+// Add each file as a multipart file to the request
     for (int i = 0; i < fle.length; i++) {
-      var multipart = await http.MultipartFile.fromPath('images', fle[i].path);
+      var multipart = await http.MultipartFile.fromPath(
+        'images',
+        fle[i]!.path,
+        filename: fle[i]!.path.split('/').last,
+        contentType: getMediaType(fle[i]!.path),
+      );
       request.files.add(multipart);
     }
 
-    // print request
-    print(request);
-    print(request.fields);
-    print(request.files);
+    // debugging outputs
+    print('Request URL: $url');
+    print('Headers: $headers');
+    print('Fields: ${request.fields}');
+    print('Files: ${request.files.map((file) => file.filename).toList()}');
 
     try {
       request.send().then(
         (response) {
           if (response.statusCode == 200 || response.statusCode == 201) {
-            print("Uploaded!");
+            print(response.statusCode);
             DeleteTagServices.deleteTag(tagNo);
 
             Get.offAll(const HomeScreen());
@@ -152,20 +175,10 @@ class SaveTagServices {
               snackPosition: SnackPosition.BOTTOM,
             );
           } else {
-            print("Failed!");
+            print(response.statusCode);
           }
         },
-      ).onError((error, stackTrace) {
-        Get.back();
-        Get.snackbar(
-          "Error",
-          "Failed to Save Data",
-          backgroundColor: Colors.red,
-          colorText: Colors.white,
-          snackPosition: SnackPosition.BOTTOM,
-        );
-        throw Exception("Failed to load Data");
-      });
+      );
     } catch (e) {
       print(e);
       throw Exception('Failed to load Data');

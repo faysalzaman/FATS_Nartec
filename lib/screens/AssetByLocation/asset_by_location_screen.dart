@@ -32,16 +32,25 @@ class _AssetByLocationScreenState extends State<AssetByLocationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
+        backgroundColor: Constant.primaryColor,
         title: Text(
           'Asset By Location',
           style: TextStyle(
-            color: Constant.primaryColor,
+            color: Colors.white,
             fontSize: 16,
             fontWeight: FontWeight.bold,
           ),
         ),
         centerTitle: true,
+        // back button color white
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
         elevation: 10,
       ),
       body: Container(

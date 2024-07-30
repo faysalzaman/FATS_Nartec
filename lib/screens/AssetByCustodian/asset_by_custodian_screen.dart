@@ -59,9 +59,25 @@ class _AssetByCustodianState extends State<AssetByCustodian> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text('Asset By Custodian'),
+        backgroundColor: Constant.primaryColor,
+        title: const Text(
+          'Asset By Custodian',
+          style: TextStyle(
+            fontSize: 16, // Set your desired font size here
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+        ),
         centerTitle: true,
+        // back button color white
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
         elevation: 10,
       ),
       body: Container(

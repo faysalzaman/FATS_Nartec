@@ -45,6 +45,7 @@ class _NewAssetGenerateTagScreenState extends State<NewAssetGenerateTagScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         title: const Text('Generate New Tags'),
         centerTitle: true,
@@ -60,7 +61,12 @@ class _NewAssetGenerateTagScreenState extends State<NewAssetGenerateTagScreen> {
       //   label: const Text('Generate Tags'),
       // ),
       body: assetGenerateModel.isEmpty
-          ? const Center(child: CircularProgressIndicator())
+          ? const Center(
+              child: CircularProgressIndicator(
+              color: Color(0xFF00006A),
+              strokeWidth: 10,
+              strokeCap: StrokeCap.round,
+            ))
           : Stack(
               children: [
                 SingleChildScrollView(
