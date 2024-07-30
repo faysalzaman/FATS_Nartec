@@ -131,19 +131,29 @@ class SaveTagServices {
       request.files.add(multipart);
     }
 
+    // print request
+    print(request);
+    print(request.fields);
+    print(request.files);
+
     try {
       request.send().then(
         (response) {
-          DeleteTagServices.deleteTag(tagNo);
+          if (response.statusCode == 200 || response.statusCode == 201) {
+            print("Uploaded!");
+            DeleteTagServices.deleteTag(tagNo);
 
-          Get.offAll(const HomeScreen());
-          Get.snackbar(
-            "Success",
-            "Tag Verified Successfully",
-            backgroundColor: Colors.green,
-            colorText: Colors.white,
-            snackPosition: SnackPosition.BOTTOM,
-          );
+            Get.offAll(const HomeScreen());
+            Get.snackbar(
+              "Success",
+              "Tag Verified Successfully",
+              backgroundColor: Colors.green,
+              colorText: Colors.white,
+              snackPosition: SnackPosition.BOTTOM,
+            );
+          } else {
+            print("Failed!");
+          }
         },
       ).onError((error, stackTrace) {
         Get.back();

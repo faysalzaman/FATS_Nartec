@@ -91,8 +91,12 @@ class _VarifiedAssetScreenState extends State<VarifiedAssetScreen> {
       //   icon: const Icon(Icons.print),
       // ),
       body: varifiedAssetModel.isEmpty
-          ? const Center(
-              child: CircularProgressIndicator(),
+          ? Center(
+              child: CircularProgressIndicator(
+                color: Constant.primaryColor,
+                strokeWidth: 10,
+                strokeCap: StrokeCap.round,
+              ),
             )
           : Stack(
               children: [

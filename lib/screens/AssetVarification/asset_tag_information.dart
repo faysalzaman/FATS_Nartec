@@ -490,11 +490,14 @@ class _AssetTagInformationState extends State<AssetTagInformation> {
                                   );
                                 }).toList(),
                                 onChanged: (value) {
-                                  setState(() {
-                                    selectEmployeeName = value.toString();
-                                    _employeeIdController.text = employeeIdList[
-                                        employeeNameList.indexOf(value)];
-                                  });
+                                  setState(
+                                    () {
+                                      selectEmployeeName = value.toString();
+                                      _employeeIdController.text =
+                                          employeeIdList[
+                                              employeeNameList.indexOf(value)];
+                                    },
+                                  );
                                 },
                               ),
                             ),

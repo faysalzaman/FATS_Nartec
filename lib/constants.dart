@@ -13,7 +13,11 @@ class Constant {
       context: context,
       builder: (context) {
         return const Center(
-          child: CircularProgressIndicator(color: Color(0xFF00006A)),
+          child: CircularProgressIndicator(
+            color: Color(0xFF00006A),
+            strokeWidth: 10,
+            strokeCap: StrokeCap.round,
+          ),
         );
       },
     );
