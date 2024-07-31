@@ -9,9 +9,10 @@ class AssetMovement extends StatefulWidget {
 }
 
 class _AssetMovementState extends State<AssetMovement> {
-  int _rowsPerPage = PaginatedDataTable.defaultRowsPerPage;
+  int _rowsPerPage = 5; // Set default rows per page to 5
   int? _sortColumnIndex;
   bool _sortAscending = true;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,13 +37,16 @@ class _AssetMovementState extends State<AssetMovement> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text('Request #',
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                        )),
+                    Expanded(
+                      child: const Text('Request #',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          )),
+                    ),
                     const SizedBox(width: 8),
                     Expanded(
+                      flex: 2,
                       child: Container(
                         height: 50,
                         alignment: Alignment.center,
@@ -71,13 +75,16 @@ class _AssetMovementState extends State<AssetMovement> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text('Tag #',
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                        )),
+                    Expanded(
+                      child: const Text('Tag #',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          )),
+                    ),
                     const SizedBox(width: 8),
                     Expanded(
+                      flex: 2,
                       child: Container(
                         height: 50,
                         alignment: Alignment.center,
@@ -108,14 +115,22 @@ class _AssetMovementState extends State<AssetMovement> {
                   children: [
                     Expanded(
                       child: PaginatedDataTable(
+                        showFirstLastButtons: true,
                         header: const Text(
                           'Asset Details',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 13,
+                          ),
                         ),
-                        arrowHeadColor: Colors.white,
+                        arrowHeadColor: Colors.black,
                         headingRowColor: MaterialStateProperty.all(
                           Constant.primaryColor,
                         ),
                         rowsPerPage: _rowsPerPage,
+                        availableRowsPerPage: [
+                          5
+                        ], // Limit rows per page options to 5
                         onRowsPerPageChanged: (int? value) {
                           setState(() {
                             _rowsPerPage = value!;
@@ -152,15 +167,18 @@ class _AssetMovementState extends State<AssetMovement> {
                 const SizedBox(height: 8),
                 Row(
                   children: [
-                    const Text(
-                      "Transfer to\nlocation",
-                      style: TextStyle(
-                        fontSize: 13,
-                        fontWeight: FontWeight.bold,
+                    Expanded(
+                      child: const Text(
+                        "Transfer to\nlocation",
+                        style: TextStyle(
+                          fontSize: 13,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                     const SizedBox(width: 8),
                     Expanded(
+                      flex: 3,
                       child: Container(
                         height: 50,
                         alignment: Alignment.center,
@@ -180,15 +198,18 @@ class _AssetMovementState extends State<AssetMovement> {
                 const SizedBox(height: 8),
                 Row(
                   children: [
-                    const Text(
-                      "Total Assets",
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
+                    Expanded(
+                      child: const Text(
+                        "Total Assets",
+                        style: TextStyle(
+                          fontSize: 13,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                     const SizedBox(width: 8),
                     Expanded(
+                      flex: 3,
                       child: Container(
                         height: 50,
                         alignment: Alignment.center,
@@ -205,7 +226,7 @@ class _AssetMovementState extends State<AssetMovement> {
                     ),
                   ],
                 ),
-                const SizedBox(height: 8),
+                const SizedBox(height: 20),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [

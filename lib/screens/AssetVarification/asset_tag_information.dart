@@ -51,6 +51,8 @@ class _AssetTagInformationState extends State<AssetTagInformation> {
     EmployeeNameIdServices.nameIDMethod().then((employees) {
       setState(() {
         selectEmployeeName = employees[0].empName.toString();
+        _employeeIdController.text = employees[0].empID.toString();
+
         for (var employee in employees) {
           employeeNameList.add(employee.empName.toString());
           employeeIdList.add(employee.empID.toString());
@@ -147,7 +149,12 @@ class _AssetTagInformationState extends State<AssetTagInformation> {
       ),
       body: isLoading == true
           ? Center(
-              child: CircularProgressIndicator(color: Constant.primaryColor))
+              child: CircularProgressIndicator(
+              color: Constant.primaryColor,
+              backgroundColor: Colors.white,
+              strokeWidth: 10,
+              strokeCap: StrokeCap.round,
+            ))
           : Container(
               padding: const EdgeInsets.all(10),
               child: Form(

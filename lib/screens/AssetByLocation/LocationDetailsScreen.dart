@@ -68,15 +68,32 @@ class _LocationDetailsScreenState extends State<LocationDetailsScreen> {
     _notesController.text = widget.notes;
     _assetConditionController.text = widget.assetCondition;
     _boughtController.text = widget.bought;
-
-    print(widget.images.toString());
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text('Asset Tag Information'),
+        title: const Text(
+          'Asset Tag Information',
+          style: TextStyle(
+            fontSize: 16, // Set your desired font size here
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+        ),
+        backgroundColor: Constant.primaryColor,
+        // back button with white color
+        leading: IconButton(
+          icon: const Icon(
+            Icons.arrow_back,
+            color: Colors.white,
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
         centerTitle: true,
         elevation: 10,
       ),
@@ -311,12 +328,12 @@ class _LocationDetailsScreenState extends State<LocationDetailsScreen> {
                               height: 80,
                               width: 70,
                               child: Image.network(
-                                "http://161.97.172.46:7001/${e.replaceAll("\\", '/')}",
+                                "${Constant.baseUrl.replaceAll("/api", "")}/${e.replaceAll("\\", '/')}",
                                 fit: BoxFit.cover,
                                 errorBuilder: (context, error, stackTrace) {
                                   return const Center(
                                     child: Text(
-                                      "No Image",
+                                      "No Image found",
                                       style: TextStyle(
                                         fontSize: 15,
                                         color: Colors.black,

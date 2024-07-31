@@ -104,7 +104,13 @@ class _VarifiedAssetScreenState extends State<VarifiedAssetScreen> {
                   child: Column(
                     children: [
                       PaginatedDataTable(
-                        header: const Text('Verified Assets'),
+                        header: const Text(
+                          'Verified Assets',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 13,
+                          ),
+                        ),
                         headingRowColor:
                             MaterialStateProperty.all(Constant.primaryColor),
                         rowsPerPage: rowsPerPage,

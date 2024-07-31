@@ -244,12 +244,6 @@ class _AssetByCustodianState extends State<AssetByCustodian> {
                           columns: const [
                             DataColumn(
                                 label: Text(
-                              'Select',
-                              style: TextStyle(color: Colors.white),
-                              textAlign: TextAlign.center,
-                            )),
-                            DataColumn(
-                                label: Text(
                               'Asset Description',
                               style: TextStyle(color: Colors.white),
                               textAlign: TextAlign.center,
@@ -267,56 +261,64 @@ class _AssetByCustodianState extends State<AssetByCustodian> {
                               textAlign: TextAlign.center,
                             )),
                           ],
-                          rows: getAllEmployeeByIdList
-                              .map(
-                                (e) => DataRow(
-                                  cells: [
-                                    DataCell(
-                                      Checkbox(
-                                        value: isMarked[
-                                            getAllEmployeeByIdList.indexOf(e)],
-                                        onChanged: (value) {
-                                          setState(() {
-                                            // can select only one checkbox at a time
-                                            for (int i = 0;
-                                                i < isMarked.length;
-                                                i++) {
-                                              isMarked[i] = false;
-                                            }
-                                            isMarked[getAllEmployeeByIdList
-                                                .indexOf(e)] = value!;
-                                          });
-                                        },
-                                      ),
+                          rows: getAllEmployeeByIdList.map((e) {
+                            final isSelected =
+                                isMarked[getAllEmployeeByIdList.indexOf(e)];
+                            return DataRow(
+                              selected: isSelected,
+                              onSelectChanged: (value) {
+                                setState(() {
+                                  for (int i = 0; i < isMarked.length; i++) {
+                                    isMarked[i] = false;
+                                  }
+                                  isMarked[getAllEmployeeByIdList.indexOf(e)] =
+                                      value!;
+                                });
+                              },
+                              cells: [
+                                DataCell(
+                                  Text(
+                                    e.aSSETdESCRIPTION ?? '',
+                                    style: TextStyle(
+                                      color: isSelected
+                                          ? Constant.primaryColor
+                                          : Colors.black,
                                     ),
-                                    DataCell(
-                                      Text(
-                                        e.aSSETdESCRIPTION ?? '',
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ),
-                                    DataCell(
-                                      Text(
-                                        e.sERIALnUMBER ?? '',
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ),
-                                    DataCell(
-                                      Text(
-                                        e.tagNumber ?? '',
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ),
-                                    DataCell(
-                                      Text(
-                                        e.minorCategoryDescription ?? '',
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ),
-                                  ],
+                                  ),
                                 ),
-                              )
-                              .toList(),
+                                DataCell(
+                                  Text(
+                                    e.sERIALnUMBER ?? '',
+                                    style: TextStyle(
+                                      color: isSelected
+                                          ? Constant.primaryColor
+                                          : Colors.black,
+                                    ),
+                                  ),
+                                ),
+                                DataCell(
+                                  Text(
+                                    e.tagNumber ?? '',
+                                    style: TextStyle(
+                                      color: isSelected
+                                          ? Constant.primaryColor
+                                          : Colors.black,
+                                    ),
+                                  ),
+                                ),
+                                DataCell(
+                                  Text(
+                                    e.minorCategoryDescription ?? '',
+                                    style: TextStyle(
+                                      color: isSelected
+                                          ? Constant.primaryColor
+                                          : Colors.black,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            );
+                          }).toList(),
                         ),
                       ),
                     ),

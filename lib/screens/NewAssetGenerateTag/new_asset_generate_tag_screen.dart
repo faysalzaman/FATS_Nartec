@@ -33,6 +33,9 @@ class _NewAssetGenerateTagScreenState extends State<NewAssetGenerateTagScreen> {
             assetGenerateModel = response;
             isMarked =
                 List.generate(assetGenerateModel.length, (index) => false);
+
+            // reverse the list to show the latest data first
+            assetGenerateModel = assetGenerateModel.reversed.toList();
           });
         },
       ).onError((error, stackTrace) {

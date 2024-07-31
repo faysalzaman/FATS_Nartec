@@ -71,14 +71,34 @@ class _AssetTagInformationScreenState extends State<AssetTagInformationScreen> {
     _assetConditionController.text = widget.assetCondition;
     _boughtController.text = widget.bought;
 
-    print(widget.images.toString());
+    print(
+      "${Constant.baseUrl.replaceAll("/api", "")}/${widget.images.replaceAll("\\", '/')}",
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text('Asset Tag Information'),
+        title: const Text(
+          'Asset Tag Information',
+          style: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        backgroundColor: Constant.primaryColor,
+        leading: IconButton(
+          style: ButtonStyle(
+            foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+          ),
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+        automaticallyImplyLeading: false,
         centerTitle: true,
         elevation: 10,
       ),
@@ -336,7 +356,9 @@ class _AssetTagInformationScreenState extends State<AssetTagInformationScreen> {
                             child: Container(
                               padding: const EdgeInsets.all(10),
                               child: Image.network(
-                                "http://161.97.172.46:7001/${e.replaceAll("\\", '/')}",
+                                "${Constant.baseUrl.replaceAll("/api", "")}/${e.replaceAll("\\", '/')}",
+                                width: 100,
+                                height: 100,
                                 fit: BoxFit.cover,
                                 errorBuilder: (context, error, stackTrace) {
                                   return const Center(

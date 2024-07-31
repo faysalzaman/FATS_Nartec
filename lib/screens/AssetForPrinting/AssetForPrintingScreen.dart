@@ -72,7 +72,8 @@ class _AssetForPrintingScreenState extends State<AssetForPrintingScreen> {
                         header: const Text(
                           'Assets',
                           style: TextStyle(
-                            fontSize: 16,
+                            color: Colors.black,
+                            fontSize: 13,
                           ),
                         ),
                         rowsPerPage: rowsPerPage,

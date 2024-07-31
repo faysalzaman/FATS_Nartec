@@ -1,3 +1,4 @@
+import 'package:fats_client/constants.dart';
 import 'package:fats_client/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -38,11 +39,12 @@ class _SplashScreenState extends State<SplashScreen> {
               child: Image.asset(
                 'assets/logo/app_icon.png',
                 width: double.infinity,
-                fit: BoxFit.cover,
+                height: 200,
+                fit: BoxFit.contain,
               ),
             ),
-            const CircularProgressIndicator(
-              color: Colors.blue,
+            CircularProgressIndicator(
+              color: Constant.primaryColor,
               backgroundColor: Colors.white,
               strokeWidth: 10,
               strokeCap: StrokeCap.round,
