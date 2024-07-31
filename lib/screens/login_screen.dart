@@ -123,9 +123,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       width: MediaQuery.of(context).size.width * 0.9,
                       height: MediaQuery.of(context).size.height * 0.07,
                       decoration: BoxDecoration(
-                        border: Border.all(
-                          color: Colors.grey,
-                        ),
+                        border: Border.all(color: Colors.grey),
                         borderRadius: BorderRadius.circular(20),
                       ),
                       child: TextField(

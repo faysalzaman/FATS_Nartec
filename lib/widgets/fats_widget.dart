@@ -25,13 +25,10 @@ class FatsWidget extends StatelessWidget {
       ),
       child: Column(
         children: [
-          Text(
-            "FATS",
-            style: TextStyle(
-              fontSize: 80,
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-            ),
+          Image.asset(
+            'assets/logo/app_icon.png',
+            height: MediaQuery.of(context).size.height * 0.2,
+            fit: BoxFit.contain,
           ),
           const SizedBox(height: 10),
           Text(
