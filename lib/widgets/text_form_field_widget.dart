@@ -31,7 +31,6 @@ class TextFormFieldWidget extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
-
       ),
       width: width ?? MediaQuery.of(context).size.width * 0.8,
       height: height ?? 45,
@@ -42,7 +41,8 @@ class TextFormFieldWidget extends StatelessWidget {
         controller: controller,
         onChanged: onChanged,
         onEditingComplete: onEditingComplete,
-        decoration:  InputDecoration(
+        decoration: InputDecoration(
+          isDense: true,
           filled: true,
           fillColor: color ?? Colors.white,
           border: const OutlineInputBorder(

@@ -146,6 +146,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         },
                         controller: _emailController,
                         decoration: InputDecoration(
+                          hintText: "Enter Login Id",
                           contentPadding: const EdgeInsets.symmetric(
                             horizontal: 10,
                             vertical: 10,
@@ -208,6 +209,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           }
                         },
                         decoration: InputDecoration(
+                          hintText: "Enter Password",
                           contentPadding: const EdgeInsets.symmetric(
                             horizontal: 10,
                             vertical: 10,

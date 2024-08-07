@@ -83,7 +83,7 @@ class _AssetByLocationScreenState extends State<AssetByLocationScreen> {
                             Expanded(
                               child: TextFormFieldWidget(
                                 controller: _locationController,
-                                height: 50,
+                                height: 60,
                                 width: MediaQuery.of(context).size.width * 0.9,
                                 onEditingComplete: () {
                                   FocusScope.of(context).unfocus();

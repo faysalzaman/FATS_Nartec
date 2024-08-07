@@ -209,7 +209,7 @@ class _AssetByCustodianState extends State<AssetByCustodian> {
                       TextFormFieldWidget(
                         readOnly: true,
                         controller: _employeeNameController,
-                        height: 50,
+                        height: 60,
                         width: MediaQuery.of(context).size.width * 0.9,
                       ),
                     ],
