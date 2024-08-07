@@ -26,17 +26,19 @@ class LoginServices {
     try {
       final response = await http.get(Uri.parse(url), headers: headers);
 
-      if (response.statusCode == 200) {
+      if (response.statusCode == 200 || response.statusCode == 201) {
         var data = json.decode(response.body) as List;
         List<CountriesListModel> countriesList =
             data.map((e) => CountriesListModel.fromJson(e)).toList();
         return countriesList;
       } else {
-        throw Exception('Failed to load countries list');
+        var data = json.decode(response.body);
+        var msg = data['message'];
+
+        throw Exception(msg);
       }
     } catch (e) {
-      print(e);
-      throw Exception('Failed to load countries list');
+      throw Exception(e.toString());
     }
   }
 }

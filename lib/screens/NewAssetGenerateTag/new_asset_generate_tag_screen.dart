@@ -18,6 +18,7 @@ class _NewAssetGenerateTagScreenState extends State<NewAssetGenerateTagScreen> {
   List<AssetGenerateModel> assetGenerateModel = [];
   List<bool> isMarked = [];
   int rowsPerPage = PaginatedDataTable.defaultRowsPerPage;
+  bool isLoading = true;
 
   @override
   void initState() {
@@ -26,7 +27,7 @@ class _NewAssetGenerateTagScreenState extends State<NewAssetGenerateTagScreen> {
   }
 
   Future<void> fetchData() async {
-    Future.delayed(const Duration(seconds: 3), () {
+    Future.delayed(Duration.zero, () {
       NewAssetTagGenerateServices.tagGenerate().then(
         (response) {
           setState(() {
@@ -36,11 +37,15 @@ class _NewAssetGenerateTagScreenState extends State<NewAssetGenerateTagScreen> {
 
             // reverse the list to show the latest data first
             assetGenerateModel = assetGenerateModel.reversed.toList();
+            isLoading = false;
           });
         },
       ).onError((error, stackTrace) {
         Navigator.pop(context);
         print("Error is: $error");
+        setState(() {
+          isLoading = false;
+        });
       });
     });
   }
@@ -63,211 +68,219 @@ class _NewAssetGenerateTagScreenState extends State<NewAssetGenerateTagScreen> {
       // },
       //   label: const Text('Generate Tags'),
       // ),
-      body: assetGenerateModel.isEmpty
-          ? const Center(
+      body: isLoading == true
+          ? Center(
               child: CircularProgressIndicator(
-              color: Color(0xFF00006A),
-              strokeWidth: 10,
-              strokeCap: StrokeCap.round,
-            ))
-          : Stack(
-              children: [
-                SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      PaginatedDataTable(
-                        header: const Text(
-                          'Generated Asset Tags',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 13,
+                color: Constant.primaryColor,
+                strokeWidth: 10,
+                strokeCap: StrokeCap.round,
+              ),
+            )
+          : assetGenerateModel.isEmpty
+              ? Center(
+                  child: Image.network(Constant.placeHolderImage),
+                )
+              : Stack(
+                  children: [
+                    SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          PaginatedDataTable(
+                            header: const Text(
+                              'Generated Asset Tags',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 13,
+                              ),
+                            ),
+                            headingRowColor: MaterialStateProperty.all(
+                                Constant.primaryColor),
+                            rowsPerPage: rowsPerPage,
+                            onRowsPerPageChanged: (value) {
+                              setState(() {
+                                rowsPerPage = value ??
+                                    PaginatedDataTable.defaultRowsPerPage;
+                              });
+                            },
+                            columns: [
+                              DataColumn(
+                                  label: const Text('Mark',
+                                      style: TextStyle(color: Colors.white))),
+                              DataColumn(
+                                  label: const Text('Id',
+                                      style: TextStyle(color: Colors.white))),
+                              DataColumn(
+                                  label: const Text('Major Category',
+                                      style: TextStyle(color: Colors.white))),
+                              DataColumn(
+                                  label: const Text(
+                                      'Major Category Description',
+                                      style: TextStyle(color: Colors.white))),
+                              DataColumn(
+                                  label: const Text('Minor Category',
+                                      style: TextStyle(color: Colors.white))),
+                              DataColumn(
+                                  label: const Text(
+                                      'Minor Category Description',
+                                      style: TextStyle(color: Colors.white))),
+                              DataColumn(
+                                  label: const Text('Tag Number',
+                                      style: TextStyle(color: Colors.white))),
+                              DataColumn(
+                                  label: const Text('Serial Number',
+                                      style: TextStyle(color: Colors.white))),
+                              DataColumn(
+                                  label: const Text('Asset Description',
+                                      style: TextStyle(color: Colors.white))),
+                              DataColumn(
+                                  label: const Text('Asset Type',
+                                      style: TextStyle(color: Colors.white))),
+                              DataColumn(
+                                  label: const Text('Asset Condition',
+                                      style: TextStyle(color: Colors.white))),
+                              DataColumn(
+                                  label: const Text('Manufacturer',
+                                      style: TextStyle(color: Colors.white))),
+                              DataColumn(
+                                  label: const Text('Model Manufacturer',
+                                      style: TextStyle(color: Colors.white))),
+                              DataColumn(
+                                  label: const Text('Region',
+                                      style: TextStyle(color: Colors.white))),
+                              DataColumn(
+                                  label: const Text('Country',
+                                      style: TextStyle(color: Colors.white))),
+                              DataColumn(
+                                  label: const Text('City',
+                                      style: TextStyle(color: Colors.white))),
+                              DataColumn(
+                                  label: const Text('Department Code',
+                                      style: TextStyle(color: Colors.white))),
+                              DataColumn(
+                                  label: const Text('Department Name',
+                                      style: TextStyle(color: Colors.white))),
+                              DataColumn(
+                                  label: const Text('Business Unit',
+                                      style: TextStyle(color: Colors.white))),
+                              DataColumn(
+                                  label: const Text('Building Number',
+                                      style: TextStyle(color: Colors.white))),
+                              DataColumn(
+                                  label: const Text('Floor Number',
+                                      style: TextStyle(color: Colors.white))),
+                              DataColumn(
+                                  label: const Text('Employee Id',
+                                      style: TextStyle(color: Colors.white))),
+                              DataColumn(
+                                  label: const Text('PO Number',
+                                      style: TextStyle(color: Colors.white))),
+                              DataColumn(
+                                  label: const Text('Delivery Note Number',
+                                      style: TextStyle(color: Colors.white))),
+                              DataColumn(
+                                  label: const Text('Supplier',
+                                      style: TextStyle(color: Colors.white))),
+                              DataColumn(
+                                  label: const Text('Invoice Number',
+                                      style: TextStyle(color: Colors.white))),
+                              DataColumn(
+                                  label: const Text('Invoice Date',
+                                      style: TextStyle(color: Colors.white))),
+                              DataColumn(
+                                  label: const Text('Ownership',
+                                      style: TextStyle(color: Colors.white))),
+                              DataColumn(
+                                  label: const Text('Bought',
+                                      style: TextStyle(color: Colors.white))),
+                              DataColumn(
+                                  label: const Text('Terminal Id',
+                                      style: TextStyle(color: Colors.white))),
+                              DataColumn(
+                                  label: const Text('ATM Number',
+                                      style: TextStyle(color: Colors.white))),
+                              DataColumn(
+                                  label: const Text('Location Tag',
+                                      style: TextStyle(color: Colors.white))),
+                              DataColumn(
+                                  label: const Text('Building Name',
+                                      style: TextStyle(color: Colors.white))),
+                              DataColumn(
+                                  label: const Text('Building Address',
+                                      style: TextStyle(color: Colors.white))),
+                              DataColumn(
+                                  label: const Text('User Login Id',
+                                      style: TextStyle(color: Colors.white))),
+                              DataColumn(
+                                  label: const Text('Main Sub Series',
+                                      style: TextStyle(color: Colors.white))),
+                              DataColumn(
+                                  label: const Text('',
+                                      style: TextStyle(color: Colors.white))),
+                              DataColumn(
+                                  label: const Text('Asset Date Captured',
+                                      style: TextStyle(color: Colors.white))),
+                              DataColumn(
+                                  label: const Text('Asset Time Captured',
+                                      style: TextStyle(color: Colors.white))),
+                              DataColumn(
+                                  label: const Text('Asset Date Scanned',
+                                      style: TextStyle(color: Colors.white))),
+                              DataColumn(
+                                  label: const Text('Asset Time Scanned',
+                                      style: TextStyle(color: Colors.white))),
+                              DataColumn(
+                                  label: const Text('Qty',
+                                      style: TextStyle(color: Colors.white))),
+                              DataColumn(
+                                  label: const Text('Phone Exit Number',
+                                      style: TextStyle(color: Colors.white))),
+                              DataColumn(
+                                  label: const Text('Full Location Details',
+                                      style: TextStyle(color: Colors.white))),
+                            ],
+                            source: _DataSource(
+                              context: context,
+                              assetGenerateModel: assetGenerateModel,
+                              isMarked: isMarked,
+                              setState: setState,
+                            ),
                           ),
-                        ),
-                        headingRowColor:
-                            MaterialStateProperty.all(Constant.primaryColor),
-                        rowsPerPage: rowsPerPage,
-                        onRowsPerPageChanged: (value) {
-                          setState(() {
-                            rowsPerPage =
-                                value ?? PaginatedDataTable.defaultRowsPerPage;
-                          });
-                        },
-                        columns: [
-                          DataColumn(
-                              label: const Text('Mark',
-                                  style: TextStyle(color: Colors.white))),
-                          DataColumn(
-                              label: const Text('Id',
-                                  style: TextStyle(color: Colors.white))),
-                          DataColumn(
-                              label: const Text('Major Category',
-                                  style: TextStyle(color: Colors.white))),
-                          DataColumn(
-                              label: const Text('Major Category Description',
-                                  style: TextStyle(color: Colors.white))),
-                          DataColumn(
-                              label: const Text('Minor Category',
-                                  style: TextStyle(color: Colors.white))),
-                          DataColumn(
-                              label: const Text('Minor Category Description',
-                                  style: TextStyle(color: Colors.white))),
-                          DataColumn(
-                              label: const Text('Tag Number',
-                                  style: TextStyle(color: Colors.white))),
-                          DataColumn(
-                              label: const Text('Serial Number',
-                                  style: TextStyle(color: Colors.white))),
-                          DataColumn(
-                              label: const Text('Asset Description',
-                                  style: TextStyle(color: Colors.white))),
-                          DataColumn(
-                              label: const Text('Asset Type',
-                                  style: TextStyle(color: Colors.white))),
-                          DataColumn(
-                              label: const Text('Asset Condition',
-                                  style: TextStyle(color: Colors.white))),
-                          DataColumn(
-                              label: const Text('Manufacturer',
-                                  style: TextStyle(color: Colors.white))),
-                          DataColumn(
-                              label: const Text('Model Manufacturer',
-                                  style: TextStyle(color: Colors.white))),
-                          DataColumn(
-                              label: const Text('Region',
-                                  style: TextStyle(color: Colors.white))),
-                          DataColumn(
-                              label: const Text('Country',
-                                  style: TextStyle(color: Colors.white))),
-                          DataColumn(
-                              label: const Text('City',
-                                  style: TextStyle(color: Colors.white))),
-                          DataColumn(
-                              label: const Text('Department Code',
-                                  style: TextStyle(color: Colors.white))),
-                          DataColumn(
-                              label: const Text('Department Name',
-                                  style: TextStyle(color: Colors.white))),
-                          DataColumn(
-                              label: const Text('Business Unit',
-                                  style: TextStyle(color: Colors.white))),
-                          DataColumn(
-                              label: const Text('Building Number',
-                                  style: TextStyle(color: Colors.white))),
-                          DataColumn(
-                              label: const Text('Floor Number',
-                                  style: TextStyle(color: Colors.white))),
-                          DataColumn(
-                              label: const Text('Employee Id',
-                                  style: TextStyle(color: Colors.white))),
-                          DataColumn(
-                              label: const Text('PO Number',
-                                  style: TextStyle(color: Colors.white))),
-                          DataColumn(
-                              label: const Text('Delivery Note Number',
-                                  style: TextStyle(color: Colors.white))),
-                          DataColumn(
-                              label: const Text('Supplier',
-                                  style: TextStyle(color: Colors.white))),
-                          DataColumn(
-                              label: const Text('Invoice Number',
-                                  style: TextStyle(color: Colors.white))),
-                          DataColumn(
-                              label: const Text('Invoice Date',
-                                  style: TextStyle(color: Colors.white))),
-                          DataColumn(
-                              label: const Text('Ownership',
-                                  style: TextStyle(color: Colors.white))),
-                          DataColumn(
-                              label: const Text('Bought',
-                                  style: TextStyle(color: Colors.white))),
-                          DataColumn(
-                              label: const Text('Terminal Id',
-                                  style: TextStyle(color: Colors.white))),
-                          DataColumn(
-                              label: const Text('ATM Number',
-                                  style: TextStyle(color: Colors.white))),
-                          DataColumn(
-                              label: const Text('Location Tag',
-                                  style: TextStyle(color: Colors.white))),
-                          DataColumn(
-                              label: const Text('Building Name',
-                                  style: TextStyle(color: Colors.white))),
-                          DataColumn(
-                              label: const Text('Building Address',
-                                  style: TextStyle(color: Colors.white))),
-                          DataColumn(
-                              label: const Text('User Login Id',
-                                  style: TextStyle(color: Colors.white))),
-                          DataColumn(
-                              label: const Text('Main Sub Series',
-                                  style: TextStyle(color: Colors.white))),
-                          DataColumn(
-                              label: const Text('',
-                                  style: TextStyle(color: Colors.white))),
-                          DataColumn(
-                              label: const Text('Asset Date Captured',
-                                  style: TextStyle(color: Colors.white))),
-                          DataColumn(
-                              label: const Text('Asset Time Captured',
-                                  style: TextStyle(color: Colors.white))),
-                          DataColumn(
-                              label: const Text('Asset Date Scanned',
-                                  style: TextStyle(color: Colors.white))),
-                          DataColumn(
-                              label: const Text('Asset Time Scanned',
-                                  style: TextStyle(color: Colors.white))),
-                          DataColumn(
-                              label: const Text('Qty',
-                                  style: TextStyle(color: Colors.white))),
-                          DataColumn(
-                              label: const Text('Phone Exit Number',
-                                  style: TextStyle(color: Colors.white))),
-                          DataColumn(
-                              label: const Text('Full Location Details',
-                                  style: TextStyle(color: Colors.white))),
                         ],
-                        source: _DataSource(
-                          context: context,
-                          assetGenerateModel: assetGenerateModel,
-                          isMarked: isMarked,
-                          setState: setState,
+                      ),
+                    ),
+                    Positioned(
+                      right: 10,
+                      top: 10,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Constant.primaryColor,
+                        ),
+                        onPressed: () {
+                          // if not selected then return get.snackbar
+                          if (isMarked.where((marked) => marked).isEmpty) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content:
+                                    Text('Please select at least one item'),
+                                backgroundColor: Colors.red,
+                              ),
+                            );
+                            return;
+                          }
+
+                          Constant.showLoadingDialog(context);
+                          GenerateTagsServices.tagGenerate(context);
+                        },
+                        child: const Text(
+                          'Generate Tags',
+                          style: TextStyle(
+                            color: Colors.white,
+                          ),
                         ),
                       ),
-                    ],
-                  ),
-                ),
-                Positioned(
-                  right: 10,
-                  top: 10,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Constant.primaryColor,
                     ),
-                    onPressed: () {
-                      // if not selected then return get.snackbar
-                      if (isMarked.where((marked) => marked).isEmpty) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text('Please select at least one item'),
-                            backgroundColor: Colors.red,
-                          ),
-                        );
-                        return;
-                      }
-
-                      Constant.showLoadingDialog(context);
-                      GenerateTagsServices.tagGenerate(context);
-                    },
-                    child: const Text(
-                      'Generate Tags',
-                      style: TextStyle(
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
+                  ],
                 ),
-              ],
-            ),
     );
   }
 

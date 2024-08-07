@@ -20,6 +20,10 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+
+  final FocusNode _emailFocus = FocusNode();
+  final FocusNode _passwordFocus = FocusNode();
+
   bool _obscureText = true;
 
   String languageValue = "English";
@@ -79,13 +83,22 @@ class _LoginScreenState extends State<LoginScreen> {
 
       Get.snackbar(
         "Error",
-        e.toString(),
+        e.toString().replaceAll("Exception:", ""),
         snackPosition: SnackPosition.BOTTOM,
         backgroundColor: Colors.red,
         colorText: Colors.white,
         duration: const Duration(seconds: 3),
       );
     }
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+    _emailFocus.dispose();
+    _passwordFocus.dispose();
   }
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -127,6 +140,10 @@ class _LoginScreenState extends State<LoginScreen> {
                         borderRadius: BorderRadius.circular(20),
                       ),
                       child: TextField(
+                        focusNode: _emailFocus,
+                        onEditingComplete: () {
+                          FocusScope.of(context).requestFocus(_passwordFocus);
+                        },
                         controller: _emailController,
                         decoration: InputDecoration(
                           contentPadding: const EdgeInsets.symmetric(
@@ -162,7 +179,34 @@ class _LoginScreenState extends State<LoginScreen> {
                         borderRadius: BorderRadius.circular(20),
                       ),
                       child: TextField(
+                        focusNode: _passwordFocus,
                         controller: _passwordController,
+                        onEditingComplete: () {
+                          FocusScope.of(context).unfocus();
+                          // call the login fuction
+                          Constant.showLoadingDialog(context);
+                          if (_emailController.text.isEmpty ||
+                              _passwordController.text.isEmpty) {
+                            Navigator.of(context).pop();
+                            Get.snackbar(
+                              "Error",
+                              "Please fill all the fields",
+                              snackPosition: SnackPosition.BOTTOM,
+                              backgroundColor: Colors.red,
+                              colorText: Colors.white,
+                              duration: const Duration(seconds: 3),
+                            );
+                          } else {
+                            if (_formKey.currentState!.validate()) {
+                              _loginApi(
+                                _emailController.text.trim(),
+                                _passwordController.text.trim(),
+                              );
+                            } else {
+                              Navigator.of(context).pop();
+                            }
+                          }
+                        },
                         decoration: InputDecoration(
                           contentPadding: const EdgeInsets.symmetric(
                             horizontal: 10,
@@ -215,6 +259,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       child: DropdownButtonFormField(
                         value: languageValue,
+                        isExpanded: true,
                         items: languageList.map((value) {
                           return DropdownMenuItem(
                             value: value,

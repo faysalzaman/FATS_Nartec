@@ -46,7 +46,7 @@ class _AssetTransactionState extends State<AssetTransaction> {
   String token = '';
 
   List<String> icons = [
-    "assets/asset_movement.png",
+    "assets/images/AssetMovements.png",
     "assets/asset_inventory.png",
     "assets/rectify_assets_by_location.png",
     "assets/rectify_assets_by_employee.png",
@@ -92,11 +92,15 @@ class _AssetTransactionState extends State<AssetTransaction> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const SizedBox(height: 32),
-                  Image.asset("assets/images/nartec_logo.png"),
+                  Image.asset(
+                    "assets/logo/app_icon.png",
+                    height: 150,
+                    fit: BoxFit.cover,
+                  ),
                   Container(
                     margin: const EdgeInsets.all(20),
                     decoration: BoxDecoration(
-                      color: Colors.grey[300],
+                      color: Colors.grey[200],
                       borderRadius: BorderRadius.circular(16),
                     ),
                     child: Column(

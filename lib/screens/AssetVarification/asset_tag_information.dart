@@ -490,6 +490,7 @@ class _AssetTagInformationState extends State<AssetTagInformation> {
                               ),
                               child: DropdownButtonFormField(
                                 value: selectEmployeeName,
+                                isExpanded: true,
                                 items: employeeNameList.map((value) {
                                   return DropdownMenuItem(
                                     value: value,
@@ -758,6 +759,7 @@ class _AssetTagInformationState extends State<AssetTagInformation> {
                               ),
                               child: DropdownButtonFormField(
                                 value: selectAssetCondition,
+                                isExpanded: true,
                                 items: assetConditionList.map((value) {
                                   return DropdownMenuItem(
                                     value: value,
@@ -802,6 +804,7 @@ class _AssetTagInformationState extends State<AssetTagInformation> {
                               ),
                               child: DropdownButtonFormField(
                                 value: selectBought,
+                                isExpanded: true,
                                 items: boughtList.map((value) {
                                   return DropdownMenuItem(
                                     value: value,

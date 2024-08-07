@@ -20,11 +20,13 @@ class _AssetForPrintingScreenState extends State<AssetForPrintingScreen> {
   List<bool> isMarked = [];
   int rowsPerPage = PaginatedDataTable.defaultRowsPerPage;
 
+  bool isLoading = true;
+
   @override
   void initState() {
     super.initState();
     Future.delayed(
-      const Duration(seconds: 3),
+      Duration.zero,
       () {
         AssetForPrintingServices.assetForPrint().then(
           (response) {
@@ -32,12 +34,17 @@ class _AssetForPrintingScreenState extends State<AssetForPrintingScreen> {
             for (int i = 0; i < assetGenerateModel.length; i++) {
               isMarked.add(false);
             }
-            setState(() {});
+            setState(() {
+              isLoading = false;
+            });
           },
         ).onError(
           (error, stackTrace) {
             Navigator.pop(context);
             print("Error is: $error");
+            setState(() {
+              isLoading = false;
+            });
           },
         );
       },
@@ -55,142 +62,149 @@ class _AssetForPrintingScreenState extends State<AssetForPrintingScreen> {
         centerTitle: true,
         elevation: 0,
       ),
-      body: assetGenerateModel.isEmpty
+      body: isLoading == true
           ? Center(
               child: CircularProgressIndicator(
-              valueColor: AlwaysStoppedAnimation<Color>(Constant.primaryColor),
-              color: Color(0xFF00006A),
-              strokeWidth: 10,
-              strokeCap: StrokeCap.round,
-            ))
-          : Stack(
-              children: [
-                SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      PaginatedDataTable(
-                        header: const Text(
-                          'Assets',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 13,
+                color: Constant.primaryColor,
+                strokeWidth: 10,
+                strokeCap: StrokeCap.round,
+              ),
+            )
+          : assetGenerateModel.isEmpty
+              ? Center(
+                  child: Image.network(Constant.placeHolderImage),
+                )
+              : Stack(
+                  children: [
+                    SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          PaginatedDataTable(
+                            header: const Text(
+                              'Assets',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 13,
+                              ),
+                            ),
+                            rowsPerPage: rowsPerPage,
+                            headingRowColor: MaterialStateProperty.all(
+                                Constant.primaryColor),
+                            onRowsPerPageChanged: (value) {
+                              setState(() {
+                                rowsPerPage = value ??
+                                    PaginatedDataTable.defaultRowsPerPage;
+                              });
+                            },
+                            columns: [
+                              dataColumnWidget("Mark"),
+                              dataColumnWidget("Id"),
+                              dataColumnWidget("Major Category"),
+                              dataColumnWidget("Major Category Description"),
+                              dataColumnWidget("Minor Category"),
+                              dataColumnWidget("Minor Category Description"),
+                              dataColumnWidget("Tag Number"),
+                              dataColumnWidget("Serial Number"),
+                              dataColumnWidget("Asset Description"),
+                              dataColumnWidget("Asset Type"),
+                              dataColumnWidget("Asset Condition"),
+                              dataColumnWidget("Manufacturer"),
+                              dataColumnWidget("Model Manufacturer"),
+                              dataColumnWidget("Region"),
+                              dataColumnWidget("Country"),
+                              dataColumnWidget("City"),
+                              dataColumnWidget("Department Code"),
+                              dataColumnWidget("Department Name"),
+                              dataColumnWidget("Business Unit"),
+                              dataColumnWidget("Building Number"),
+                              dataColumnWidget("Floor Number"),
+                              dataColumnWidget("Employee Id"),
+                              dataColumnWidget("PO Number"),
+                              dataColumnWidget("Delivery Note Number"),
+                              dataColumnWidget("Supplier"),
+                              dataColumnWidget("Invoice Number"),
+                              dataColumnWidget("Invoice Date"),
+                              dataColumnWidget("Ownership"),
+                              dataColumnWidget("Bought"),
+                              dataColumnWidget("Terminal Id"),
+                              dataColumnWidget("ATM Number"),
+                              dataColumnWidget("Location Tag"),
+                              dataColumnWidget("Building Name"),
+                              dataColumnWidget("Building Address"),
+                              dataColumnWidget("User Login Id"),
+                              dataColumnWidget("Main Sub Series"),
+                              dataColumnWidget(
+                                  "Major Categories Plus Miner Categories"),
+                              dataColumnWidget("Asset Date Captured"),
+                              dataColumnWidget("Asset Time Captured"),
+                              dataColumnWidget("Asset Date Scanned"),
+                              dataColumnWidget("Asset Time Scanned"),
+                              dataColumnWidget("Qty"),
+                              dataColumnWidget("Phone Exit Number"),
+                              dataColumnWidget("Full Location Details"),
+                              dataColumnWidget("Delete Asset"),
+                            ],
+                            source: AssetDataSource(
+                              context: context,
+                              assetGenerateModel: assetGenerateModel,
+                              isMarked: isMarked,
+                              setState: setState,
+                            ),
                           ),
-                        ),
-                        rowsPerPage: rowsPerPage,
-                        headingRowColor:
-                            MaterialStateProperty.all(Constant.primaryColor),
-                        onRowsPerPageChanged: (value) {
-                          setState(() {
-                            rowsPerPage =
-                                value ?? PaginatedDataTable.defaultRowsPerPage;
-                          });
-                        },
-                        columns: [
-                          dataColumnWidget("Mark"),
-                          dataColumnWidget("Id"),
-                          dataColumnWidget("Major Category"),
-                          dataColumnWidget("Major Category Description"),
-                          dataColumnWidget("Minor Category"),
-                          dataColumnWidget("Minor Category Description"),
-                          dataColumnWidget("Tag Number"),
-                          dataColumnWidget("Serial Number"),
-                          dataColumnWidget("Asset Description"),
-                          dataColumnWidget("Asset Type"),
-                          dataColumnWidget("Asset Condition"),
-                          dataColumnWidget("Manufacturer"),
-                          dataColumnWidget("Model Manufacturer"),
-                          dataColumnWidget("Region"),
-                          dataColumnWidget("Country"),
-                          dataColumnWidget("City"),
-                          dataColumnWidget("Department Code"),
-                          dataColumnWidget("Department Name"),
-                          dataColumnWidget("Business Unit"),
-                          dataColumnWidget("Building Number"),
-                          dataColumnWidget("Floor Number"),
-                          dataColumnWidget("Employee Id"),
-                          dataColumnWidget("PO Number"),
-                          dataColumnWidget("Delivery Note Number"),
-                          dataColumnWidget("Supplier"),
-                          dataColumnWidget("Invoice Number"),
-                          dataColumnWidget("Invoice Date"),
-                          dataColumnWidget("Ownership"),
-                          dataColumnWidget("Bought"),
-                          dataColumnWidget("Terminal Id"),
-                          dataColumnWidget("ATM Number"),
-                          dataColumnWidget("Location Tag"),
-                          dataColumnWidget("Building Name"),
-                          dataColumnWidget("Building Address"),
-                          dataColumnWidget("User Login Id"),
-                          dataColumnWidget("Main Sub Series"),
-                          dataColumnWidget(
-                              "Major Categories Plus Miner Categories"),
-                          dataColumnWidget("Asset Date Captured"),
-                          dataColumnWidget("Asset Time Captured"),
-                          dataColumnWidget("Asset Date Scanned"),
-                          dataColumnWidget("Asset Time Scanned"),
-                          dataColumnWidget("Qty"),
-                          dataColumnWidget("Phone Exit Number"),
-                          dataColumnWidget("Full Location Details"),
-                          dataColumnWidget("Delete Asset"),
                         ],
-                        source: AssetDataSource(
-                          context: context,
-                          assetGenerateModel: assetGenerateModel,
-                          isMarked: isMarked,
-                          setState: setState,
+                      ),
+                    ),
+                    Positioned(
+                      right: 10,
+                      top: 10,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Constant.primaryColor,
+                        ),
+                        onPressed: () {
+                          List<String> _tagNumber = [];
+                          List<String> _assetDescription = [];
+                          List<String> _barcodeInfo = [];
+                          for (int i = 0; i < isMarked.length; i++) {
+                            if (isMarked[i]) {
+                              _tagNumber.add(assetGenerateModel[i].tagNumber!);
+                              _assetDescription
+                                  .add(assetGenerateModel[i].aSSETdESCRIPTION!);
+                              _barcodeInfo.add(
+                                  assetGenerateModel[i].tagNumber! +
+                                      " " +
+                                      assetGenerateModel[i]
+                                          .minorCategoryDescription!);
+                            }
+                          }
+                          if (_tagNumber.isEmpty) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content:
+                                    Text('Please select at least one asset'),
+                                backgroundColor: Colors.red,
+                              ),
+                            );
+                          } else {
+                            Get.to(
+                              () => BarcodeLabelScreen(
+                                tagNumber: _tagNumber,
+                                assetDescription: _assetDescription,
+                                qrCode: _barcodeInfo,
+                              ),
+                            );
+                          }
+                        },
+                        child: Text(
+                          "Print Asset",
+                          style: TextStyle(
+                            color: Colors.white,
+                          ),
                         ),
                       ),
-                    ],
-                  ),
-                ),
-                Positioned(
-                  right: 10,
-                  top: 10,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Constant.primaryColor,
                     ),
-                    onPressed: () {
-                      List<String> _tagNumber = [];
-                      List<String> _assetDescription = [];
-                      List<String> _barcodeInfo = [];
-                      for (int i = 0; i < isMarked.length; i++) {
-                        if (isMarked[i]) {
-                          _tagNumber.add(assetGenerateModel[i].tagNumber!);
-                          _assetDescription
-                              .add(assetGenerateModel[i].aSSETdESCRIPTION!);
-                          _barcodeInfo.add(assetGenerateModel[i].tagNumber! +
-                              " " +
-                              assetGenerateModel[i].minorCategoryDescription!);
-                        }
-                      }
-                      if (_tagNumber.isEmpty) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text('Please select at least one asset'),
-                            backgroundColor: Colors.red,
-                          ),
-                        );
-                      } else {
-                        Get.to(
-                          () => BarcodeLabelScreen(
-                            tagNumber: _tagNumber,
-                            assetDescription: _assetDescription,
-                            qrCode: _barcodeInfo,
-                          ),
-                        );
-                      }
-                    },
-                    child: Text(
-                      "Print Asset",
-                      style: TextStyle(
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
+                  ],
                 ),
-              ],
-            ),
     );
   }
 

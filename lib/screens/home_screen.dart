@@ -462,7 +462,6 @@ class _MyDrawerWidgetState extends State<MyDrawerWidget> {
         Get.to(() => const VarifiedAssetScreen());
       },
       () {
-        // Asset movement
         Get.to(() => const AssetMovement());
       },
       () {

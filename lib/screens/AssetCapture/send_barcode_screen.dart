@@ -121,6 +121,7 @@ class _SendBarCodeScreenState extends State<SendBarCodeScreen> {
               brandList.add(brand);
             }
             brandList = value.toSet().toList();
+            selectBrand = brandList[0];
           });
         });
         Navigator.of(context).pop();
@@ -351,6 +352,7 @@ class _SendBarCodeScreenState extends State<SendBarCodeScreen> {
                                 ),
                                 child: DropdownButtonFormField(
                                   value: selectBrand,
+                                  isExpanded: true,
                                   items: brandList.map((value) {
                                     return DropdownMenuItem(
                                       value: value,

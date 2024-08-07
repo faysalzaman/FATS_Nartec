@@ -480,6 +480,7 @@ class _UpdateSerialNumberState extends State<UpdateSerialNumber> {
                               ),
                               child: DropdownButtonFormField(
                                 value: selectAssetCondition,
+                                isExpanded: true,
                                 items: assetConditionList.map((value) {
                                   return DropdownMenuItem(
                                     value: value,
@@ -524,6 +525,7 @@ class _UpdateSerialNumberState extends State<UpdateSerialNumber> {
                               ),
                               child: DropdownButtonFormField(
                                 value: selectBought,
+                                isExpanded: true,
                                 items: boughtList.map((value) {
                                   return DropdownMenuItem(
                                     value: value,

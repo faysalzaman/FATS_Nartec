@@ -6,6 +6,9 @@ class Constant {
   static String baseUrl = "http://gs1ksa.org:7001/api";
   static String host = 'gs1ksa.org:7001';
 
+  static String placeHolderImage =
+      "https://www.kpriet.ac.in/asset/frontend/images/nodata.png";
+
   static Color primaryColor = const Color(0xFF00006A);
 
   static Future<dynamic> showLoadingDialog(BuildContext context) {

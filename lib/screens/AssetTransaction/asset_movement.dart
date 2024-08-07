@@ -9,13 +9,14 @@ class AssetMovement extends StatefulWidget {
 }
 
 class _AssetMovementState extends State<AssetMovement> {
-  int _rowsPerPage = 5; // Set default rows per page to 5
+  int _rowsPerPage = 3; // Set default rows per page to 5
   int? _sortColumnIndex;
   bool _sortAscending = true;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         centerTitle: true,
         title: const Text(
@@ -40,7 +41,7 @@ class _AssetMovementState extends State<AssetMovement> {
                     Expanded(
                       child: const Text('Request #',
                           style: TextStyle(
-                            fontSize: 18,
+                            fontSize: 16,
                             fontWeight: FontWeight.bold,
                           )),
                     ),
@@ -78,7 +79,7 @@ class _AssetMovementState extends State<AssetMovement> {
                     Expanded(
                       child: const Text('Tag #',
                           style: TextStyle(
-                            fontSize: 18,
+                            fontSize: 16,
                             fontWeight: FontWeight.bold,
                           )),
                     ),
@@ -111,58 +112,65 @@ class _AssetMovementState extends State<AssetMovement> {
                   ],
                 ),
                 // Paginated Table
-                Row(
-                  children: [
-                    Expanded(
-                      child: PaginatedDataTable(
-                        showFirstLastButtons: true,
-                        header: const Text(
-                          'Asset Details',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 13,
-                          ),
-                        ),
-                        arrowHeadColor: Colors.black,
-                        headingRowColor: MaterialStateProperty.all(
-                          Constant.primaryColor,
-                        ),
-                        rowsPerPage: _rowsPerPage,
-                        availableRowsPerPage: [
-                          5
-                        ], // Limit rows per page options to 5
-                        onRowsPerPageChanged: (int? value) {
-                          setState(() {
-                            _rowsPerPage = value!;
-                          });
-                        },
-                        sortColumnIndex: _sortColumnIndex,
-                        sortAscending: _sortAscending,
-                        onSelectAll: (bool? value) {},
-                        columns: <DataColumn>[
-                          DataColumn(
-                            label: const Text(
-                              'Name',
-                              style: TextStyle(color: Colors.white),
-                            ),
-                            onSort: (int columnIndex, bool ascending) {
-                              setState(() {
-                                _sortColumnIndex = columnIndex;
-                                _sortAscending = ascending;
-                              });
-                            },
-                          ),
-                          const DataColumn(
-                            label: Text(
-                              'Age',
-                              style: TextStyle(color: Colors.white),
+                Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.black),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: PaginatedDataTable(
+                          showFirstLastButtons: true,
+                          header: const Text(
+                            'Asset Details',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold,
                             ),
                           ),
-                        ],
-                        source: MyTableSource(),
+                          arrowHeadColor: Colors.black,
+                          headingRowColor: MaterialStateProperty.all(
+                            Constant.primaryColor,
+                          ),
+                          rowsPerPage: _rowsPerPage,
+                          availableRowsPerPage: [
+                            3
+                          ], // Limit rows per page options to 5
+                          onRowsPerPageChanged: (int? value) {
+                            setState(() {
+                              _rowsPerPage = value!;
+                            });
+                          },
+                          sortColumnIndex: _sortColumnIndex,
+                          sortAscending: _sortAscending,
+                          onSelectAll: (bool? value) {},
+                          columns: <DataColumn>[
+                            DataColumn(
+                              label: const Text(
+                                'Name',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                              onSort: (int columnIndex, bool ascending) {
+                                setState(() {
+                                  _sortColumnIndex = columnIndex;
+                                  _sortAscending = ascending;
+                                });
+                              },
+                            ),
+                            const DataColumn(
+                              label: Text(
+                                'Age',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ),
+                          ],
+                          source: MyTableSource(),
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
                 const SizedBox(height: 8),
                 Row(
@@ -264,7 +272,6 @@ class MyTableSource extends DataTableSource {
     {'name': 'John', 'age': 30},
     {'name': 'Alice', 'age': 25},
     {'name': 'Bob', 'age': 40},
-    // Add more data as needed
   ];
 
   @override

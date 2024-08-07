@@ -56,6 +56,9 @@ class _AssetLocationFormScreenState extends State<AssetLocationFormScreen> {
     "Select Department Code",
   ];
 
+  List countryIdList = [];
+  String countryId = "";
+
   TextEditingController areaController = TextEditingController();
   TextEditingController departmentCodeController = TextEditingController();
   TextEditingController businessNameController = TextEditingController();
@@ -69,25 +72,32 @@ class _AssetLocationFormScreenState extends State<AssetLocationFormScreen> {
 
     Future.delayed(Duration.zero, () async {
       Constant.showLoadingDialog(context);
+
       var value = await LoginServices.countriesList();
       setState(() {
         for (var i = 0; i < value.length; i++) {
           countryList.add(value[i].countryName!);
+          countryIdList.add(value[i].tblCountryID.toString());
         }
+        countryId = countryIdList[0];
         Set<String> countrySet = countryList.toSet();
         countryList = countrySet.toList();
       });
-      var city = await GetAllCitiesService.getAllCities();
+
+      var city = await GetAllCitiesService.getCityById(countryId);
+
       setState(() {
         for (var i = 0; i < city.length; i++) {
           cityList.add(city[i].cityName!);
         }
         Set<String> citySet = cityList.toSet();
         cityList = citySet.toList();
+        selectCity = cityList[0];
       });
       Navigator.of(context).pop();
 
       var department = await GetAllDepartmentsService.getAllDepartments();
+
       setState(() {
         departmentList = [];
         for (var i = 0; i < department.length; i++) {
@@ -98,9 +108,11 @@ class _AssetLocationFormScreenState extends State<AssetLocationFormScreen> {
         departmentName = departmentList[0];
 
         floorNoList.clear();
+
         for (var i = 0; i < department.length; i++) {
           floorNoList.add(department[i].bUSINESSGROUP!);
         }
+
         Set<String> floorNoSet = floorNoList.toSet();
         floorNoList = floorNoSet.toList();
         selectFloorNo = floorNoList[0];
@@ -109,13 +121,17 @@ class _AssetLocationFormScreenState extends State<AssetLocationFormScreen> {
         for (var i = 0; i < department.length; i++) {
           businessUnitList.add(department[i].businessUnit!);
         }
+
         Set<String> businessUnitSet = businessUnitList.toSet();
         businessUnitList = businessUnitSet.toList();
+        businessUnit = businessUnitList[0];
 
         departmentCodeList.clear();
+
         for (var i = 0; i < department.length; i++) {
           departmentCodeList.add(department[i].dAONumber!);
         }
+
         Set<String> departmentCodeSet = departmentCodeList.toSet();
         departmentCodeList = departmentCodeSet.toList();
 
@@ -192,6 +208,7 @@ class _AssetLocationFormScreenState extends State<AssetLocationFormScreen> {
                       ),
                       child: DropdownButtonFormField(
                         value: selectCountry,
+                        isExpanded: true,
                         items: countryList.map((value) {
                           return DropdownMenuItem(
                             value: value,
@@ -199,8 +216,21 @@ class _AssetLocationFormScreenState extends State<AssetLocationFormScreen> {
                           );
                         }).toList(),
                         onChanged: (value) {
-                          setState(() {
-                            selectCountry = value.toString();
+                          selectCountry = value.toString();
+                          countryId =
+                              countryIdList[countryList.indexOf(value!) - 1];
+                          print(countryId);
+                          GetAllCitiesService.getCityById(countryId)
+                              .then((value) {
+                            setState(() {
+                              cityList = [];
+                              for (var i = 0; i < value.length; i++) {
+                                cityList.add(value[i].cityName!);
+                              }
+                              Set<String> citySet = cityList.toSet();
+                              cityList = citySet.toList();
+                              selectCity = cityList[0];
+                            });
                           });
                         },
                       ),
@@ -234,6 +264,7 @@ class _AssetLocationFormScreenState extends State<AssetLocationFormScreen> {
                       ),
                       child: DropdownButtonFormField(
                         value: selectCity,
+                        isExpanded: true,
                         items: cityList.map((value) {
                           // index = cityList.indexOf(value);
                           return DropdownMenuItem(
@@ -306,6 +337,7 @@ class _AssetLocationFormScreenState extends State<AssetLocationFormScreen> {
                       ),
                       child: DropdownButtonFormField(
                         value: departmentName,
+                        isExpanded: true,
                         items: departmentList.map((value) {
                           return DropdownMenuItem(
                             value: value,
@@ -475,6 +507,7 @@ class _AssetLocationFormScreenState extends State<AssetLocationFormScreen> {
                       ),
                       child: DropdownButtonFormField(
                         value: selectFloorNo,
+                        isExpanded: true,
                         items: floorNoList.map((value) {
                           return DropdownMenuItem(
                             value: value,
