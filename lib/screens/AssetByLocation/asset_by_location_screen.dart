@@ -87,7 +87,9 @@ class _AssetByLocationScreenState extends State<AssetByLocationScreen> {
                                 width: MediaQuery.of(context).size.width * 0.9,
                                 onEditingComplete: () {
                                   FocusScope.of(context).unfocus();
+
                                   Constant.showLoadingDialog(context);
+
                                   GetAllAssetByLocationServices
                                           .getAllEmployeeList(
                                               _locationController.text)
