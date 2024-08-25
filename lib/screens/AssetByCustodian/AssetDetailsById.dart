@@ -356,7 +356,7 @@ class _AssetTagInformationScreenState extends State<AssetTagInformationScreen> {
                             child: Container(
                               padding: const EdgeInsets.all(10),
                               child: Image.network(
-                                "${Constant.baseUrl.replaceAll("/api", "")}/${e.replaceAll("\\", '/')}",
+                                "${Constant.baseUrl.replaceAll("/api", "")}/${e.replaceAll("\\", "/")}",
                                 width: 100,
                                 height: 100,
                                 fit: BoxFit.cover,
@@ -437,7 +437,14 @@ class _AssetTagInformationScreenState extends State<AssetTagInformationScreen> {
                       onPressed: () {
                         Navigator.pop(context);
                       },
-                      child: const Text('Back'),
+                      child: const Text(
+                        'Back',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     ),
                   ),
                 ],

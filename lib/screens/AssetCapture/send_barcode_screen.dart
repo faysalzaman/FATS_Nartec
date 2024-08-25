@@ -129,7 +129,7 @@ class _SendBarCodeScreenState extends State<SendBarCodeScreen> {
         Get.offAll(HomeScreen);
         Get.snackbar(
           "Error",
-          "Something went wrong!",
+          error.toString().replaceAll("Exception:", "replace"),
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: Colors.red,
           colorText: Colors.white,
@@ -187,6 +187,14 @@ class _SendBarCodeScreenState extends State<SendBarCodeScreen> {
             minorDescription.add(category.subDescription ?? "");
           }
         });
+      }).onError((error, stackTrace) {
+        Get.snackbar(
+          "Error",
+          error.toString().replaceAll("Exception:", "replace"),
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.red,
+          colorText: Colors.white,
+        );
       });
     }
   }

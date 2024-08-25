@@ -105,7 +105,10 @@ class _AssetByLocationScreenState extends State<AssetByLocationScreen> {
                                     Navigator.pop(context);
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(
-                                        content: Text(error.toString()),
+                                        content: Text(error
+                                            .toString()
+                                            .replaceAll(
+                                                "Exception:", "replace")),
                                       ),
                                     );
                                   });

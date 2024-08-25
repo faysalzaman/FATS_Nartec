@@ -328,7 +328,7 @@ class _LocationDetailsScreenState extends State<LocationDetailsScreen> {
                               height: 80,
                               width: 70,
                               child: Image.network(
-                                "${Constant.baseUrl.replaceAll("/api", "")}/${e.replaceAll("\\", '/')}",
+                                "${Constant.baseUrl.replaceAll("/api", "")}/${e.replaceAll("\\", "/")}",
                                 fit: BoxFit.cover,
                                 errorBuilder: (context, error, stackTrace) {
                                   return const Center(
@@ -407,7 +407,14 @@ class _LocationDetailsScreenState extends State<LocationDetailsScreen> {
                       onPressed: () {
                         Navigator.pop(context);
                       },
-                      child: const Text('Back'),
+                      child: const Text(
+                        'Back',
+                        style: TextStyle(
+                          fontSize: 15,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     ),
                   ),
                 ],

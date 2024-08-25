@@ -444,12 +444,14 @@ class _AssetByCustodianState extends State<AssetByCustodian> {
     GetEmployeeListByIdServices.GetEmpListByID(
             _employeeIdController.text.trim())
         .then((value) {
+      print(value);
       _employeeNameController.text = value.recordset?[0].empName ?? '';
 
       GetAllEmployeeByIdServices.getAllEmployeeList(
               _employeeIdController.text.trim())
-          .then((value) {
-        getAllEmployeeByIdList = value;
+          .then((val) {
+        print(val[0].images);
+        getAllEmployeeByIdList = val;
         isMarked = List<bool>.filled(getAllEmployeeByIdList.length, false);
 
         setState(() {});
@@ -458,13 +460,13 @@ class _AssetByCustodianState extends State<AssetByCustodian> {
       }).onError((error, stackTrace) {
         Navigator.of(context).pop();
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(error.toString()),
+          content: Text(error.toString().replaceAll("Exception:", "replace")),
         ));
       });
     }).onError((error, stackTrace) {
       Navigator.of(context).pop();
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text(error.toString()),
+        content: Text(error.toString().replaceAll("Exception:", "replace")),
       ));
     });
   }
