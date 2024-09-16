@@ -53,18 +53,13 @@ android {
         versionName flutterVersionName
     }
 
-    signingConfigs {
-        release {
-            keyAlias 'upload'
-            keyPassword '00000000'
-            storeFile file('F:/NARTEC PROJECTS/FATS_Nartec/new_keystore.jks')
-            storePassword '00000000'
-        }
-    }
-
     buildTypes {
         release {
-            signingConfig signingConfigs.release
+            // TODO: Add your own signing config for the release build.
+            // Signing with the debug keys for now, so `flutter run --release` works.
+            signingConfig signingConfigs.debug
+            shrinkResources false
+            minifyEnabled false
         }
     }
 }
