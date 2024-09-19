@@ -52,7 +52,15 @@ class _HomeScreenState extends State<HomeScreen> {
       () {
         Get.to(() => const AssetTransaction());
       },
-      () {},
+      () {
+        Get.snackbar(
+          "Coming Soon",
+          "This feature is coming soon",
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.grey,
+          colorText: Colors.white,
+        );
+      },
       () async {
         SharedPreferences prefs = await SharedPreferences.getInstance();
         prefs.remove('token');
@@ -65,7 +73,15 @@ class _HomeScreenState extends State<HomeScreen> {
           colorText: Colors.white,
         );
       },
-      () {},
+      () {
+        Get.snackbar(
+          "Coming Soon",
+          "This feature is coming soon",
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.grey,
+          colorText: Colors.white,
+        );
+      },
       () {
         Get.to(() => const AssetTagInformation());
       },
