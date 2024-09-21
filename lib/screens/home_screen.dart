@@ -16,7 +16,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'AssetCapture/asset_location_form_screen.dart';
 import 'AssetForPrinting/AssetForPrintingScreen.dart';
-import 'AssetTransaction/asset_transaction.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -50,7 +49,14 @@ class _HomeScreenState extends State<HomeScreen> {
         Get.to(() => const AssetByLocationScreen());
       },
       () {
-        Get.to(() => const AssetTransaction());
+        // Get.to(() => const AssetTransaction());
+        Get.snackbar(
+          "Coming Soon",
+          "This feature is coming soon",
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.grey,
+          colorText: Colors.white,
+        );
       },
       () {
         Get.snackbar(

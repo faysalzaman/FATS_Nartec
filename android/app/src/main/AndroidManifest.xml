@@ -1,11 +1,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.nartec.fats">
+    package="com.nartec.fats_system">
 
    
     <uses-permission android:name="android.permission.INTERNET"/>
 
    <application
-        android:label="Fats"
+        android:label="FATS System"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon">
         <activity

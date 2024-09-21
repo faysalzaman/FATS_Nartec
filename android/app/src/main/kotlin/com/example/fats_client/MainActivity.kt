@@ -1,4 +1,4 @@
-package com.nartec.fats
+package com.nartec.fats_system
 
 import io.flutter.embedding.android.FlutterActivity
 
