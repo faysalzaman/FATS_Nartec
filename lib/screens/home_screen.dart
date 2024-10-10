@@ -498,6 +498,13 @@ class _MyDrawerWidgetState extends State<MyDrawerWidget> {
       },
       () {
         // Admin Panel
+        Get.snackbar(
+          "Coming Soon",
+          "This feature is coming soon",
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.grey,
+          colorText: Colors.white,
+        );
       },
       () async {
         SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -513,6 +520,13 @@ class _MyDrawerWidgetState extends State<MyDrawerWidget> {
       },
       () {
         // Find Asset
+        Get.snackbar(
+          "Coming Soon",
+          "This feature is coming soon",
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.grey,
+          colorText: Colors.white,
+        );
       },
       () {
         Get.to(() => const AssetTagInformation());
