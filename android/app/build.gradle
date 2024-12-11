@@ -26,7 +26,7 @@ apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
-    compileSdkVersion flutter.compileSdkVersion
+    compileSdkVersion 34
     ndkVersion flutter.ndkVersion
 
     compileOptions {
@@ -55,10 +55,10 @@ android {
 
     signingConfigs {
         release {
-            keyAlias 'upload'
-            keyPassword '00000000'
-            storeFile file('F:/NARTEC PROJECTS/FATS_Nartec/new_keystore.jks')
-            storePassword '00000000'
+            keyAlias "upload"
+            keyPassword "00000000"
+            storeFile file("/Users/faysal/Projects/Nartec Projects/FATS_Nartec/new_keystore.jks")
+            storePassword "00000000"
         }
     }
 

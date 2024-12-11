@@ -21,6 +21,7 @@ class _AssetsInventoryState extends State<AssetsInventory> {
 
   final TextEditingController _locationTagController = TextEditingController();
   final TextEditingController _tagController = TextEditingController();
+  final TextEditingController _nameInfoController = TextEditingController();
   final TextEditingController _assetLocationDetailsController =
       TextEditingController();
   final TextEditingController _serialNoController = TextEditingController();
@@ -29,6 +30,10 @@ class _AssetsInventoryState extends State<AssetsInventory> {
   final TextEditingController _employeeIdController = TextEditingController();
   final TextEditingController _otherTagController = TextEditingController();
   final TextEditingController _notesController = TextEditingController();
+  final TextEditingController _roomController = TextEditingController();
+
+  String? selectInventoryJournal;
+  var inventoryJournalList = [];
 
   String? selectEmployeeName;
   var employeeNameList = [];
@@ -161,62 +166,124 @@ class _AssetsInventoryState extends State<AssetsInventory> {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const SizedBox(
+                            SizedBox(
                               child: Text(
-                                "Location Tag",
+                                "Select Inventory Journal",
                                 style: TextStyle(
                                   fontSize: 15,
-                                  color: Colors.black,
+                                  color: Constant.primaryColor,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
                             ),
-                            const SizedBox(height: 5),
+                            SizedBox(height: 5),
+                            Container(
+                              width: MediaQuery.of(context).size.width * 0.9,
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 10),
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  color: Colors.grey,
+                                ),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: DropdownButtonFormField(
+                                value: selectInventoryJournal,
+                                isExpanded: true,
+                                items: inventoryJournalList.map((value) {
+                                  return DropdownMenuItem(
+                                    value: value,
+                                    child: Text(value),
+                                  );
+                                }).toList(),
+                                onChanged: (value) {
+                                  setState(() {
+                                    selectInventoryJournal = value.toString();
+                                  });
+                                },
+                              ),
+                            ),
+                            const SizedBox(height: 10),
+                            Container(
+                              width: MediaQuery.sizeOf(context).width * 0.9,
+                              child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                    foregroundColor: Colors.white,
+                                    // rgba(128, 118, 3, 1)
+                                    backgroundColor:
+                                        Color.fromARGB(255, 128, 118, 3)),
+                                onPressed: () {},
+                                child: Text("View Scanned Assets"),
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 10),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(
+                              child: Text(
+                                "Enter / Scan TAG Number",
+                                style: TextStyle(
+                                  fontSize: 15,
+                                  color: Constant.primaryColor,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                            SizedBox(height: 5),
                             TextFormFieldWidget(
-                              controller: _locationTagController,
-                              color: Colors.yellow,
-                              height: 50,
+                              suffix: IconButton(
+                                onPressed: () {},
+                                icon: Icon(
+                                  Icons.qr_code,
+                                  color: Constant.primaryColor,
+                                ),
+                              ),
+                              color: Color.fromARGB(48, 45, 219, 146),
+                              controller: _nameInfoController,
                               width: MediaQuery.of(context).size.width * 0.9,
                             ),
-                          ],
-                        ),
-                        const SizedBox(height: 10),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const SizedBox(
-                              child: Text(
-                                "Tag *",
-                                style: TextStyle(
-                                  fontSize: 15,
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
+                            SizedBox(height: 5),
+                            Container(
+                              decoration: BoxDecoration(
+                                color: Color.fromARGB(48, 45, 219, 146),
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              width: MediaQuery.of(context).size.width * 0.9,
+                              child: TextFormField(
+                                controller: _assetLocationDetailsController,
+                                maxLines: 3,
+                                decoration: InputDecoration(
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
                                 ),
                               ),
                             ),
-                            const SizedBox(height: 5),
-                            TextFormFieldWidget(
-                                color: Colors.yellow,
-                                controller: _tagController,
-                                width: MediaQuery.of(context).size.width * 0.9),
                           ],
                         ),
-                        const SizedBox(height: 10),
+                        SizedBox(height: 10),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const SizedBox(
+                            SizedBox(
                               child: Text(
                                 "Asset Location Details",
                                 style: TextStyle(
                                   fontSize: 15,
-                                  color: Colors.black,
+                                  color: Constant.primaryColor,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
                             ),
-                            const SizedBox(height: 5),
-                            SizedBox(
+                            SizedBox(height: 5),
+                            Container(
+                              decoration: BoxDecoration(
+                                color: Color.fromARGB(48, 45, 219, 146),
+                                borderRadius: BorderRadius.circular(20),
+                              ),
                               width: MediaQuery.of(context).size.width * 0.9,
                               child: TextFormField(
                                 controller: _assetLocationDetailsController,
@@ -230,44 +297,51 @@ class _AssetsInventoryState extends State<AssetsInventory> {
                             ),
                           ],
                         ),
-                        const SizedBox(height: 10),
+                        SizedBox(height: 10),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const SizedBox(
+                            SizedBox(
                               child: Text(
-                                "Serial No",
+                                "Enter/Scan Serial Number",
                                 style: TextStyle(
                                   fontSize: 15,
-                                  color: Colors.black,
+                                  color: Constant.primaryColor,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
                             ),
-                            const SizedBox(height: 10),
+                            SizedBox(height: 5),
                             TextFormFieldWidget(
+                              suffix: IconButton(
+                                onPressed: () {},
+                                icon: Icon(
+                                  Icons.qr_code,
+                                  color: Constant.primaryColor,
+                                ),
+                              ),
                               controller: _serialNoController,
                               height: 50,
                               width: MediaQuery.of(context).size.width * 0.9,
                             ),
                           ],
                         ),
-                        const SizedBox(height: 10),
+                        SizedBox(height: 10),
                         // Employee Name
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const SizedBox(
+                            SizedBox(
                               child: Text(
                                 "Employee Name",
                                 style: TextStyle(
                                   fontSize: 15,
-                                  color: Colors.black,
+                                  color: Constant.primaryColor,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
                             ),
-                            const SizedBox(height: 10),
+                            SizedBox(height: 5),
                             Container(
                               width: MediaQuery.of(context).size.width * 0.9,
                               padding:
@@ -276,7 +350,7 @@ class _AssetsInventoryState extends State<AssetsInventory> {
                                 border: Border.all(
                                   color: Colors.grey,
                                 ),
-                                borderRadius: BorderRadius.circular(20),
+                                borderRadius: BorderRadius.circular(10),
                               ),
                               child: DropdownButtonFormField(
                                 value: selectEmployeeName,
@@ -299,243 +373,280 @@ class _AssetsInventoryState extends State<AssetsInventory> {
                           ],
                         ),
 
-                        const SizedBox(height: 10),
+                        SizedBox(height: 10),
                         // Employee Id
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            const SizedBox(
-                              child: Text(
-                                "Employee Id",
-                                style: TextStyle(
-                                  fontSize: 15,
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SizedBox(
+                                  child: Text(
+                                    "Employee Id",
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                      color: Constant.primaryColor,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
                                 ),
-                              ),
+                                SizedBox(height: 5),
+                                TextFormFieldWidget(
+                                  readOnly: true,
+                                  controller: _employeeIdController,
+                                  height: 50,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.4,
+                                ),
+                              ],
                             ),
-                            const SizedBox(height: 10),
-                            TextFormFieldWidget(
-                              readOnly: true,
-                              controller: _employeeIdController,
-                              height: 50,
-                              width: MediaQuery.of(context).size.width * 0.9,
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SizedBox(
+                                  child: Text(
+                                    "Ext. Number",
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                      color: Constant.primaryColor,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(height: 5),
+                                TextFormFieldWidget(
+                                  controller: _phoneExtensionController,
+                                  height: 50,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.4,
+                                ),
+                              ],
                             ),
                           ],
                         ),
 
-                        const SizedBox(height: 10),
-                        // phone extension
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const SizedBox(
-                              child: Text(
-                                "Phone Extension",
-                                style: TextStyle(
-                                  fontSize: 15,
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                            const SizedBox(height: 5),
-                            TextFormFieldWidget(
-                              controller: _phoneExtensionController,
-                              height: 50,
-                              width: MediaQuery.of(context).size.width * 0.9,
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 10),
-
-                        // other tag
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const SizedBox(
-                              child: Text(
-                                "Other Tag",
-                                style: TextStyle(
-                                  fontSize: 15,
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                            const SizedBox(width: 5),
-                            TextFormFieldWidget(
-                              controller: _otherTagController,
-                              height: 50,
-                              width: MediaQuery.of(context).size.width * 0.9,
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 10),
-                        // notes
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const SizedBox(
-                              child: Text(
-                                "Notes",
-                                style: TextStyle(
-                                  fontSize: 15,
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                            const SizedBox(height: 5),
-                            SizedBox(
-                              width: MediaQuery.of(context).size.width * 0.9,
-                              child: TextFormField(
-                                controller: _notesController,
-                                maxLines: 3,
-                                decoration: InputDecoration(
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(20),
+                        SizedBox(height: 10),
+                        // Room
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                margin: EdgeInsets.only(left: 20),
+                                child: Text(
+                                  "Room",
+                                  style: TextStyle(
+                                    fontSize: 15,
+                                    color: Constant.primaryColor,
+                                    fontWeight: FontWeight.bold,
                                   ),
                                 ),
                               ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 10),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            IconButton(
-                              onPressed: () async {
-                                try {
-                                  final imgpicker = ImagePicker();
-
-                                  var pickedfile = await imgpicker.pickImage(
-                                      source: ImageSource.camera);
-                                  //you can use ImageCourse.camera for Camera capture
-
-                                  if (pickedfile != null) {
-                                    if (imagefiles != null) {
-                                      imagefiles!.add(pickedfile);
-                                    } else {
-                                      imagefiles = [pickedfile];
-                                    }
-                                    setState(() {});
-                                  } else {
-                                    print("No image is selected.");
-                                  }
-                                } catch (e) {
-                                  print("error while picking file.");
-                                }
-                              },
-                              icon: const Icon(
-                                Icons.add_a_photo,
-                                size: 50,
-                                color: Colors.grey,
+                              SizedBox(height: 5),
+                              Container(
+                                margin: EdgeInsets.only(left: 20),
+                                child: TextFormFieldWidget(
+                                  controller: _roomController,
+                                  height: 50,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.4,
+                                ),
                               ),
-                            ),
-                            const SizedBox(width: 20),
-                            IconButton(
-                              onPressed: () async {
-                                try {
-                                  final imgpicker = ImagePicker();
-
-                                  var pickedfiles =
-                                      await imgpicker.pickMultiImage();
-                                  //you can use ImageCourse.camera for Camera capture
-
-                                  if (pickedfiles.isNotEmpty &&
-                                      pickedfiles.length <= 4) {
-                                    if (imagefiles != null) {
-                                      for (var i = 0;
-                                          i < imagefiles!.length;
-                                          i++) {
-                                        pickedfiles.add(imagefiles![i]);
-                                      }
-                                    }
-                                    imagefiles = pickedfiles;
-
-                                    setState(() {});
-                                  } else {
-                                    print("No image is selected.");
-                                  }
-                                } catch (e) {
-                                  print("error while picking file.");
-                                }
-                              },
-                              icon: const Icon(
-                                Icons.add_photo_alternate,
-                                size: 50,
-                                color: Colors.grey,
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 10),
-                        const Text(
-                          "Add upto 4 images",
-                          style: TextStyle(
-                            fontSize: 10,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.red,
+                            ],
                           ),
                         ),
 
-                        const SizedBox(height: 20),
-                        imagefiles != null
-                            ? Wrap(
-                                children: imagefiles!.map((imageone) {
-                                  return Stack(
-                                    children: [
-                                      Card(
-                                        shadowColor: Constant.primaryColor,
-                                        elevation: 10,
-                                        margin: const EdgeInsets.symmetric(
-                                            vertical: 10, horizontal: 5),
-                                        child: SizedBox(
-                                          height: 70,
-                                          width: 60,
-                                          child: Image.file(
-                                            File(imageone.path),
-                                            fit: BoxFit.cover,
-                                          ),
-                                        ),
-                                      ),
-                                      Positioned(
-                                        top: 0,
-                                        right: 0,
-                                        child: IconButton(
-                                          onPressed: () {
-                                            imagefiles!.remove(imageone);
-                                            setState(() {});
-                                          },
-                                          icon: Icon(
-                                            Icons.cancel,
-                                            color: Colors.red.withOpacity(0.8),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  );
-                                }).toList(),
-                              )
-                            : Container(),
-                        const SizedBox(height: 20),
-                        // asset condition
+                        SizedBox(height: 10),
+
+                        // // other tag
+                        // Column(
+                        //   crossAxisAlignment: CrossAxisAlignment.start,
+                        //   children: [
+                        //     SizedBox(
+                        //       child: Text(
+                        //         "Other Tag",
+                        //         style: TextStyle(
+                        //           fontSize: 15,
+                        //           color: Constant.primaryColor,
+                        //           fontWeight: FontWeight.bold,
+                        //         ),
+                        //       ),
+                        //     ),
+                        //     SizedBox(width: 10),
+                        //     TextFormFieldWidget(
+                        //       controller: _otherTagController,
+                        //       height: 50,
+                        //       width: MediaQuery.of(context).size.width * 0.9,
+                        //     ),
+                        //   ],
+                        // ),
+                        // SizedBox(height: 10),
+                        // // notes
+                        // Column(
+                        //   crossAxisAlignment: CrossAxisAlignment.start,
+                        //   children: [
+                        //     SizedBox(
+                        //       child: Text(
+                        //         "Notes",
+                        //         style: TextStyle(
+                        //           fontSize: 15,
+                        //           color: Constant.primaryColor,
+                        //           fontWeight: FontWeight.bold,
+                        //         ),
+                        //       ),
+                        //     ),
+                        //     SizedBox(height: 5),
+                        //     SizedBox(
+                        //       width: MediaQuery.of(context).size.width * 0.9,
+                        //       child: TextFormField(
+                        //         controller: _notesController,
+                        //         maxLines: 3,
+                        //         decoration: InputDecoration(
+                        //           border: OutlineInputBorder(
+                        //             borderRadius: BorderRadius.circular(20),
+                        //           ),
+                        //         ),
+                        //       ),
+                        //     ),
+                        //   ],
+                        // ),
+                        // SizedBox(height: 10),
+                        // Row(
+                        //   mainAxisAlignment: MainAxisAlignment.center,
+                        //   children: [
+                        //     IconButton(
+                        //       onPressed: () async {
+                        //         try {
+                        //           final imgpicker = ImagePicker();
+
+                        //           var pickedfile = await imgpicker.pickImage(
+                        //               source: ImageSource.camera);
+                        //           //you can use ImageCourse.camera for Camera capture
+
+                        //           if (pickedfile != null) {
+                        //             if (imagefiles != null) {
+                        //               imagefiles!.add(pickedfile);
+                        //             } else {
+                        //               imagefiles = [pickedfile];
+                        //             }
+                        //             setState(() {});
+                        //           } else {
+                        //             print("No image is selected.");
+                        //           }
+                        //         } catch (e) {
+                        //           print("error while picking file.");
+                        //         }
+                        //       },
+                        //       icon: const Icon(
+                        //         Icons.add_a_photo,
+                        //         size: 50,
+                        //         color: Colors.grey,
+                        //       ),
+                        //     ),
+                        //     SizedBox(width: 20),
+                        //     IconButton(
+                        //       onPressed: () async {
+                        //         try {
+                        //           final imgpicker = ImagePicker();
+
+                        //           var pickedfiles =
+                        //               await imgpicker.pickMultiImage();
+                        //           //you can use ImageCourse.camera for Camera capture
+
+                        //           if (pickedfiles.isNotEmpty &&
+                        //               pickedfiles.length <= 4) {
+                        //             if (imagefiles != null) {
+                        //               for (var i = 0;
+                        //                   i < imagefiles!.length;
+                        //                   i++) {
+                        //                 pickedfiles.add(imagefiles![i]);
+                        //               }
+                        //             }
+                        //             imagefiles = pickedfiles;
+
+                        //             setState(() {});
+                        //           } else {
+                        //             print("No image is selected.");
+                        //           }
+                        //         } catch (e) {
+                        //           print("error while picking file.");
+                        //         }
+                        //       },
+                        //       icon: const Icon(
+                        //         Icons.add_photo_alternate,
+                        //         size: 50,
+                        //         color: Colors.grey,
+                        //       ),
+                        //     ),
+                        //   ],
+                        // ),
+                        // SizedBox(height: 10),
+                        // const Text(
+                        //   "Add upto 4 images",
+                        //   style: TextStyle(
+                        //     fontSize: 10,
+                        //     fontWeight: FontWeight.bold,
+                        //     color: Colors.red,
+                        //   ),
+                        // ),
+
+                        // SizedBox(height: 20),
+                        // imagefiles != null
+                        //     ? Wrap(
+                        //         children: imagefiles!.map((imageone) {
+                        //           return Stack(
+                        //             children: [
+                        //               Card(
+                        //                 shadowColor: Constant.primaryColor,
+                        //                 elevation: 10,
+                        //                 margin: const EdgeInsets.symmetric(
+                        //                     vertical: 10, horizontal: 5),
+                        //                 child: SizedBox(
+                        //                   height: 70,
+                        //                   width: 60,
+                        //                   child: Image.file(
+                        //                     File(imageone.path),
+                        //                     fit: BoxFit.cover,
+                        //                   ),
+                        //                 ),
+                        //               ),
+                        //               Positioned(
+                        //                 top: 0,
+                        //                 right: 0,
+                        //                 child: IconButton(
+                        //                   onPressed: () {
+                        //                     imagefiles!.remove(imageone);
+                        //                     setState(() {});
+                        //                   },
+                        //                   icon: Icon(
+                        //                     Icons.cancel,
+                        //                     color: Colors.red.withOpacity(0.8),
+                        //                   ),
+                        //                 ),
+                        //               ),
+                        //             ],
+                        //           );
+                        //         }).toList(),
+                        //       )
+                        //     : Container(),
+                        // SizedBox(height: 20),
+                        // // asset condition
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const SizedBox(
+                            SizedBox(
                               child: Text(
                                 "Asset Condition",
                                 style: TextStyle(
                                   fontSize: 15,
-                                  color: Colors.black,
+                                  color: Constant.primaryColor,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
                             ),
-                            const SizedBox(height: 5),
+                            SizedBox(height: 5),
                             Container(
                               width: MediaQuery.of(context).size.width * 0.9,
                               padding:
@@ -544,7 +655,7 @@ class _AssetsInventoryState extends State<AssetsInventory> {
                                 border: Border.all(
                                   color: Colors.grey,
                                 ),
-                                borderRadius: BorderRadius.circular(20),
+                                borderRadius: BorderRadius.circular(10),
                               ),
                               child: DropdownButtonFormField(
                                 value: selectAssetCondition,
@@ -565,22 +676,22 @@ class _AssetsInventoryState extends State<AssetsInventory> {
                           ],
                         ),
 
-                        const SizedBox(height: 10),
+                        SizedBox(height: 10),
                         // bought
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const SizedBox(
+                            SizedBox(
                               child: Text(
-                                "Bought",
+                                "Asset Bought Status",
                                 style: TextStyle(
                                   fontSize: 15,
-                                  color: Colors.black,
+                                  color: Constant.primaryColor,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
                             ),
-                            const SizedBox(height: 5),
+                            SizedBox(height: 5),
                             Container(
                               width: MediaQuery.of(context).size.width * 0.9,
                               padding:
@@ -589,7 +700,7 @@ class _AssetsInventoryState extends State<AssetsInventory> {
                                 border: Border.all(
                                   color: Colors.grey,
                                 ),
-                                borderRadius: BorderRadius.circular(20),
+                                borderRadius: BorderRadius.circular(10),
                               ),
                               child: DropdownButtonFormField(
                                 value: selectBought,
@@ -609,7 +720,7 @@ class _AssetsInventoryState extends State<AssetsInventory> {
                             ),
                           ],
                         ),
-                        const SizedBox(height: 10),
+                        SizedBox(height: 10),
                         Container(
                           width: MediaQuery.of(context).size.width * 0.9,
                           child: Row(
@@ -626,7 +737,7 @@ class _AssetsInventoryState extends State<AssetsInventory> {
                                   child: const Text('Back'),
                                 ),
                               ),
-                              const SizedBox(width: 10),
+                              SizedBox(width: 10),
                               Expanded(
                                 child: ElevatedButton(
                                   style: ElevatedButton.styleFrom(
@@ -733,6 +844,8 @@ class _AssetsInventoryState extends State<AssetsInventory> {
     _employeeIdController.dispose();
     _otherTagController.dispose();
     _notesController.dispose();
+    _roomController.dispose();
+    _nameInfoController.dispose();
 
     employeeNameList.clear();
 

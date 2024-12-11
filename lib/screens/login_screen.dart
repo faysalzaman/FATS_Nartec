@@ -34,14 +34,13 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Future<void> _loginApi(String email, String password) async {
     print("base url is: ${Constant.baseUrl}");
-    print("host is: ${Constant.host}");
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     final String url = '${Constant.baseUrl}/login';
+
     final headers = <String, String>{
       'Content-Type': 'application/json',
-      'Host': Constant.host,
     };
 
     final body = {"loginname": email, "loginpass": password};
@@ -53,7 +52,8 @@ class _LoginScreenState extends State<LoginScreen> {
         body: jsonEncode(body),
       );
 
-      print(response.body);
+      print("******** ${response.body}");
+
       if (response.statusCode == 200 || response.statusCode == 201) {
         Navigator.of(context).pop();
         var data = jsonDecode(response.body);

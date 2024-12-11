@@ -11,6 +11,7 @@ class TextFormFieldWidget extends StatelessWidget {
   final Color? color;
   final void Function(String)? onChanged;
   final VoidCallback? onEditingComplete;
+  final Widget? suffix;
 
   const TextFormFieldWidget({
     super.key,
@@ -24,6 +25,7 @@ class TextFormFieldWidget extends StatelessWidget {
     this.color,
     this.onChanged,
     this.onEditingComplete,
+    this.suffix,
   });
 
   @override
@@ -49,6 +51,7 @@ class TextFormFieldWidget extends StatelessWidget {
             borderSide: BorderSide(color: Colors.black),
             borderRadius: BorderRadius.all(Radius.circular(8)),
           ),
+          suffixIcon: suffix,
           enabledBorder: const OutlineInputBorder(
             borderSide: BorderSide(color: Colors.grey),
             borderRadius: BorderRadius.all(Radius.circular(8)),
