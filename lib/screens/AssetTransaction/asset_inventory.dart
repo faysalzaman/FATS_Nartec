@@ -1,4 +1,4 @@
-import 'dart:io';
+// import 'dart:io';
 
 import 'package:fats_client/Services/AssetVarification/AsseetConditionServices.dart';
 import 'package:fats_client/Services/AssetVarification/BoughtServices.dart';
@@ -149,9 +149,9 @@ class _AssetsInventoryState extends State<AssetsInventory> {
         elevation: 10,
       ),
       body: isLoading == true
-          ? const Center(
+          ? Center(
               child: CircularProgressIndicator(
-                color: Colors.blue,
+                color: Constant.primaryColor,
               ),
             )
           : Container(
