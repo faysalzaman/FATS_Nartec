@@ -1,19 +1,17 @@
-import 'package:fats_client/Services/AssetGenerate/GenerateTags.dart';
 import 'package:fats_client/Services/AssetGenerate/NewAssetTagGenerateServices.dart';
 import 'package:fats_client/constants.dart';
 import 'package:fats_client/models/AssetGenerateModel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class NewAssetGenerateTagScreen extends StatefulWidget {
-  const NewAssetGenerateTagScreen({Key? key}) : super(key: key);
+class ScannedAssetsScreen extends StatefulWidget {
+  const ScannedAssetsScreen({Key? key}) : super(key: key);
 
   @override
-  State<NewAssetGenerateTagScreen> createState() =>
-      _NewAssetGenerateTagScreenState();
+  State<ScannedAssetsScreen> createState() => _ScannedAssetsScreenState();
 }
 
-class _NewAssetGenerateTagScreenState extends State<NewAssetGenerateTagScreen> {
+class _ScannedAssetsScreenState extends State<ScannedAssetsScreen> {
   List<AssetGenerateModel> assetGenerateModel = [];
   List<bool> isMarked = [];
   int rowsPerPage = PaginatedDataTable.defaultRowsPerPage;
@@ -54,7 +52,7 @@ class _NewAssetGenerateTagScreenState extends State<NewAssetGenerateTagScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text('Generate New Tags'),
+        title: const Text('View Scanned Assets'),
         centerTitle: true,
         elevation: 0,
         backgroundColor: Constant.primaryColor,
@@ -85,13 +83,7 @@ class _NewAssetGenerateTagScreenState extends State<NewAssetGenerateTagScreen> {
                       child: Column(
                         children: [
                           PaginatedDataTable(
-                            header: const Text(
-                              'Generated Asset Tags',
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 13,
-                              ),
-                            ),
+                            showCheckboxColumn: false,
                             headingRowColor: MaterialStateProperty.all(
                                 Constant.primaryColor),
                             rowsPerPage: rowsPerPage,
@@ -102,9 +94,6 @@ class _NewAssetGenerateTagScreenState extends State<NewAssetGenerateTagScreen> {
                               });
                             },
                             columns: [
-                              DataColumn(
-                                  label: const Text('Mark',
-                                      style: TextStyle(color: Colors.white))),
                               DataColumn(
                                   label: const Text('Id',
                                       style: TextStyle(color: Colors.white))),
@@ -247,37 +236,6 @@ class _NewAssetGenerateTagScreenState extends State<NewAssetGenerateTagScreen> {
                         ],
                       ),
                     ),
-                    Positioned(
-                      right: 10,
-                      top: 10,
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Constant.primaryColor,
-                        ),
-                        onPressed: () {
-                          // if not selected then return get.snackbar
-                          if (isMarked.where((marked) => marked).isEmpty) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content:
-                                    Text('Please select at least one item'),
-                                backgroundColor: Colors.red,
-                              ),
-                            );
-                            return;
-                          }
-
-                          Constant.showLoadingDialog(context);
-                          GenerateTagsServices.tagGenerate(context);
-                        },
-                        child: const Text(
-                          'Generate Tags',
-                          style: TextStyle(
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                    ),
                   ],
                 ),
     );
@@ -313,16 +271,6 @@ class _DataSource extends DataTableSource {
     final asset = assetGenerateModel[index];
     return DataRow(
       cells: [
-        DataCell(
-          Checkbox(
-            value: isMarked[index],
-            onChanged: (value) {
-              setState(() {
-                isMarked[index] = value!;
-              });
-            },
-          ),
-        ),
         DataCell(Text((index + 1).toString())),
         DataCell(Text(asset.majorCategory ?? '')),
         DataCell(Text(asset.majorCategoryDescription ?? '')),

@@ -3,8 +3,8 @@ import 'dart:io';
 import 'package:fats_client/constants.dart';
 import 'package:fats_client/screens/AssetByCustodian/asset_by_custodian_screen.dart';
 import 'package:fats_client/screens/AssetByLocation/asset_by_location_screen.dart';
-import 'package:fats_client/screens/AssetTransaction/asset_inventory.dart';
-import 'package:fats_client/screens/AssetTransaction/asset_movement.dart';
+import 'package:fats_client/screens/AssetTransaction/asset_inventory/asset_inventory_screen.dart';
+import 'package:fats_client/screens/AssetTransaction/asset_movement/asset_movement_screen.dart';
 import 'package:fats_client/screens/AssetTransaction/asset_transaction.dart';
 import 'package:fats_client/screens/AssetVarification/asset_tag_information.dart';
 import 'package:fats_client/screens/NewAssetGenerateTag/new_asset_generate_tag_screen.dart';
@@ -41,7 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
         Get.to(() => const VarifiedAssetScreen());
       },
       () {
-        Get.to(() => const AssetMovement());
+        Get.to(() => const AssetMovementScreen());
       },
       () {
         Get.to(() => const AssetByCustodian());
@@ -485,7 +485,7 @@ class _MyDrawerWidgetState extends State<MyDrawerWidget> {
         Get.to(() => const VarifiedAssetScreen());
       },
       () {
-        Get.to(() => const AssetMovement());
+        Get.to(() => const AssetMovementScreen());
       },
       () {
         Get.to(() => const AssetByCustodian());
@@ -495,7 +495,7 @@ class _MyDrawerWidgetState extends State<MyDrawerWidget> {
       },
       () {
         // Asset Inventory
-        Get.to(() => const AssetsInventory());
+        Get.to(() => const AssetsInventoryScreen());
       },
       () {
         // Admin Panel

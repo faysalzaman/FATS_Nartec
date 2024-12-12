@@ -1,7 +1,7 @@
 // ignore_for_file: must_be_immutable
 
-import 'package:fats_client/screens/AssetTransaction/asset_inventory.dart';
-import 'package:fats_client/screens/AssetTransaction/asset_movement.dart';
+import 'package:fats_client/screens/AssetTransaction/asset_inventory/asset_inventory_screen.dart';
+import 'package:fats_client/screens/AssetTransaction/asset_movement/asset_movement_screen.dart';
 import 'package:fats_client/screens/AssetTransaction/rectify_assets_by_employee.dart';
 import 'package:fats_client/screens/AssetTransaction/rectify_assets_by_location.dart';
 import 'package:fats_client/screens/AssetTransaction/update_serial_number.dart';
@@ -21,10 +21,10 @@ class _AssetTransactionState extends State<AssetTransaction> {
   Map<String, dynamic> data = {
     "onTap": [
       () {
-        Get.to(() => const AssetMovement());
+        Get.to(() => const AssetMovementScreen());
       },
       () {
-        Get.to(() => const AssetsInventory());
+        Get.to(() => const AssetsInventoryScreen());
       },
       () {
         Get.to(() => const RectifyAssetsByLocation());

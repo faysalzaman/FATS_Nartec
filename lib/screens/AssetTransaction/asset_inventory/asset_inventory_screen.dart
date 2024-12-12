@@ -5,18 +5,20 @@ import 'package:fats_client/Services/AssetVarification/BoughtServices.dart';
 import 'package:fats_client/Services/AssetVarification/EmployeeNameIdServices.dart';
 import 'package:fats_client/Services/AssetVarification/SaveTag.dart';
 import 'package:fats_client/constants.dart';
+import 'package:fats_client/screens/AssetTransaction/asset_inventory/scanned_asset_screen.dart';
 import 'package:fats_client/widgets/text_form_field_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
-class AssetsInventory extends StatefulWidget {
-  const AssetsInventory({super.key});
+class AssetsInventoryScreen extends StatefulWidget {
+  const AssetsInventoryScreen({super.key});
 
   @override
-  State<AssetsInventory> createState() => _AssetsInventoryState();
+  State<AssetsInventoryScreen> createState() => _AssetsInventoryScreenState();
 }
 
-class _AssetsInventoryState extends State<AssetsInventory> {
+class _AssetsInventoryScreenState extends State<AssetsInventoryScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   final TextEditingController _locationTagController = TextEditingController();
@@ -212,7 +214,9 @@ class _AssetsInventoryState extends State<AssetsInventory> {
                                     // rgba(128, 118, 3, 1)
                                     backgroundColor:
                                         Color.fromARGB(255, 128, 118, 3)),
-                                onPressed: () {},
+                                onPressed: () {
+                                  Get.to(() => ScannedAssetsScreen());
+                                },
                                 child: Text("View Scanned Assets"),
                               ),
                             ),
@@ -720,108 +724,80 @@ class _AssetsInventoryState extends State<AssetsInventory> {
                             ),
                           ],
                         ),
-                        SizedBox(height: 10),
+                        SizedBox(height: 20),
                         Container(
+                          margin: EdgeInsets.only(bottom: 30),
+                          height: 50,
                           width: MediaQuery.of(context).size.width * 0.9,
-                          child: Row(
-                            children: [
-                              Expanded(
-                                child: ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.grey,
-                                    foregroundColor: Colors.white,
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Constant.primaryColor,
+                              foregroundColor: Colors.white,
+                            ),
+                            onPressed: () async {
+                              Constant.showLoadingDialog(context);
+                              if (_tagController.text.trim().isEmpty ||
+                                  _serialNoController.text.trim().isEmpty ||
+                                  _employeeIdController.text.trim().isEmpty ||
+                                  _notesController.text.trim().isEmpty ||
+                                  _otherTagController.text.trim().isEmpty ||
+                                  _locationTagController.text.trim().isEmpty) {
+                                Navigator.pop(context);
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text("Please fill all the fields"),
+                                    backgroundColor: Colors.red,
                                   ),
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                  },
-                                  child: const Text('Back'),
-                                ),
-                              ),
-                              SizedBox(width: 10),
-                              Expanded(
-                                child: ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: Constant.primaryColor,
-                                    foregroundColor: Colors.white,
-                                  ),
-                                  onPressed: () async {
-                                    Constant.showLoadingDialog(context);
-                                    if (_tagController.text.trim().isEmpty ||
-                                        _serialNoController.text
-                                            .trim()
-                                            .isEmpty ||
-                                        _employeeIdController.text
-                                            .trim()
-                                            .isEmpty ||
-                                        _notesController.text.trim().isEmpty ||
-                                        _otherTagController.text
-                                            .trim()
-                                            .isEmpty ||
-                                        _locationTagController.text
-                                            .trim()
-                                            .isEmpty) {
-                                      Navigator.pop(context);
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
-                                        const SnackBar(
-                                          content: Text(
-                                              "Please fill all the fields"),
-                                          backgroundColor: Colors.red,
-                                        ),
-                                      );
-                                    } else {
-                                      SaveTagServices.saveTag(
-                                        tblAssetMasterEncodeAssetCaptureID,
-                                        majorCategory,
-                                        majorCategoryDescription,
-                                        minorCategory,
-                                        minorCategoryDescription,
-                                        _tagController.text.trim(),
-                                        _serialNoController.text.trim(),
-                                        assetDescription,
-                                        assetType,
-                                        selectAssetCondition.toString(),
-                                        country,
-                                        region,
-                                        cityName,
-                                        dao,
-                                        daoName,
-                                        businessUnit,
-                                        buildingNo,
-                                        floorNo,
-                                        _employeeIdController.text.trim(),
-                                        ponNumber,
-                                        poDate,
-                                        _notesController.text.trim(),
-                                        supplier,
-                                        invoiceNo,
-                                        invoiceDate,
-                                        modelOfAsset,
-                                        manufacturer,
-                                        ownership,
-                                        selectBought.toString(),
-                                        terminalID,
-                                        _otherTagController.text.trim(),
-                                        _locationTagController.text.trim(),
-                                        buildingName,
-                                        buildingAddress,
-                                        mainSubSeriesNo,
-                                        assetDateCaptured,
-                                        assetTimeCaptured,
-                                        assetDateScanned,
-                                        assetTimeScanned,
-                                        qty,
-                                        _phoneExtensionController.text.trim(),
-                                        _assetLocationDetailsController.text
-                                            .trim(),
-                                        imagefiles!,
-                                      ).then((value) {});
-                                    }
-                                  },
-                                  child: const Text('Save'),
-                                ),
-                              ),
-                            ],
+                                );
+                              } else {
+                                SaveTagServices.saveTag(
+                                  tblAssetMasterEncodeAssetCaptureID,
+                                  majorCategory,
+                                  majorCategoryDescription,
+                                  minorCategory,
+                                  minorCategoryDescription,
+                                  _tagController.text.trim(),
+                                  _serialNoController.text.trim(),
+                                  assetDescription,
+                                  assetType,
+                                  selectAssetCondition.toString(),
+                                  country,
+                                  region,
+                                  cityName,
+                                  dao,
+                                  daoName,
+                                  businessUnit,
+                                  buildingNo,
+                                  floorNo,
+                                  _employeeIdController.text.trim(),
+                                  ponNumber,
+                                  poDate,
+                                  _notesController.text.trim(),
+                                  supplier,
+                                  invoiceNo,
+                                  invoiceDate,
+                                  modelOfAsset,
+                                  manufacturer,
+                                  ownership,
+                                  selectBought.toString(),
+                                  terminalID,
+                                  _otherTagController.text.trim(),
+                                  _locationTagController.text.trim(),
+                                  buildingName,
+                                  buildingAddress,
+                                  mainSubSeriesNo,
+                                  assetDateCaptured,
+                                  assetTimeCaptured,
+                                  assetDateScanned,
+                                  assetTimeScanned,
+                                  qty,
+                                  _phoneExtensionController.text.trim(),
+                                  _assetLocationDetailsController.text.trim(),
+                                  imagefiles!,
+                                ).then((value) {});
+                              }
+                            },
+                            child: const Text('Save'),
                           ),
                         ),
                       ],
