@@ -17,6 +17,7 @@ class _ScanItemScreenState extends State<ScanItemScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         // leading icon color white
         iconTheme: const IconThemeData(color: Colors.white),
@@ -103,23 +104,6 @@ class _ScanItemScreenState extends State<ScanItemScreen> {
                     ),
                   ),
                   child: DataTable(
-                    headingRowColor: MaterialStateProperty.resolveWith<Color>(
-                      (Set<MaterialState> states) {
-                        if (states.contains(MaterialState.hovered)) {
-                          return Color(0xFF0A2472).withOpacity(0.5);
-                        }
-                        return Color(0xFF0A2472);
-                      },
-                    ),
-                    dataRowColor: MaterialStateProperty.resolveWith<Color>(
-                      (Set<MaterialState> states) {
-                        if (states.contains(MaterialState.hovered)) {
-                          return Color.fromARGB(48, 45, 219, 146)
-                              .withOpacity(0.5);
-                        }
-                        return Color.fromARGB(48, 45, 219, 146);
-                      },
-                    ),
                     columns: [
                       DataColumn(
                         label: Text(
