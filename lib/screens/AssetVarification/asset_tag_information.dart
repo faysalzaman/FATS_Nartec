@@ -152,7 +152,7 @@ class _AssetTagInformationState extends State<AssetTagInformation> {
               child: CircularProgressIndicator(
               color: Constant.primaryColor,
               backgroundColor: Colors.white,
-              strokeWidth: 10,
+              strokeWidth: 5,
               strokeCap: StrokeCap.round,
             ))
           : Container(

@@ -69,7 +69,7 @@ class _ScannedAssetsScreenState extends State<ScannedAssetsScreen> {
           ? Center(
               child: CircularProgressIndicator(
                 color: Constant.primaryColor,
-                strokeWidth: 10,
+                strokeWidth: 5,
                 strokeCap: StrokeCap.round,
               ),
             )

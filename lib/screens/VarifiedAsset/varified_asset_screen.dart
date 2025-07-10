@@ -100,7 +100,7 @@ class _VarifiedAssetScreenState extends State<VarifiedAssetScreen> {
           ? Center(
               child: CircularProgressIndicator(
                 color: Constant.primaryColor,
-                strokeWidth: 10,
+                strokeWidth: 5,
                 strokeCap: StrokeCap.round,
               ),
             )

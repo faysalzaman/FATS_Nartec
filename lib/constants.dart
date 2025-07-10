@@ -7,8 +7,8 @@ class Constant {
   // static String baseUrl = "http://gs1ksa.org:7001/api";
   // static String host = 'gs1ksa.org:7001';
 
-  static String baseUrl = "http://gs1ksa.org:7001/api";
-  static String host = 'gs1ksa.org:7001';
+  static String baseUrl = "https://mala.fatsme.online/api";
+  static String host = 'mala.fatsme.online';
 
   static String placeHolderImage =
       "https://www.kpriet.ac.in/asset/frontend/images/nodata.png";
@@ -22,7 +22,7 @@ class Constant {
         return const Center(
           child: CircularProgressIndicator(
             color: Color(0xFF00006A),
-            strokeWidth: 10,
+            strokeWidth: 2,
           ),
         );
       },

@@ -66,7 +66,7 @@ class _AssetForPrintingScreenState extends State<AssetForPrintingScreen> {
           ? Center(
               child: CircularProgressIndicator(
                 color: Constant.primaryColor,
-                strokeWidth: 10,
+                strokeWidth: 5,
                 strokeCap: StrokeCap.round,
               ),
             )
