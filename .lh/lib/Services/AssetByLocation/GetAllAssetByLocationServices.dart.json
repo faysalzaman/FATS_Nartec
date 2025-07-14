@@ -1,0 +1,18 @@
+{
+    "sourceFile": "lib/Services/AssetByLocation/GetAllAssetByLocationServices.dart",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1752153457609,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1752153457609,
+            "name": "Commit-0",
+            "content": "// ignore_for_file: avoid_print\n\nimport 'package:http/http.dart' as http;\nimport 'dart:convert';\nimport 'package:shared_preferences/shared_preferences.dart';\n\nimport '../../constants.dart';\nimport '../../models/AssetByLocationModel.dart';\n\nclass GetAllAssetByLocationServices {\n  static Future<List<AssetByLocationModel>> getAllEmployeeList(\n      String locationId) async {\n    SharedPreferences prefs = await SharedPreferences.getInstance();\n    String token = prefs.getString('token') ?? '';\n\n    final String url =\n        \"${Constant.baseUrl}/getAssetMasterEncodeAssetCaptureFinalByLocationTag/$locationId\";\n    final uri = Uri.parse(url);\n\n    final headers = <String, String>{\n      \"Authorization\": token,\n      \"Content-Type\": \"application/json\",\n      \n    };\n\n    try {\n      var response = await http.get(uri, headers: headers);\n\n      if (response.statusCode == 200) {\n        var data = json.decode(response.body) as List;\n        List<AssetByLocationModel> assetByLocationModelList =\n            data.map((e) => AssetByLocationModel.fromJson(e)).toList();\n        return assetByLocationModelList;\n      } else {\n        throw Exception('Failed to load Employee list');\n      }\n    } catch (e) {\n      print(e);\n      throw Exception('Failed to load Employee list');\n    }\n  }\n}\n"
+        }
+    ]
+}

@@ -21,7 +21,6 @@ class GetAllCitiesService {
     final headers = <String, String>{
       "Authorization": token,
       "Content-Type": "application/json",
-      "Host": Constant.host,
     };
 
     try {

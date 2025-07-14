@@ -1,0 +1,22 @@
+{
+    "sourceFile": "lib/Services/AddNewBrand/AddNewBrandServices.dart",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1752153457589,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1752153467645,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,9 +23,8 @@\n \n     final headers = <String, String>{\n       \"Authorization\": token,\n       \"Content-Type\": \"application/json\",\n-      \n     };\n \n     final body = {\n       \"TblMakeName\": brandName,\n"
+                }
+            ],
+            "date": 1752153457589,
+            "name": "Commit-0",
+            "content": "// ignore_for_file: avoid_print, use_build_context_synchronously, unused_local_variable\n\nimport 'dart:convert';\n\nimport 'package:flutter/material.dart';\nimport 'package:http/http.dart' as http;\nimport 'package:shared_preferences/shared_preferences.dart';\n\nimport '../../constants.dart';\n\nclass AddNewBrandServices {\n  static Future<void> addBrand(\n    String brandName,\n    String sCode,\n    String mCode,\n    BuildContext context,\n  ) async {\n    SharedPreferences prefs = await SharedPreferences.getInstance();\n    String token = prefs.getString('token') ?? '';\n\n    final String url = \"${Constant.baseUrl}/PostMakelist\";\n    final uri = Uri.parse(url);\n\n    final headers = <String, String>{\n      \"Authorization\": token,\n      \"Content-Type\": \"application/json\",\n      \n    };\n\n    final body = {\n      \"TblMakeName\": brandName,\n      \"TblMakeMainCode\": mCode,\n      \"tblMajorCode\": sCode\n    };\n\n    print('body: ${jsonEncode(body)}');\n\n    try {\n      var response = await http.post(\n        uri,\n        headers: headers,\n        body: json.encode(body),\n      );\n\n      if (response.statusCode == 200) {\n        print('status code: ${response.statusCode}');\n        var data = json.decode(response.body);\n\n        ScaffoldMessenger.of(context).showSnackBar(\n          const SnackBar(\n            content: Text(\"Brand Added Successfully\"),\n            duration: Duration(seconds: 4),\n          ),\n        );\n        Navigator.of(context).pop();\n      } else {\n        print('status code: ${response.statusCode}');\n        throw Exception('Failed to load cities list');\n      }\n    } catch (e) {\n      print(e);\n      throw Exception('Failed to load cities list');\n    }\n  }\n}\n"
+        }
+    ]
+}

@@ -19,7 +19,6 @@ class DeleteTagServices {
     final headers = <String, String>{
       "Authorization": token,
       "Content-Type": "application/json",
-      "Host": Constant.host,
     };
 
     final body = {"TagNumber": tag};

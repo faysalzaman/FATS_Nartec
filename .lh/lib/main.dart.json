@@ -1,0 +1,22 @@
+{
+    "sourceFile": "lib/main.dart",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1752153504854,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1752153529157,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,9 +12,9 @@\n   @override\n   Widget build(BuildContext context) {\n     return GetMaterialApp(\n       debugShowCheckedModeBanner: false,\n-      title: 'FATS',\n+      title: 'FATS System',\n       theme: ThemeData(\n         appBarTheme: AppBarTheme(\n           titleTextStyle: TextStyle(\n             fontSize: 16,\n"
+                }
+            ],
+            "date": 1752153504853,
+            "name": "Commit-0",
+            "content": "import 'package:fats_client/screens/splash_screen.dart';\nimport 'package:flutter/material.dart';\nimport 'package:get/get.dart';\n\nvoid main() {\n  runApp(const MyApp());\n}\n\nclass MyApp extends StatelessWidget {\n  const MyApp({super.key});\n\n  @override\n  Widget build(BuildContext context) {\n    return GetMaterialApp(\n      debugShowCheckedModeBanner: false,\n      title: 'FATS',\n      theme: ThemeData(\n        appBarTheme: AppBarTheme(\n          titleTextStyle: TextStyle(\n            fontSize: 16,\n            fontWeight: FontWeight.bold,\n            color: Colors.white,\n          ),\n        ),\n      ),\n      home: SplashScreen(),\n    );\n  }\n}\n"
+        }
+    ]
+}

@@ -70,7 +70,6 @@ class SaveTagServices {
 
     final headers = <String, String>{
       "Authorization": token,
-      "Host": Constant.host,
     };
 
     var request = http.MultipartRequest('POST', uri);

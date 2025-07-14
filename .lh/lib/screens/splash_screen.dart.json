@@ -3,16 +3,20 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 0,
+            "activePatchIndex": 1,
             "patches": [
                 {
                     "date": 1752144406489,
                     "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1752146233980,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -45,9 +45,9 @@\n             ),\n             CircularProgressIndicator(\n               color: Constant.primaryColor,\n               backgroundColor: Colors.white,\n-              strokeWidth: 5,\n+              strokeWidth: 2,\n               strokeCap: StrokeCap.round,\n             ),\n           ],\n         ),\n"
                 }
             ],
             "date": 1752144406489,
             "name": "Commit-0",
-            "content": "import 'package:fats_client/constants.dart';\nimport 'package:fats_client/screens/login_screen.dart';\nimport 'package:flutter/material.dart';\n\nclass SplashScreen extends StatefulWidget {\n  const SplashScreen({super.key});\n\n  @override\n  State<SplashScreen> createState() => _SplashScreenState();\n}\n\nclass _SplashScreenState extends State<SplashScreen> {\n  @override\n  void initState() {\n    super.initState();\n    Future.delayed(\n      const Duration(seconds: 5),\n      () {\n        Navigator.pushReplacement(\n          context,\n          MaterialPageRoute(\n            builder: (context) => const LoginScreen(),\n          ),\n        );\n      },\n    );\n  }\n\n  @override\n  Widget build(BuildContext context) {\n    return Scaffold(\n      backgroundColor: Colors.white,\n      body: Center(\n        child: Column(\n          mainAxisAlignment: MainAxisAlignment.center,\n          children: [\n            Container(\n              padding: const EdgeInsets.all(8.0),\n              child: Image.asset(\n                'assets/logo/app_icon.png',\n                width: double.infinity,\n                height: 200,\n                fit: BoxFit.contain,\n              ),\n            ),\n            CircularProgressIndicator(\n              color: Constant.primaryColor,\n              backgroundColor: Colors.white,\n              strokeWidth: 5,\n              strokeCap: StrokeCap.round,\n            ),\n          ],\n        ),\n      ),\n    );\n  }\n}\n"
+            "content": "import 'package:fats_client/constants.dart';\nimport 'package:fats_client/screens/login_screen.dart';\nimport 'package:flutter/material.dart';\n\nclass SplashScreen extends StatefulWidget {\n  const SplashScreen({super.key});\n\n  @override\n  State<SplashScreen> createState() => _SplashScreenState();\n}\n\nclass _SplashScreenState extends State<SplashScreen> {\n  @override\n  void initState() {\n    super.initState();\n    Future.delayed(\n      const Duration(seconds: 5),\n      () {\n        Navigator.pushReplacement(\n          context,\n          MaterialPageRoute(\n            builder: (context) => const LoginScreen(),\n          ),\n        );\n      },\n    );\n  }\n\n  @override\n  Widget build(BuildContext context) {\n    return Scaffold(\n      backgroundColor: Colors.white,\n      body: Center(\n        child: Column(\n          mainAxisAlignment: MainAxisAlignment.center,\n          children: [\n            Container(\n              padding: const EdgeInsets.all(8.0),\n              child: Image.asset(\n                'assets/logo/app_icon.png',\n                width: double.infinity,\n                height: 200,\n                fit: BoxFit.contain,\n              ),\n            ),\n            CircularProgressIndicator(\n              color: Constant.primaryColor,\n              backgroundColor: Colors.white,\n              strokeWidth: 2,\n              strokeCap: StrokeCap.round,\n            ),\n          ],\n        ),\n      ),\n    );\n  }\n}\n"
         }
     ]
 }

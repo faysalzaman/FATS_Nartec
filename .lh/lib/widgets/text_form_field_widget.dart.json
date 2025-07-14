@@ -1,0 +1,18 @@
+{
+    "sourceFile": "lib/widgets/text_form_field_widget.dart",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1752154089312,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1752154089312,
+            "name": "Commit-0",
+            "content": "import 'package:flutter/material.dart';\n\nclass TextFormFieldWidget extends StatelessWidget {\n  final TextEditingController controller;\n  final double? width;\n  final double? height;\n  final String? hintText;\n  final String? labelText;\n  final bool? readOnly;\n  final String? Function(String?)? validator;\n  final Color? color;\n  final void Function(String)? onChanged;\n  final VoidCallback? onEditingComplete;\n  final Widget? suffix;\n  final FocusNode? focusNode;\n  final Function(String)? onFieldSubmitted;\n\n  const TextFormFieldWidget({\n    super.key,\n    this.width,\n    this.height,\n    this.hintText,\n    this.labelText,\n    required this.controller,\n    this.readOnly,\n    this.validator,\n    this.color,\n    this.onChanged,\n    this.onEditingComplete,\n    this.suffix,\n    this.focusNode,\n    this.onFieldSubmitted,\n  });\n\n  @override\n  Widget build(BuildContext context) {\n    return Container(\n      decoration: BoxDecoration(\n        borderRadius: BorderRadius.circular(20),\n      ),\n      width: width ?? MediaQuery.of(context).size.width * 0.8,\n      height: height ?? 45,\n      child: TextFormField(\n        readOnly: readOnly ?? false,\n        validator: validator,\n        autovalidateMode: AutovalidateMode.onUserInteraction,\n        controller: controller,\n        onChanged: onChanged,\n        onEditingComplete: onEditingComplete,\n        focusNode: focusNode,\n        onFieldSubmitted: onFieldSubmitted,\n        textInputAction: TextInputAction.next,\n        decoration: InputDecoration(\n          isDense: true,\n          filled: true,\n          fillColor: color ?? Colors.white,\n          border: const OutlineInputBorder(\n            borderSide: BorderSide(color: Colors.black),\n            borderRadius: BorderRadius.all(Radius.circular(8)),\n          ),\n          suffixIcon: suffix,\n          enabledBorder: const OutlineInputBorder(\n            borderSide: BorderSide(color: Colors.grey),\n            borderRadius: BorderRadius.all(Radius.circular(8)),\n          ),\n          enabled: true,\n          hintText: hintText,\n          labelText: labelText,\n        ),\n      ),\n    );\n  }\n}\n"
+        }
+    ]
+}

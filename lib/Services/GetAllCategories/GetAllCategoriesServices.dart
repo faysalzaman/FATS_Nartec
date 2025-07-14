@@ -15,7 +15,6 @@ class GetAllCategoriesServices {
 
     final headers = <String, String>{
       "Authorization": token,
-      "Host": "gs1ksa.org:7001",
     };
 
     print(uri);

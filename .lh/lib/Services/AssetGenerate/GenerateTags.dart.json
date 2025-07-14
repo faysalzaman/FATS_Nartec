@@ -1,0 +1,18 @@
+{
+    "sourceFile": "lib/Services/AssetGenerate/GenerateTags.dart",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1752153457609,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1752153457609,
+            "name": "Commit-0",
+            "content": "import 'package:fats_client/screens/home_screen.dart';\nimport 'package:flutter/material.dart';\nimport 'package:get/get.dart';\nimport 'package:http/http.dart' as http;\nimport 'package:shared_preferences/shared_preferences.dart';\n\nimport '../../constants.dart';\n\nclass GenerateTagsServices {\n  static Future<String> tagGenerate(BuildContext context) async {\n    SharedPreferences prefs = await SharedPreferences.getInstance();\n    String token = prefs.getString('token') ?? '';\n\n    final String url =\n        \"${Constant.baseUrl}/UpdateAssetMasterEncodeAssetCaptureTagNumber\";\n    final uri = Uri.parse(url);\n\n    final headers = <String, String>{\n      \"Authorization\": token,\n      \"Content-Type\": \"application/json\",\n      \n    };\n\n    try {\n      var response = await http.get(uri, headers: headers);\n\n      if (response.statusCode == 200) {\n        Get.offAll(const HomeScreen());\n        Get.snackbar(\n          \"Success\",\n          \"Tags Generated Successfully\",\n          backgroundColor: Colors.green,\n          colorText: Colors.white,\n          snackPosition: SnackPosition.BOTTOM,\n          duration: const Duration(seconds: 3),\n          isDismissible: true,\n        );\n        return \"Success\";\n      } else if (response.statusCode == 404) {\n        Navigator.of(context).pop();\n        Get.snackbar(\n          \"Error\",\n          \"Failed to Generate Tags\",\n          backgroundColor: Colors.red,\n          colorText: Colors.white,\n          snackPosition: SnackPosition.BOTTOM,\n          duration: const Duration(seconds: 3),\n          isDismissible: true,\n        );\n        throw Exception('Failed to Generate Tags');\n      } else {\n        Navigator.of(context).pop();\n        Get.snackbar(\n          \"Error\",\n          \"Failed to Generate Tags\",\n          backgroundColor: Colors.red,\n          colorText: Colors.white,\n          snackPosition: SnackPosition.BOTTOM,\n          duration: const Duration(seconds: 3),\n          isDismissible: true,\n        );\n        throw Exception('Failed to Generate Tags');\n      }\n    } catch (e) {\n      Navigator.of(context).pop();\n      print(e);\n      throw Exception('Failed to Generate Tags');\n    }\n  }\n}\n"
+        }
+    ]
+}

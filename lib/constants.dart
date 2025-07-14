@@ -2,13 +2,12 @@ import 'package:flutter/material.dart';
 
 class Constant {
   // static String baseUrl = 'http://161.97.172.46:7001/api';
-  // static String host = '161.97.172.46';
 
   // static String baseUrl = "http://gs1ksa.org:7001/api";
-  // static String host = 'gs1ksa.org:7001';
 
-  static String baseUrl = "https://mala.fatsme.online/api";
-  static String host = 'mala.fatsme.online';
+  // static String baseUrl = "https://mala.fatsme.online/api";
+
+  static String baseUrl = "https://gtrack.online:7003/api";
 
   static String placeHolderImage =
       "https://www.kpriet.ac.in/asset/frontend/images/nodata.png";

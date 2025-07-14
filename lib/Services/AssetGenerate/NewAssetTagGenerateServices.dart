@@ -21,7 +21,6 @@ class NewAssetTagGenerateServices {
     final headers = <String, String>{
       "Authorization": token,
       "Content-Type": "application/json",
-      "Host": Constant.host,
     };
 
     print("headers: $headers");

@@ -1,0 +1,18 @@
+{
+    "sourceFile": "lib/Services/AssetVarification/AsseetConditionServices.dart",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1752153457609,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1752153457609,
+            "name": "Commit-0",
+            "content": "// ignore_for_file: avoid_print\n\nimport 'package:fats_client/models/AssetConditionModel.dart';\n\nimport 'package:http/http.dart' as http;\nimport 'dart:convert';\nimport 'package:shared_preferences/shared_preferences.dart';\n\nimport '../../constants.dart';\n\nclass AssetConditionServices {\n  static Future<List<AssetConditionModel>> assetCondition() async {\n    SharedPreferences prefs = await SharedPreferences.getInstance();\n    String token = prefs.getString('token') ?? '';\n\n    final String url = \"${Constant.baseUrl}/GetAllAssetCondition\";\n    final uri = Uri.parse(url);\n\n    final headers = <String, String>{\n      \"Authorization\": token,\n      \"Content-Type\": \"application/json\",\n      \n    };\n\n    try {\n      var response = await http.get(uri, headers: headers);\n\n      if (response.statusCode == 200) {\n        var jsonResponse = json.decode(response.body) as List;\n        List<AssetConditionModel> assetConditionModel =\n            jsonResponse.map((e) => AssetConditionModel.fromJson(e)).toList();\n        return assetConditionModel;\n      } else {\n        throw Exception('Failed to load cities list');\n      }\n    } catch (e) {\n      print(e);\n      throw Exception('Failed to load cities list');\n    }\n  }\n}\n"
+        }
+    ]
+}

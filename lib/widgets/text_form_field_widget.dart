@@ -12,6 +12,8 @@ class TextFormFieldWidget extends StatelessWidget {
   final void Function(String)? onChanged;
   final VoidCallback? onEditingComplete;
   final Widget? suffix;
+  final FocusNode? focusNode;
+  final Function(String)? onFieldSubmitted;
 
   const TextFormFieldWidget({
     super.key,
@@ -26,6 +28,8 @@ class TextFormFieldWidget extends StatelessWidget {
     this.onChanged,
     this.onEditingComplete,
     this.suffix,
+    this.focusNode,
+    this.onFieldSubmitted,
   });
 
   @override
@@ -43,6 +47,9 @@ class TextFormFieldWidget extends StatelessWidget {
         controller: controller,
         onChanged: onChanged,
         onEditingComplete: onEditingComplete,
+        focusNode: focusNode,
+        onFieldSubmitted: onFieldSubmitted,
+        textInputAction: TextInputAction.next,
         decoration: InputDecoration(
           isDense: true,
           filled: true,
@@ -57,6 +64,8 @@ class TextFormFieldWidget extends StatelessWidget {
             borderRadius: BorderRadius.all(Radius.circular(8)),
           ),
           enabled: true,
+          hintText: hintText,
+          labelText: labelText,
         ),
       ),
     );

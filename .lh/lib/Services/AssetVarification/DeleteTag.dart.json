@@ -1,0 +1,26 @@
+{
+    "sourceFile": "lib/Services/AssetVarification/DeleteTag.dart",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 2,
+            "patches": [
+                {
+                    "date": 1752153457609,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1752154658160,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,9 +18,8 @@\n \n     final headers = <String, String>{\n       \"Authorization\": token,\n       \"Content-Type\": \"application/json\",\n-      \n     };\n \n     final body = {\"TagNumber\": tag};\n \n@@ -30,15 +29,15 @@\n \n       if (response.statusCode == 200) {\n         print(\"status code: ${response.statusCode}\");\n \n-        Get.snackbar(\n-          \"Success\",\n-          \"Tag Deleted Successfully\",\n-          snackPosition: SnackPosition.BOTTOM,\n-          backgroundColor: Colors.green,\n-          colorText: Colors.white,\n-        );\n+        // Get.snackbar(\n+        //   \"Success\",\n+        //   \"Tag Deleted Successfully\",\n+        //   snackPosition: SnackPosition.BOTTOM,\n+        //   backgroundColor: Colors.green,\n+        //   colorText: Colors.white,\n+        // );\n       } else {\n         print(\"status code: ${response.statusCode}\");\n         Get.snackbar(\n           \"Error\",\n"
+                },
+                {
+                    "date": 1752154726622,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -29,15 +29,15 @@\n \n       if (response.statusCode == 200) {\n         print(\"status code: ${response.statusCode}\");\n \n-        // Get.snackbar(\n-        //   \"Success\",\n-        //   \"Tag Deleted Successfully\",\n-        //   snackPosition: SnackPosition.BOTTOM,\n-        //   backgroundColor: Colors.green,\n-        //   colorText: Colors.white,\n-        // );\n+        Get.snackbar(\n+          \"Success\",\n+          \"Tag Deleted Successfully\",\n+          snackPosition: SnackPosition.BOTTOM,\n+          backgroundColor: Colors.green,\n+          colorText: Colors.white,\n+        );\n       } else {\n         print(\"status code: ${response.statusCode}\");\n         Get.snackbar(\n           \"Error\",\n"
+                }
+            ],
+            "date": 1752153457609,
+            "name": "Commit-0",
+            "content": "import 'package:flutter/material.dart';\n\nimport 'package:http/http.dart' as http;\nimport 'dart:convert';\nimport 'package:get/get.dart';\nimport 'package:shared_preferences/shared_preferences.dart';\n\nimport '../../constants.dart';\n\nclass DeleteTagServices {\n  static Future<void> deleteTag(String tag) async {\n    SharedPreferences prefs = await SharedPreferences.getInstance();\n    String token = prefs.getString('token') ?? '';\n\n    final String url =\n        \"${Constant.baseUrl}/DeleteAssetMasterEncodeAssetCaptureById\";\n    final uri = Uri.parse(url);\n\n    final headers = <String, String>{\n      \"Authorization\": token,\n      \"Content-Type\": \"application/json\",\n      \n    };\n\n    final body = {\"TagNumber\": tag};\n\n    try {\n      var response =\n          await http.delete(uri, headers: headers, body: json.encode(body));\n\n      if (response.statusCode == 200) {\n        print(\"status code: ${response.statusCode}\");\n\n        Get.snackbar(\n          \"Success\",\n          \"Tag Deleted Successfully\",\n          snackPosition: SnackPosition.BOTTOM,\n          backgroundColor: Colors.green,\n          colorText: Colors.white,\n        );\n      } else {\n        print(\"status code: ${response.statusCode}\");\n        Get.snackbar(\n          \"Error\",\n          \"Failed to Delete Tag\",\n          snackPosition: SnackPosition.BOTTOM,\n          backgroundColor: Colors.red,\n          colorText: Colors.white,\n          duration: const Duration(seconds: 5),\n        );\n      }\n    } catch (e) {\n      print(e);\n      throw Exception('Failed to Delete Tag');\n    }\n  }\n}\n"
+        }
+    ]
+}

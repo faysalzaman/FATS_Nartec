@@ -1,9 +1,9 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'package:fats_client/Services/GetAllCities/GetAllCitiesService.dart';
-import 'package:fats_client/screens/AssetCapture/send_barcode_screen.dart';
 import 'package:fats_client/Services/GetArea/getAreaServices.dart';
 import 'package:fats_client/constants.dart';
+import 'package:fats_client/screens/AssetCapture/send_barcode_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -26,35 +26,23 @@ class _AssetLocationFormScreenState extends State<AssetLocationFormScreen> {
   String regionCode = "";
   String area = "";
 
-  String selectFloorNo = "Select Floor No";
-  List<String> floorNoList = [
-    "Select Floor No",
-  ];
+  String selectFloorNo = "";
+  List<String> floorNoList = [];
 
-  String selectCountry = "Select Country";
-  List<String> countryList = [
-    "Select Country",
-  ];
+  String selectCountry = "";
+  List<String> countryList = [];
 
-  String selectCity = "Select City";
-  List<String> cityList = [
-    "Select City",
-  ];
+  String selectCity = "";
+  List<String> cityList = [];
 
-  String departmentName = "Select Department";
-  List<String> departmentList = [
-    "Select Department",
-  ];
+  String departmentName = "";
+  List<String> departmentList = [];
 
-  String businessUnit = "BU";
-  List<String> businessUnitList = [
-    "Select Business Unit",
-  ];
+  String businessUnit = "";
+  List<String> businessUnitList = [];
 
-  String departmentCode = "Select Department Code";
-  List<String> departmentCodeList = [
-    "Select Department Code",
-  ];
+  String branchCode = "";
+  List<String> branchCodeList = [];
 
   List countryIdList = [];
   String countryId = "";
@@ -66,6 +54,14 @@ class _AssetLocationFormScreenState extends State<AssetLocationFormScreen> {
   TextEditingController buildingAddressController = TextEditingController();
   TextEditingController buildingNoController = TextEditingController();
 
+  // Add FocusNodes
+  final FocusNode _areaFocus = FocusNode();
+  final FocusNode _departmentCodeFocus = FocusNode();
+  final FocusNode _businessNameFocus = FocusNode();
+  final FocusNode _buildingNameFocus = FocusNode();
+  final FocusNode _buildingAddressFocus = FocusNode();
+  final FocusNode _buildingNoFocus = FocusNode();
+
   @override
   void initState() {
     super.initState();
@@ -75,86 +71,135 @@ class _AssetLocationFormScreenState extends State<AssetLocationFormScreen> {
 
       var value = await LoginServices.countriesList();
       setState(() {
+        countryList = [];
+        countryIdList = [];
         for (var i = 0; i < value.length; i++) {
-          countryList.add(value[i].countryName!);
-          countryIdList.add(value[i].tblCountryID.toString());
+          // Safely handle null values
+          final countryName = value[i].countryName;
+          final countryId = value[i].tblCountryID;
+          if (countryName != null &&
+              countryName.isNotEmpty &&
+              countryId != null) {
+            countryList.add(countryName);
+            countryIdList.add(countryId.toString());
+          }
         }
-        countryId = countryIdList[0];
-        Set<String> countrySet = countryList.toSet();
-        countryList = countrySet.toList();
+        // Only set selectCountry if list is not empty
+        if (countryList.isNotEmpty) {
+          Set<String> countrySet = countryList.toSet();
+          countryList = countrySet.toList();
+          selectCountry = countryList[0];
+        }
       });
 
-      var city = await GetAllCitiesService.getCityById(countryId);
+      // Only proceed if we have valid country IDs
+      if (countryIdList.isNotEmpty) {
+        countryId = countryIdList[0]; // Changed from index 1 to 0 for safety
+        var city = await GetAllCitiesService.getCityById(countryId);
 
-      setState(() {
-        for (var i = 0; i < city.length; i++) {
-          cityList.add(city[i].cityName!);
-        }
-        Set<String> citySet = cityList.toSet();
-        cityList = citySet.toList();
-        selectCity = cityList[0];
-      });
+        setState(() {
+          cityList = [];
+          for (var i = 0; i < city.length; i++) {
+            final cityName = city[i].cityName;
+            if (cityName != null && cityName.isNotEmpty) {
+              cityList.add(cityName);
+            }
+          }
+          if (cityList.isNotEmpty) {
+            Set<String> citySet = cityList.toSet();
+            cityList = citySet.toList();
+            selectCity = cityList[0];
+          }
+        });
+      }
       Navigator.of(context).pop();
 
       var department = await GetAllDepartmentsService.getAllDepartments();
 
       setState(() {
+        // Handle departments - add business group if daoName is null
         departmentList = [];
         for (var i = 0; i < department.length; i++) {
-          departmentList.add(department[i].daoName!);
+          final daoName = department[i].daoName;
+          final businessGroup = department[i].bUSINESSGROUP;
+
+          if ((daoName != null && daoName.trim().isNotEmpty) ||
+              (businessGroup != null && businessGroup.trim().isNotEmpty)) {
+            // Use daoName if available, otherwise use BUSINESSGROUP
+            String departmentValue =
+                (daoName != null && daoName.trim().isNotEmpty)
+                    ? daoName.trim()
+                    : businessGroup!.trim();
+            departmentList.add(departmentValue);
+          }
         }
-        Set<String> regionSet = departmentList.toSet();
-        departmentList = regionSet.toList();
-        departmentName = departmentList[0];
+        // Only set default if list is not empty
+        departmentName = departmentList.isNotEmpty ? departmentList[0] : "";
 
-        floorNoList.clear();
-
+        // Handle floor numbers - only add non-null and non-empty values
+        floorNoList = [];
         for (var i = 0; i < department.length; i++) {
-          floorNoList.add(department[i].bUSINESSGROUP!);
+          final floorNum = department[i].dAONumber;
+          if (floorNum != null && floorNum.trim().isNotEmpty) {
+            floorNoList.add(floorNum.trim());
+          }
         }
+        selectFloorNo = floorNoList.isNotEmpty ? floorNoList[0] : "";
 
-        Set<String> floorNoSet = floorNoList.toSet();
-        floorNoList = floorNoSet.toList();
-        selectFloorNo = floorNoList[0];
-
-        businessUnitList.clear();
+        // Handle business units - only add non-null and non-empty values
+        businessUnitList = [];
         for (var i = 0; i < department.length; i++) {
-          businessUnitList.add(department[i].businessUnit!);
+          final busUnit = department[i].businessUnit;
+          if (busUnit != null && busUnit.trim().isNotEmpty) {
+            businessUnitList.add(busUnit.trim());
+          }
         }
+        businessUnit = businessUnitList.isNotEmpty ? businessUnitList[0] : "";
 
-        Set<String> businessUnitSet = businessUnitList.toSet();
-        businessUnitList = businessUnitSet.toList();
-        businessUnit = businessUnitList[0];
-
-        departmentCodeList.clear();
-
+        // Handle branch codes - only add non-null and non-empty values
+        branchCodeList = [];
         for (var i = 0; i < department.length; i++) {
-          departmentCodeList.add(department[i].dAONumber!);
+          final branchCode = department[i].branchcode;
+          if (branchCode != null && branchCode.trim().isNotEmpty) {
+            branchCodeList.add(branchCode.trim());
+          }
         }
 
-        Set<String> departmentCodeSet = departmentCodeList.toSet();
-        departmentCodeList = departmentCodeSet.toList();
-
-        businessNameController.text = businessUnitList[0];
-        departmentCodeController.text = departmentCodeList[0];
+        // Set initial values for controllers if data exists
+        if (businessUnitList.isNotEmpty && branchCodeList.isNotEmpty) {
+          businessNameController.text = businessUnitList[0];
+          departmentCodeController.text = branchCodeList[0];
+        }
       });
-      var area = await GetAreaServices.getArea(regionCode);
-      setState(() {
-        print(area);
-        areaController.text = area;
-      });
+
+      // Handle area
+      if (regionCode.isNotEmpty) {
+        var area = await GetAreaServices.getArea(regionCode);
+        setState(() {
+          areaController.text = area;
+        });
+      }
     });
   }
 
   @override
   void dispose() {
-    super.dispose();
+    // Dispose FocusNodes
+    _areaFocus.dispose();
+    _departmentCodeFocus.dispose();
+    _businessNameFocus.dispose();
+    _buildingNameFocus.dispose();
+    _buildingAddressFocus.dispose();
+    _buildingNoFocus.dispose();
+
+    // Existing dispose calls
     areaController.dispose();
     departmentCodeController.dispose();
     businessNameController.dispose();
     buildingNameController.dispose();
     buildingAddressController.dispose();
     buildingNoController.dispose();
+    super.dispose();
   }
 
   @override
@@ -217,21 +262,26 @@ class _AssetLocationFormScreenState extends State<AssetLocationFormScreen> {
                         }).toList(),
                         onChanged: (value) {
                           selectCountry = value.toString();
-                          countryId =
-                              countryIdList[countryList.indexOf(value!) - 1];
-                          print(countryId);
-                          GetAllCitiesService.getCityById(countryId)
-                              .then((value) {
-                            setState(() {
-                              cityList = [];
-                              for (var i = 0; i < value.length; i++) {
-                                cityList.add(value[i].cityName!);
-                              }
-                              Set<String> citySet = cityList.toSet();
-                              cityList = citySet.toList();
-                              selectCity = cityList[0];
+                          int selectedIndex = countryList.indexOf(value!) - 1;
+                          if (selectedIndex >= 0 &&
+                              selectedIndex < countryIdList.length) {
+                            countryId = countryIdList[selectedIndex];
+                            GetAllCitiesService.getCityById(countryId)
+                                .then((value) {
+                              setState(() {
+                                cityList = ["Select City"];
+                                for (var i = 0; i < value.length; i++) {
+                                  if (value[i].cityName != null &&
+                                      value[i].cityName!.isNotEmpty) {
+                                    cityList.add(value[i].cityName!);
+                                  }
+                                }
+                                Set<String> citySet = cityList.toSet();
+                                cityList = citySet.toList();
+                                selectCity = cityList[0];
+                              });
                             });
-                          });
+                          }
                         },
                       ),
                     ),
@@ -304,6 +354,11 @@ class _AssetLocationFormScreenState extends State<AssetLocationFormScreen> {
                         width: MediaQuery.of(context).size.width * 1,
                         readOnly: true,
                         controller: areaController,
+                        focusNode: _areaFocus,
+                        onFieldSubmitted: (_) {
+                          FocusScope.of(context)
+                              .requestFocus(_departmentCodeFocus);
+                        },
                         height: 50,
                       ),
                     ],
@@ -347,17 +402,19 @@ class _AssetLocationFormScreenState extends State<AssetLocationFormScreen> {
                         onChanged: (value) {
                           setState(() {
                             departmentName = value.toString();
-
                             var index =
                                 departmentList.indexOf(value.toString());
 
-                            print("Index: $index");
-
-                            businessNameController.text =
-                                businessUnitList[index];
-
-                            departmentCodeController.text =
-                                departmentCodeList[index];
+                            if (index >= 0) {
+                              if (index < businessUnitList.length) {
+                                businessNameController.text =
+                                    businessUnitList[index];
+                              }
+                              if (index < branchCodeList.length) {
+                                departmentCodeController.text =
+                                    branchCodeList[index];
+                              }
+                            }
                           });
                         },
                       ),
@@ -370,7 +427,7 @@ class _AssetLocationFormScreenState extends State<AssetLocationFormScreen> {
                   children: [
                     SizedBox(
                       child: const Text(
-                        "Department Code",
+                        "Branch Code",
                         style: TextStyle(
                           fontSize: 15,
                           color: Colors.black,
@@ -383,8 +440,12 @@ class _AssetLocationFormScreenState extends State<AssetLocationFormScreen> {
                       width: MediaQuery.of(context).size.width * 1,
                       readOnly: true,
                       controller: departmentCodeController,
-                      hintText: 'Enter your password',
-                      labelText: 'Password',
+                      focusNode: _departmentCodeFocus,
+                      onFieldSubmitted: (_) {
+                        FocusScope.of(context).requestFocus(_businessNameFocus);
+                      },
+                      hintText: 'Enter your branch code',
+                      labelText: 'Branch Code',
                       height: 50,
                     ),
                   ],
@@ -408,8 +469,12 @@ class _AssetLocationFormScreenState extends State<AssetLocationFormScreen> {
                       width: MediaQuery.of(context).size.width * 1,
                       readOnly: true,
                       controller: businessNameController,
-                      hintText: 'Enter your password',
-                      labelText: 'Password',
+                      focusNode: _businessNameFocus,
+                      onFieldSubmitted: (_) {
+                        FocusScope.of(context).requestFocus(_buildingNameFocus);
+                      },
+                      hintText: 'Enter your business name',
+                      labelText: 'Business Name',
                       height: 50,
                     ),
                   ],
@@ -432,8 +497,13 @@ class _AssetLocationFormScreenState extends State<AssetLocationFormScreen> {
                     TextFormFieldWidget(
                       width: MediaQuery.of(context).size.width * 1,
                       controller: buildingNameController,
-                      hintText: 'Enter your password',
-                      labelText: 'Password',
+                      focusNode: _buildingNameFocus,
+                      onFieldSubmitted: (_) {
+                        FocusScope.of(context)
+                            .requestFocus(_buildingAddressFocus);
+                      },
+                      hintText: 'Enter your building name',
+                      labelText: 'Building Name',
                       height: 50,
                     ),
                   ],
@@ -456,6 +526,10 @@ class _AssetLocationFormScreenState extends State<AssetLocationFormScreen> {
                     TextFormFieldWidget(
                       width: MediaQuery.of(context).size.width * 1,
                       controller: buildingAddressController,
+                      focusNode: _buildingAddressFocus,
+                      onFieldSubmitted: (_) {
+                        FocusScope.of(context).requestFocus(_buildingNoFocus);
+                      },
                       height: 50,
                     ),
                   ],
@@ -478,6 +552,11 @@ class _AssetLocationFormScreenState extends State<AssetLocationFormScreen> {
                     TextFormFieldWidget(
                       width: MediaQuery.of(context).size.width * 1,
                       controller: buildingNoController,
+                      focusNode: _buildingNoFocus,
+                      onFieldSubmitted: (_) {
+                        // This is the last field, so we can hide the keyboard
+                        FocusScope.of(context).unfocus();
+                      },
                       height: 50,
                     ),
                   ],
@@ -545,42 +624,74 @@ class _AssetLocationFormScreenState extends State<AssetLocationFormScreen> {
                         color: Constant.primaryColor,
                         title: "NEXT",
                         onPressed: () {
-                          if (selectCountry.isEmpty ||
-                              selectCity.isEmpty ||
-                              departmentCodeController.text.isEmpty ||
-                              businessNameController.text.isEmpty ||
-                              buildingNameController.text.isEmpty ||
-                              buildingAddressController.text.isEmpty ||
-                              buildingNoController.text.isEmpty ||
-                              floorNoList.isEmpty ||
-                              businessUnit.isEmpty) {
+                          Map<String, String> formData = {};
+
+                          // Only add values that are not null and not empty
+                          if (selectCountry.isNotEmpty) {
+                            formData['country'] = selectCountry;
+                          }
+                          if (selectCity.isNotEmpty) {
+                            formData['city'] = selectCity;
+                          }
+                          if (departmentName.isNotEmpty) {
+                            formData['department'] = departmentName;
+                          }
+                          if (departmentCodeController.text.trim().isNotEmpty) {
+                            formData['departmentCode'] =
+                                departmentCodeController.text.trim();
+                          }
+                          if (businessNameController.text.trim().isNotEmpty) {
+                            formData['businessName'] =
+                                businessNameController.text.trim();
+                          }
+                          if (buildingNameController.text.trim().isNotEmpty) {
+                            formData['buildingName'] =
+                                buildingNameController.text.trim();
+                          }
+                          if (buildingAddressController.text
+                              .trim()
+                              .isNotEmpty) {
+                            formData['buildingAddress'] =
+                                buildingAddressController.text.trim();
+                          }
+                          if (buildingNoController.text.trim().isNotEmpty) {
+                            formData['buildingNumber'] =
+                                buildingNoController.text.trim();
+                          }
+                          if (selectFloorNo.isNotEmpty) {
+                            formData['floorNumber'] = selectFloorNo;
+                          }
+                          if (areaController.text.trim().isNotEmpty) {
+                            formData['region'] = areaController.text.trim();
+                          }
+                          if (businessUnit.isNotEmpty) {
+                            formData['businessUnit'] = businessUnit;
+                          }
+
+                          // Check if we have at least one field filled
+                          if (formData.isEmpty) {
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
-                                content:
-                                    Text("Please Fill All the above fields"),
+                                content: Text("Please fill at least one field"),
                               ),
                             );
                           } else {
-                            Get.to(
-                              () => SendBarCodeScreen(
-                                country: selectCountry.toString(),
-                                city: selectCity.toString(),
-                                department: departmentName.toString(),
-                                departmentCode:
-                                    departmentCodeController.text.trim(),
-                                businessName:
-                                    businessNameController.text.trim(),
-                                buildingName:
-                                    buildingNameController.text.trim(),
-                                buildingAddress:
-                                    buildingAddressController.text.trim(),
-                                buildingNumber:
-                                    buildingNoController.text.trim(),
-                                floorNumber: selectFloorNo.toString(),
-                                region: areaController.text.trim(),
-                                businessUnit: businessUnit.toString(),
-                              ),
-                            );
+                            Get.to(() => SendBarCodeScreen(
+                                  country: formData['country'] ?? "",
+                                  city: formData['city'] ?? "",
+                                  department: formData['department'] ?? "",
+                                  departmentCode:
+                                      formData['departmentCode'] ?? "",
+                                  businessName: formData['businessName'] ?? "",
+                                  buildingName: formData['buildingName'] ?? "",
+                                  buildingAddress:
+                                      formData['buildingAddress'] ?? "",
+                                  buildingNumber:
+                                      formData['buildingNumber'] ?? "",
+                                  floorNumber: formData['floorNumber'] ?? "",
+                                  region: formData['region'] ?? "",
+                                  businessUnit: formData['businessUnit'] ?? "",
+                                ));
                           }
                         },
                         width: MediaQuery.of(context).size.width * 0.4,

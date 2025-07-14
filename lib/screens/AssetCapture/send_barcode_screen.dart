@@ -136,6 +136,16 @@ class _SendBarCodeScreenState extends State<SendBarCodeScreen> {
         );
         Navigator.of(context).pop();
       });
+    }).onError((error, stackTrace) {
+      Get.offAll(HomeScreen);
+      Get.snackbar(
+        "Error",
+        error.toString().replaceAll("Exception:", "replace"),
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+      );
+      Navigator.of(context).pop();
     });
   }
 

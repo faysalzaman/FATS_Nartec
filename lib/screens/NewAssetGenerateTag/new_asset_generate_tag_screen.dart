@@ -71,7 +71,7 @@ class _NewAssetGenerateTagScreenState extends State<NewAssetGenerateTagScreen> {
           ? Center(
               child: CircularProgressIndicator(
                 color: Constant.primaryColor,
-                strokeWidth: 5,
+                strokeWidth: 2,
                 strokeCap: StrokeCap.round,
               ),
             )

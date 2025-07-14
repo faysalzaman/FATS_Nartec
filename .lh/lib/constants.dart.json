@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 1,
+            "activePatchIndex": 5,
             "patches": [
                 {
                     "date": 1752144204550,
@@ -11,12 +11,28 @@
                 },
                 {
                     "date": 1752144235274,
-                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -21,9 +21,9 @@\n       builder: (context) {\n         return const Center(\n           child: CircularProgressIndicator(\n             color: Color(0xFF00006A),\n-            strokeWidth: 5,\n+            strokeWidth: 2,\n           ),\n         );\n       },\n     );\n"
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -21,9 +21,9 @@\n       builder: (context) {\n         return const Center(\n           child: CircularProgressIndicator(\n             color: Color(0xFF00006A),\n-            strokeWidth: 2,\n+            strokeWidth: 2,\n           ),\n         );\n       },\n     );\n"
+                },
+                {
+                    "date": 1752145817160,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,9 +6,13 @@\n \n   // static String baseUrl = \"http://gs1ksa.org:7001/api\";\n   // static String host = 'gs1ksa.org:7001';\n \n-  static String baseUrl = \"https://mala.fatsme.online/api\";\n+  // static String baseUrl = \"https://mala.fatsme.online/api\";\n+  // static String host = 'mala.fatsme.online';\n+  \n+  \n+  static String baseUrl = \"https://gtrack.online:7003/api\";\n   static String host = 'mala.fatsme.online';\n \n   static String placeHolderImage =\n       \"https://www.kpriet.ac.in/asset/frontend/images/nodata.png\";\n"
+                },
+                {
+                    "date": 1752145948606,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,10 +8,9 @@\n   // static String host = 'gs1ksa.org:7001';\n \n   // static String baseUrl = \"https://mala.fatsme.online/api\";\n   // static String host = 'mala.fatsme.online';\n-  \n-  \n+\n   static String baseUrl = \"https://gtrack.online:7003/api\";\n   static String host = 'mala.fatsme.online';\n \n   static String placeHolderImage =\n"
+                },
+                {
+                    "date": 1752153432875,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,18 +1,14 @@\n import 'package:flutter/material.dart';\n \n class Constant {\n   // static String baseUrl = 'http://161.97.172.46:7001/api';\n-  // static String host = '161.97.172.46';\n \n   // static String baseUrl = \"http://gs1ksa.org:7001/api\";\n-  // static String host = 'gs1ksa.org:7001';\n \n   // static String baseUrl = \"https://mala.fatsme.online/api\";\n-  // static String host = 'mala.fatsme.online';\n \n   static String baseUrl = \"https://gtrack.online:7003/api\";\n-  static String host = 'mala.fatsme.online';\n \n   static String placeHolderImage =\n       \"https://www.kpriet.ac.in/asset/frontend/images/nodata.png\";\n \n"
+                },
+                {
+                    "date": 1752153442303,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,18 +1,14 @@\n import 'package:flutter/material.dart';\n \n class Constant {\n   // static String baseUrl = 'http://161.97.172.46:7001/api';\n-  // static String host = '161.97.172.46';\n \n   // static String baseUrl = \"http://gs1ksa.org:7001/api\";\n-  // static String host = 'gs1ksa.org:7001';\n \n   // static String baseUrl = \"https://mala.fatsme.online/api\";\n-  // static String host = 'mala.fatsme.online';\n \n   static String baseUrl = \"https://gtrack.online:7003/api\";\n-  static String host = 'mala.fatsme.online';\n \n   static String placeHolderImage =\n       \"https://www.kpriet.ac.in/asset/frontend/images/nodata.png\";\n \n"
                 }
             ],
             "date": 1752144204550,
             "name": "Commit-0",
-            "content": "import 'package:flutter/material.dart';\n\nclass Constant {\n  // static String baseUrl = 'http://161.97.172.46:7001/api';\n  // static String host = '161.97.172.46';\n\n  // static String baseUrl = \"http://gs1ksa.org:7001/api\";\n  // static String host = 'gs1ksa.org:7001';\n\n  static String baseUrl = \"https://mala.fatsme.online/api\";\n  static String host = 'mala.fatsme.online';\n\n  static String placeHolderImage =\n      \"https://www.kpriet.ac.in/asset/frontend/images/nodata.png\";\n\n  static Color primaryColor = const Color(0xFF00006A);\n\n  static Future<dynamic> showLoadingDialog(BuildContext context) {\n    return showDialog(\n      context: context,\n      builder: (context) {\n        return const Center(\n          child: CircularProgressIndicator(\n            color: Color(0xFF00006A),\n            strokeWidth: 5,\n          ),\n        );\n      },\n    );\n  }\n}\n"
+            "content": "import 'package:flutter/material.dart';\n\nclass Constant {\n  // static String baseUrl = 'http://161.97.172.46:7001/api';\n  // static String host = '161.97.172.46';\n\n  // static String baseUrl = \"http://gs1ksa.org:7001/api\";\n  // static String host = 'gs1ksa.org:7001';\n\n  static String baseUrl = \"https://mala.fatsme.online/api\";\n  static String host = 'mala.fatsme.online';\n\n  static String placeHolderImage =\n      \"https://www.kpriet.ac.in/asset/frontend/images/nodata.png\";\n\n  static Color primaryColor = const Color(0xFF00006A);\n\n  static Future<dynamic> showLoadingDialog(BuildContext context) {\n    return showDialog(\n      context: context,\n      builder: (context) {\n        return const Center(\n          child: CircularProgressIndicator(\n            color: Color(0xFF00006A),\n            strokeWidth: 2,\n          ),\n        );\n      },\n    );\n  }\n}\n"
         }
     ]
 }

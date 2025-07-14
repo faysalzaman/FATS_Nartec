@@ -1,0 +1,26 @@
+{
+    "sourceFile": "lib/Services/GetAllCategories/GetAllCategoriesServices.dart",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 2,
+            "patches": [
+                {
+                    "date": 1752154201761,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1752154214981,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -32,8 +32,10 @@\n         var data = json.decode(response.body) as List;\n         List<GetAllCategoriesModel> categoriesList =\n             data.map((e) => GetAllCategoriesModel.fromJson(e)).toList();\n         return categoriesList;\n+      } else {\n+        throw Exception('Failed to load Categories list');\n       }\n     } catch (e) {\n       print(e);\n       throw Exception('Failed to load Categories list');\n"
+                },
+                {
+                    "date": 1752154316967,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,9 +14,9 @@\n     final uri = Uri.parse(url);\n \n     final headers = <String, String>{\n       \"Authorization\": token,\n-      \"Host\": \"gs1ksa.org:7001\",\n+      \n     };\n \n     print(uri);\n     print(headers);\n"
+                }
+            ],
+            "date": 1752154201761,
+            "name": "Commit-0",
+            "content": "import 'package:http/http.dart' as http;\nimport 'dart:convert';\nimport 'package:shared_preferences/shared_preferences.dart';\n\nimport '../../constants.dart';\nimport '../../models/GetAllCategoriesModel.dart';\n\nclass GetAllCategoriesServices {\n  static Future<List<GetAllCategoriesModel>> getAllCategories() async {\n    SharedPreferences prefs = await SharedPreferences.getInstance();\n    String token = prefs.getString('token') ?? '';\n\n    final String url = \"${Constant.baseUrl}/GetAllMAINSUBSeriesNo\";\n    final uri = Uri.parse(url);\n\n    final headers = <String, String>{\n      \"Authorization\": token,\n      \"Host\": \"gs1ksa.org:7001\",\n    };\n\n    print(uri);\n    print(headers);\n\n    try {\n      var response = await http.get(uri, headers: headers);\n\n      var data = json.decode(response.body);\n      print(data);\n\n      if (response.statusCode == 200 || response.statusCode == 201) {\n        print(\"Categories List Got Successfully\");\n        var data = json.decode(response.body) as List;\n        List<GetAllCategoriesModel> categoriesList =\n            data.map((e) => GetAllCategoriesModel.fromJson(e)).toList();\n        return categoriesList;\n      }\n    } catch (e) {\n      print(e);\n      throw Exception('Failed to load Categories list');\n    }\n  }\n}\n"
+        }
+    ]
+}

@@ -1,0 +1,18 @@
+{
+    "sourceFile": "lib/Services/AssetForPrinting/AssetForPrintingServices.dart",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1752153457609,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1752153457609,
+            "name": "Commit-0",
+            "content": "import 'package:fats_client/models/AssetForPrintingModel.dart';\nimport 'package:shared_preferences/shared_preferences.dart';\n\nimport '../../constants.dart';\n\nimport 'package:http/http.dart' as http;\nimport 'dart:convert';\n\nclass AssetForPrintingServices {\n  static Future<List<AssetForPrintingModel>> assetForPrint() async {\n    SharedPreferences prefs = await SharedPreferences.getInstance();\n    String token = prefs.getString('token') ?? '';\n\n    final String url =\n        \"${Constant.baseUrl}/GetAllAssetMasterEncodeAssetCapture\";\n    final uri = Uri.parse(url);\n\n    final headers = <String, String>{\n      \"Authorization\": token,\n      \"Content-Type\": \"application/json\",\n      \n    };\n\n    try {\n      var response = await http.get(uri, headers: headers);\n\n      if (response.statusCode == 200) {\n        print(\"status code: ${response.statusCode}\");\n        var data = json.decode(response.body);\n        List<AssetForPrintingModel> assetGenerateModel = (data as List)\n            .map((e) => AssetForPrintingModel.fromJson(e))\n            .toList();\n        return assetGenerateModel;\n      } else if (response.statusCode == 404) {\n        throw Exception('Failed to load Data');\n      } else {\n        print(\"status code: ${response.statusCode}\");\n        throw Exception('Failed to load Data');\n      }\n    } catch (e) {\n      print(e);\n      throw Exception('Failed to load Data');\n    }\n  }\n}\n"
+        }
+    ]
+}
